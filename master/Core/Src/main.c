@@ -41,25 +41,16 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-DAC_HandleTypeDef hdac2;
-
 FDCAN_HandleTypeDef hfdcan1;
 
 UART_HandleTypeDef hlpuart1;
 
 /* USER CODE BEGIN PV */
-uint8_t TxData[8];
-uint8_t RxData[64];
-uint8_t controllertStatus[64];
-uint8_t inverterTemp;
-uint8_t motorTemp;
 uint8_t ubKeyNumber = 0x0;
 FDCAN_RxHeaderTypeDef RxHeader;
+uint8_t RxData[8];
 FDCAN_TxHeaderTypeDef TxHeader;
-uint32_t ID;
-uint32_t length;
-uint32_t Time;
-uint32_t dataToSend;
+uint8_t TxData[8];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -67,7 +58,6 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_LPUART1_UART_Init(void);
 static void MX_FDCAN1_Init(void);
-static void MX_DAC2_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -108,9 +98,8 @@ int main(void)
   MX_GPIO_Init();
   MX_LPUART1_UART_Init();
   MX_FDCAN1_Init();
-  MX_DAC2_Init();
   /* USER CODE BEGIN 2 */
-  TxHeader.Identifier = 0x0;
+  TxHeader.Identifier = 0x321;
   TxHeader.IdType = FDCAN_EXTENDED_ID;
   TxHeader.TxFrameType = FDCAN_DATA_FRAME;
   TxHeader.DataLength = FDCAN_DLC_BYTES_8;
@@ -119,16 +108,16 @@ int main(void)
   TxHeader.FDFormat = FDCAN_CLASSIC_CAN;
   TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
   TxHeader.MessageMarker = 0;
-  TxData[0]=1;
-  TxData[1]=2;
-  TxData[2]=3;
-  TxData[3]=4;
-  TxData[4]=5;
-  TxData[5]=6;
-  TxData[6]=7;
-  TxData[7]=8;
+  TxData[0] = ubKeyNumber++;
+  TxData[1] = 0xAD;
+  TxData[2] = 0xDE;
+  TxData[3] = 0xAD;
+  TxData[4] = 0xBE;
+  TxData[5] = 0xEF;
+  TxData[6] = 0xFA;
+  TxData[7] = 0xCE;
 
-/*  sFilterConfig.FilterFIFOAssignment=CAN_FILTER_FIFO0;
+  /*sFilterConfig.FilterFIFOAssignment=CAN_FILTER_FIFO0;
   sFilterConfig.FilterIdHigh=0x313<<5;
   sFilterConfig.FilterIdLow=0;
   sFilterConfig.FilterMaskIdHigh=0;
@@ -137,18 +126,16 @@ int main(void)
   sFilterConfig.FilterActivation=ENABLE;*/
 
   if (HAL_FDCAN_Start(&hfdcan1) != HAL_OK)
-      {
-        /* Start Error */
-        Error_Handler();
-      }
-    if (HAL_FDCAN_ActivateNotification(&hfdcan1, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0) != HAL_OK)
-      {
-        /* Notification Error */
-        Error_Handler();
-      }
-    //HAL_DAC_ENABLE(&hdac2, DAC_CHANNEL_2);
-    HAL_DAC_Start(&hdac2, DAC_CHANNEL_1);
-    HAL_DAC_SetValue(&hdac2, DAC_CHANNEL_1, DAC_ALIGN_12B_R, 2048);
+    {
+      /* Start Error */
+      Error_Handler();
+    }
+
+  if ( HAL_FDCAN_ActivateNotification(&hfdcan1, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0) != HAL_OK)
+    {
+      /* Notification Error */
+      Error_Handler();
+    }
 
   /* USER CODE END 2 */
 
@@ -156,43 +143,15 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+	  /*if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &TxHeader, TxData) != HAL_OK)
+	  	{
+	  	  Transmission request Error
+	  	  Error_Handler();
+	  	}*/
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  /*if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &TxHeader, TxData) != HAL_OK)
-	  	  	{
-	  	  	  // Transmission request Error
-	  	  	  Error_Handler();
-	  	  	}
-	  TxData[7]=TxData[7]+1;*/
-
-	  if(HAL_FDCAN_GetRxMessage(&hfdcan1,FDCAN_RX_FIFO0,&RxHeader,RxData) == HAL_OK){
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-		  ID = RxHeader.Identifier;
-		  length = RxHeader.DataLength;
-		  if(ID == 0x150){
-			  /*for(uint8_t j=0; j<64; j++){
-				  controllertStatus[j] = RxData[j];
-			  }*/
-			  Time = RxHeader.RxTimestamp;
-			  inverterTemp = RxData[0] - 50;
-			  motorTemp = RxData[1] - 50;
-			  dataToSend = motorTemp * 40;
-
-			  HAL_DAC_SetValue(&hdac2, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dataToSend);
-			  HAL_Delay(1);
-		  }
-		  //HAL_Delay(1);
-		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-	  		}
-	  else{
-		  /* Transmission request Error */
-		  Error_Handler();
-	  }
-
-	  //HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-
-	  //HAL_Delay(500);
   }
   /* USER CODE END 3 */
 }
@@ -212,11 +171,12 @@ void SystemClock_Config(void)
   HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1);
   /** Initializes the CPU, AHB and APB busses clocks 
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV3;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV2;
   RCC_OscInitStruct.PLL.PLLN = 32;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
@@ -250,51 +210,6 @@ void SystemClock_Config(void)
 }
 
 /**
-  * @brief DAC2 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_DAC2_Init(void)
-{
-
-  /* USER CODE BEGIN DAC2_Init 0 */
-
-  /* USER CODE END DAC2_Init 0 */
-
-  DAC_ChannelConfTypeDef sConfig = {0};
-
-  /* USER CODE BEGIN DAC2_Init 1 */
-
-  /* USER CODE END DAC2_Init 1 */
-  /** DAC Initialization 
-  */
-  hdac2.Instance = DAC2;
-  if (HAL_DAC_Init(&hdac2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /** DAC channel OUT1 config 
-  */
-  sConfig.DAC_HighFrequency = DAC_HIGH_FREQUENCY_INTERFACE_MODE_AUTOMATIC;
-  sConfig.DAC_DMADoubleDataMode = DISABLE;
-  sConfig.DAC_SignedFormat = DISABLE;
-  sConfig.DAC_SampleAndHold = DAC_SAMPLEANDHOLD_DISABLE;
-  sConfig.DAC_Trigger = DAC_TRIGGER_NONE;
-  sConfig.DAC_Trigger2 = DAC_TRIGGER_NONE;
-  sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
-  sConfig.DAC_ConnectOnChipPeripheral = DAC_CHIPCONNECT_DISABLE;
-  sConfig.DAC_UserTrimming = DAC_TRIMMING_FACTORY;
-  if (HAL_DAC_ConfigChannel(&hdac2, &sConfig, DAC_CHANNEL_1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN DAC2_Init 2 */
-
-  /* USER CODE END DAC2_Init 2 */
-
-}
-
-/**
   * @brief FDCAN1 Initialization Function
   * @param None
   * @retval None
@@ -316,7 +231,7 @@ static void MX_FDCAN1_Init(void)
   hfdcan1.Init.AutoRetransmission = DISABLE;
   hfdcan1.Init.TransmitPause = DISABLE;
   hfdcan1.Init.ProtocolException = DISABLE;
-  hfdcan1.Init.NominalPrescaler = 40;
+  hfdcan1.Init.NominalPrescaler = 5;
   hfdcan1.Init.NominalSyncJumpWidth = 1;
   hfdcan1.Init.NominalTimeSeg1 = 13;
   hfdcan1.Init.NominalTimeSeg2 = 2;
