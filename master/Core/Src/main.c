@@ -144,11 +144,7 @@ int main(void)
   while (1)
   {
 
-	  /*if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &TxHeader, TxData) != HAL_OK)
-	  	{
-	  	  Transmission request Error
-	  	  Error_Handler();
-	  	}*/
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

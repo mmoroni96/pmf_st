@@ -37,8 +37,8 @@ master.list \
 all: master.elf secondary-outputs
 
 # Tool invocations
-master.elf: $(OBJS) $(USER_OBJS) C:\Users\loren\Desktop\master\STM32G474RETX_FLASH.ld
-	arm-none-eabi-gcc -o "master.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\loren\Desktop\master\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="master.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+master.elf: $(OBJS) $(USER_OBJS) C:\Users\mmoro\OneDrive\Documents\pmf_st\master\STM32G474RETX_FLASH.ld
+	arm-none-eabi-gcc -o "master.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\master\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="master.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
