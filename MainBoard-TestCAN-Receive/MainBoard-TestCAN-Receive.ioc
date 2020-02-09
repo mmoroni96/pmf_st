@@ -1,7 +1,7 @@
 #MicroXplorer Configuration settings - do not modify
 FDCAN1.ClockDivider=FDCAN_CLOCK_DIV2
 FDCAN1.IPParameters=ClockDivider,NominalPrescaler,NominalTimeSeg1
-FDCAN1.NominalPrescaler=40
+FDCAN1.NominalPrescaler=4
 FDCAN1.NominalTimeSeg1=13
 File.Version=6
 KeepUserPlacement=false

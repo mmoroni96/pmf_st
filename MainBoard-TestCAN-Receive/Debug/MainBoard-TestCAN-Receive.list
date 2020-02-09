@@ -876,9 +876,9 @@ static void MX_FDCAN1_Init(void)
  800080c:	4b16      	ldr	r3, [pc, #88]	; (8000868 <MX_FDCAN1_Init+0x84>)
  800080e:	2200      	movs	r2, #0
  8000810:	749a      	strb	r2, [r3, #18]
-  hfdcan1.Init.NominalPrescaler = 40;
+  hfdcan1.Init.NominalPrescaler = 4;
  8000812:	4b15      	ldr	r3, [pc, #84]	; (8000868 <MX_FDCAN1_Init+0x84>)
- 8000814:	2228      	movs	r2, #40	; 0x28
+ 8000814:	2204      	movs	r2, #4
  8000816:	615a      	str	r2, [r3, #20]
   hfdcan1.Init.NominalSyncJumpWidth = 1;
  8000818:	4b13      	ldr	r3, [pc, #76]	; (8000868 <MX_FDCAN1_Init+0x84>)

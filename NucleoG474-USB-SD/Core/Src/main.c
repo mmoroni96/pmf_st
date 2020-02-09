@@ -57,6 +57,8 @@ FDCAN_TxHeaderTypeDef TxHeader;
 uint8_t TxData[8];
 uint32_t id;
 uint8_t DataSpi[8];
+uint8_t readBuff[64];
+uint8_t br;
 struct{
 	int16_t Acc_x;
 	int16_t Acc_y;
@@ -179,7 +181,7 @@ int main(void)
 	char USERPath[4];   /* USER logical drive path */
 	FRESULT res; /* FatFs function common result code */
 	if(MY_SD_GetCardState(0) == BSP_ERROR_NONE){
-		res = f_mkfs(USERPath, FM_ANY, 0, workBuffer, sizeof(workBuffer));
+		//res = f_mkfs(USERPath, FM_ANY, 0, workBuffer, sizeof(workBuffer));
 
 		if (res != FR_OK){
 			Error_Handler();
@@ -195,12 +197,14 @@ int main(void)
 		else while(1);
 		/* Create and Open a new text file object with write access */
 		for(uint32_t  e=0;e<1;e++){
-		res = f_open(&USERFile, &path, FA_WRITE | FA_OPEN_ALWAYS );
-		for(uint32_t  i=0;i<100000;i++){
+		res = f_open(&USERFile, &path, FA_READ );
+		for(uint32_t  i=0;i<1;i++){
 			BYTE readBuf[30];
 			strncpy((char*)readBuf, "1616161616", 10);
 			UINT bytesWrote;
-			res = f_write(&USERFile, readBuf, 10,&bytesWrote);
+			//res = f_write(&USERFile, readBuf, 10,&bytesWrote);
+
+			res = f_read(&USERFile,readBuff, 64, &br);
 			}
 
 		res = f_close(&USERFile);
