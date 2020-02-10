@@ -84,6 +84,7 @@ struct{
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
 void Success_Handler(void);
 /* USER CODE END PFP */
@@ -132,6 +133,9 @@ int main(void)
     Error_Handler();
   }
   MX_FDCAN1_Init();
+
+  /* Initialize interrupts */
+  MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
   TxHeader.Identifier = 0x0;
     TxHeader.IdType = FDCAN_EXTENDED_ID;
@@ -230,11 +234,11 @@ int main(void)
 		Error_Handler();
 	}
 
-		   if(HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &TxHeader, TxData) != HAL_OK)
+		   /*if(HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &TxHeader, TxData) != HAL_OK)
 		  	{
 		  	  //Transmission request Error
 		  	  Error_Handler();
-		  	}
+		  	}*/
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -293,6 +297,20 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief NVIC Configuration.
+  * @retval None
+  */
+static void MX_NVIC_Init(void)
+{
+  /* EXTI15_10_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+  /* FDCAN1_IT0_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(FDCAN1_IT0_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
 }
 
 /* USER CODE BEGIN 4 */
