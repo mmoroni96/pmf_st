@@ -161,7 +161,7 @@ int main(void)
 	  }*/
 
 	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-	  readSigmaData();
+
 	  HAL_Delay(10);
   }
   /* USER CODE END 3 */
@@ -362,6 +362,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef*hcan, uint32_t RxFifo0ITs){
 		Error_Handler();
 	}
 	ID = RxHeader.Identifier;
+	readSigmaData();
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
 }
 

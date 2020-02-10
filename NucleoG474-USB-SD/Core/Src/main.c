@@ -28,12 +28,16 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "Sigma2_Def.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+typedef union{
+	uint8_t		Data8u[8];
+	uint16_t	Data16u[4];
+	int16_t		Data16[4];
+}data_typedef;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -50,11 +54,13 @@
 /* USER CODE BEGIN PV */
 uint32_t chartotime(char* , uint8_t, uint8_t  );
 int32_t chartocurr(char*, uint8_t, uint8_t );
+FRESULT scrivi(BYTE* , uint8_t);
 uint32_t PuntaeSepara(char*);
 int32_t ProcessStatus = 0;
 uint8_t ubKeyNumber = 0x0;
 FDCAN_RxHeaderTypeDef RxHeader;
 uint8_t RxData[8];
+data_typedef rxData;
 char buffer[100];
 FDCAN_TxHeaderTypeDef TxHeader;
 uint8_t TxData[8];
@@ -65,6 +71,9 @@ uint8_t br;
 int32_t curr;
 uint32_t indice =0;
 uint32_t time;
+uint32_t indox=0;
+uint8_t flag = 0;
+
 struct{
 	int16_t Acc_x;
 	int16_t Acc_y;
@@ -79,7 +88,11 @@ struct{
 	uint16_t Responce_Time_millis;
 	uint32_t Timer;
 	uint8_t ID;
-    }Data;
+}Data;
+uint32_t ID = 0x00;
+MS_typedef ms;
+CS_typedef cs;
+DS_typedef ds;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -87,6 +100,7 @@ void SystemClock_Config(void);
 static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
 void Success_Handler(void);
+void readSigmaData(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -135,7 +149,7 @@ int main(void)
   MX_FDCAN1_Init();
 
   /* Initialize interrupts */
-  MX_NVIC_Init();
+  //MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
   TxHeader.Identifier = 0x0;
     TxHeader.IdType = FDCAN_EXTENDED_ID;
@@ -166,6 +180,29 @@ int main(void)
           /* Notification Error */
           Error_Handler();
         }
+
+      uint8_t workBuffer[_MAX_SS];
+      FATFS USERFatFs;    /* File system object for USER logical drive */
+      FIL USERFile,readFile,writeFile;       /* File  object for USER */
+      char USERPath[4];   /* USER logical drive path */
+      FRESULT res,res1; /* FatFs function common result code */
+      uint8_t path1[] = "STM32.TXT";
+
+      if(MY_SD_GetCardState(0) == BSP_ERROR_NONE){
+    	  res = f_mkfs(USERPath, FM_ANY, 0, workBuffer, sizeof(workBuffer));
+    	  if (res != FR_OK){
+			Error_Handler();
+    	  }
+
+      }
+      res = f_mount(&USERFatFs, (TCHAR const*)USERPath, 0);
+      res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+      res = f_close(&writeFile);
+      if(flag == 0){
+		  flag = 1;
+		  MX_NVIC_Init();
+	  }
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -185,12 +222,8 @@ int main(void)
 	}
 */
 
-	uint8_t workBuffer[_MAX_SS];
-	FATFS USERFatFs;    /* File system object for USER logical drive */
-	FIL USERFile;       /* File  object for USER */
-	char USERPath[4];   /* USER logical drive path */
-	FRESULT res; /* FatFs function common result code */
-	if(MY_SD_GetCardState(0) == BSP_ERROR_NONE){
+
+	/*if(MY_SD_GetCardState(0) == BSP_ERROR_NONE){
 		//res = f_mkfs(USERPath, FM_ANY, 0, workBuffer, sizeof(workBuffer));
 
 		if (res != FR_OK){
@@ -198,41 +231,49 @@ int main(void)
 		}/*
 		uint32_t byteswritten, bytesread; /* File write/read counts
 		uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
-		uint8_t rtext[100]; /* File read buffer */
-		uint8_t path[] = "current.TXT";
+		/*uint8_t rtext[100]; /* File read buffer */
+		/*uint8_t path0[] = "current.TXT";
+
+
 
 		/* Register the file system object to the FatFs module */
-		res = f_mount(&USERFatFs, (TCHAR const*)USERPath, 0);
-		if(res == FR_OK){}
+		//res = f_mount(&USERFatFs, (TCHAR const*)USERPath, 0);
+
+
+
+		/*if(res == FR_OK){}
 		else while(1);
 		/* Create and Open a new text file object with write access */
-		for(uint32_t  e=0;e<10;e++){
+		/*for(uint32_t  e=0;e<10;e++){
 
-		res = f_open(&USERFile, &path, FA_READ );
+		res = f_open(&readFile, &path0, FA_READ );
 
-		f_lseek(&USERFile, indice);
+
+		f_lseek(&readFile, indice);
 		for(uint32_t  i=0;i<1;i++){
 			BYTE readBuf[30];
 			strncpy((char*)readBuf, "1616161616", 10);
 			UINT bytesWrote;
+
+
 			//res = f_write(&USERFile, readBuf, 10,&bytesWrote);
 
-			res = f_read(&USERFile,readBuff, 34, &br);
+			res = f_read(&readFile,readBuff, 34, &br);
 			indice =indice+ PuntaeSepara(readBuff);
 
 			}
 
-		res = f_close(&USERFile);
+		res = f_close(&readFile);
 
 		}
 		HAL_Delay(50);
+*/
 
 
-
-	}
-	else{
+	//}
+	/*else{
 		Error_Handler();
-	}
+	}*/
 
 		   /*if(HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &TxHeader, TxData) != HAL_OK)
 		  	{
@@ -305,34 +346,67 @@ void SystemClock_Config(void)
   */
 static void MX_NVIC_Init(void)
 {
-  /* EXTI15_10_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
   /* FDCAN1_IT0_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(FDCAN1_IT0_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
+  /* EXTI15_10_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef*hcan, uint32_t RxFifo0ITs)
-{
-	HAL_FDCAN_GetRxMessage(&hfdcan1,FDCAN_RX_FIFO0,&RxHeader,RxData);
 
-	if(RxHeader.Identifier<100){
-		Data.ID=(uint8_t)RxHeader.Identifier;
-		Data.Timer=RxData[0]+RxData[1]*256+RxData[2]*256*256+RxData[3]*256*256*256;
-		Data.Gir_x=RxData[4]+RxData[5]*256;
-		Data.Gir_y=RxData[6]+RxData[7]*256;
+void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef*hcan, uint32_t RxFifo0ITs){
+	if(HAL_FDCAN_GetRxMessage(&hfdcan1,FDCAN_RX_FIFO0,&RxHeader,rxData.Data8u) != HAL_OK){
+		/* Transmission request Error */
+		Error_Handler();
 	}
-	else{
-		Data.ID=(uint8_t)RxHeader.Identifier&0x0FFFFFFF;
-		Data.Acc_x=RxData[0]+RxData[1]*256;
-		Data.Acc_y=RxData[2]+RxData[3]*256;
-		Data.Acc_z=RxData[4]+RxData[5]*256;
-		Data.T_b=RxData[6]+RxData[7]*256;
-	}
+	ID = RxHeader.Identifier;
+	readSigmaData();
+    char datoGrezzo[5];
+    datoGrezzo[0] = cs.ControllerTemperature;
+    datoGrezzo[1] = ',';
+    datoGrezzo[2] = cs.MotorTemperature;
+    /*datoGrezzo[0] = 'A';
+	datoGrezzo[1] = ',';
+	datoGrezzo[2] = 'B';*/
+	datoGrezzo[3] = 0x0d;
+	datoGrezzo[4] = 0x0a;
+    if(flag == 1){
+    	scrivi(&datoGrezzo[0], sizeof(datoGrezzo));
+    }
 
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
 }
+
+void readSigmaData(void){
+	switch(ID){
+	case MS:
+			ms.MotorSpeed			= rxData.Data16u[0];
+			ms.MotorCurrent			= rxData.Data16[1];
+			ms.MotorVoltage			= rxData.Data8u[4];
+			ms.BatteryVoltage		= rxData.Data8u[5];
+			ms.BatteryCurrent		= rxData.Data16[4];
+	break;
+	case DS:
+			ds.ActualTorque			= rxData.Data16[0];
+			ds.ActualSpeed			= rxData.Data16[1];
+			ds.DriveStatusIndicator	= rxData.Data8u[4] & 0x0F;
+			ds.SpeedLimitIndicator	= rxData.Data8u[4] >> 4;
+			ds.TorqueLimitIndicator	= rxData.Data8u[5] & 0x0F;
+			ds.MotorLimitIndicator	= rxData.Data8u[5] >> 4;
+			ds.FaultCode			= rxData.Data8u[6];
+			ds.Code					= rxData.Data8u[7];
+	break;
+	case CS:
+			cs.ControllerTemperature= rxData.Data8u[0];
+			cs.MotorTemperature		= rxData.Data8u[1];
+			cs.BDI					= rxData.Data8u[2];
+			cs.FaultSubCode			= rxData.Data8u[3]<<8 | rxData.Data8u[4];
+	break;
+	}
+}
+
 void Success_Handler(void)
 {
   //printf("** Success. ** \n\r");
@@ -370,6 +444,24 @@ uint32_t PuntaeSepara(char* buff){
 		}
 	}
 	return (uint32_t)(e+2);//aggiungo i due caratteri di terminazione
+}
+FRESULT scrivi(BYTE* readBuf, uint8_t size){
+	FRESULT res1;
+	FIL writeFile;       /* File  object for USER */
+	FATFS USERFatFs;    /* File system object for USER logical drive */
+	FIL USERFile;     /* File  object for USER */
+	char USERPath[4];   /* USER logical drive path */
+	uint8_t bytesWrote;
+	uint8_t path1[] = "STM32.TXT";
+	res1 = f_mount(&USERFatFs, (TCHAR const*)USERPath, 0);
+	//res1 = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+	//res1 = f_close(&writeFile);
+	res1 = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+	f_lseek(&writeFile, indox);
+	indox=indox+5;
+	res1 = f_write(&writeFile, readBuf, size, &bytesWrote);
+	res1 = f_close(&writeFile);
+	return res1;
 }
 /* USER CODE END 4 */
 
