@@ -48,6 +48,9 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+uint32_t chartotime(char* , uint8_t, uint8_t  );
+int32_t chartocurr(char*, uint8_t, uint8_t );
+uint32_t PuntaeSepara(char*);
 int32_t ProcessStatus = 0;
 uint8_t ubKeyNumber = 0x0;
 FDCAN_RxHeaderTypeDef RxHeader;
@@ -59,6 +62,9 @@ uint32_t id;
 uint8_t DataSpi[8];
 uint8_t readBuff[64];
 uint8_t br;
+int32_t curr;
+uint32_t indice =0;
+uint32_t time;
 struct{
 	int16_t Acc_x;
 	int16_t Acc_y;
@@ -189,22 +195,27 @@ int main(void)
 		uint32_t byteswritten, bytesread; /* File write/read counts
 		uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
 		uint8_t rtext[100]; /* File read buffer */
-		uint8_t path[] = "STM32.TXT";
+		uint8_t path[] = "current.TXT";
 
 		/* Register the file system object to the FatFs module */
 		res = f_mount(&USERFatFs, (TCHAR const*)USERPath, 0);
 		if(res == FR_OK){}
 		else while(1);
 		/* Create and Open a new text file object with write access */
-		for(uint32_t  e=0;e<1;e++){
+		for(uint32_t  e=0;e<10;e++){
+
 		res = f_open(&USERFile, &path, FA_READ );
+
+		f_lseek(&USERFile, indice);
 		for(uint32_t  i=0;i<1;i++){
 			BYTE readBuf[30];
 			strncpy((char*)readBuf, "1616161616", 10);
 			UINT bytesWrote;
 			//res = f_write(&USERFile, readBuf, 10,&bytesWrote);
 
-			res = f_read(&USERFile,readBuff, 64, &br);
+			res = f_read(&USERFile,readBuff, 34, &br);
+			indice =indice+ PuntaeSepara(readBuff);
+
 			}
 
 		res = f_close(&USERFile);
@@ -310,6 +321,37 @@ void Success_Handler(void)
   while(1)
   {
   }
+}
+uint32_t chartotime(char* buff,uint8_t off, uint8_t leng ){
+	char str[8];
+	for(int i=off;i<leng+off;i++){
+    str[i]=buff[i];
+	}
+	return (uint32_t)atoi(str);
+}
+int32_t chartocurr(char* buff,uint8_t off, uint8_t leng ){
+	char str[8];
+	for(int i=0;i<leng;i++){
+    str[i]=buff[i+off];
+	}
+	return (int32_t)atoi(str);
+}
+uint32_t PuntaeSepara(char* buff){
+	uint8_t h;
+	uint8_t e;
+	for(h=0;h<64;h++){
+		if(readBuff[h]==','){
+			time=chartotime(readBuff,0,h);
+			break;
+		}
+	}
+	for(e=h;e<64;e++){
+		if(readBuff[e]==0xd&&readBuff[e+1]==0xa){
+			curr=chartocurr(readBuff,h+1,e-h);
+			break;
+		}
+	}
+	return (uint32_t)(e+2);//aggiungo i due caratteri di terminazione
 }
 /* USER CODE END 4 */
 
