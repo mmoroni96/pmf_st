@@ -23,7 +23,9 @@
 #include "app_fatfs.h"
 #include "fdcan.h"
 #include "usart.h"
+#include "rtc.h"
 #include "spi.h"
+#include "tim.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -54,7 +56,7 @@ typedef union{
 /* USER CODE BEGIN PV */
 uint32_t chartotime(char* , uint8_t, uint8_t  );
 int32_t chartocurr(char*, uint8_t, uint8_t );
-FRESULT scrivi(BYTE* , uint8_t);
+FRESULT scrivi();
 uint32_t PuntaeSepara(char*);
 int32_t ProcessStatus = 0;
 uint8_t ubKeyNumber = 0x0;
@@ -73,7 +75,22 @@ uint32_t indice =0;
 uint32_t time;
 uint32_t indox=0;
 uint8_t flag = 0;
-
+uint8_t Time[3];
+uint8_t Date[3];
+RTC_TimeTypeDef stimeststuctureget;
+RTC_DateTypeDef Data;
+struct{
+	int16_t Temp_0;
+	int16_t Temp_1;
+	int16_t Temp_2;
+	int16_t Temp_3;
+	int16_t Temp_4;
+	int16_t Temp_5;
+	int16_t Temp_6;
+	int16_t Temp_7;
+	int16_t Temp_8;
+	int16_t Temp_9;
+}Temp;
 struct{
 	int16_t Acc_x;
 	int16_t Acc_y;
@@ -88,7 +105,7 @@ struct{
 	uint16_t Responce_Time_millis;
 	uint32_t Timer;
 	uint8_t ID;
-}Data;
+}Dati;
 uint32_t ID = 0x00;
 MS_typedef ms;
 CS_typedef cs;
@@ -147,9 +164,11 @@ int main(void)
     Error_Handler();
   }
   MX_FDCAN1_Init();
+  MX_RTC_Init();
+  MX_TIM17_Init();
 
   /* Initialize interrupts */
-  //MX_NVIC_Init();
+  MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
   TxHeader.Identifier = 0x0;
     TxHeader.IdType = FDCAN_EXTENDED_ID;
@@ -201,14 +220,15 @@ int main(void)
       if(flag == 0){
 		  flag = 1;
 		  MX_NVIC_Init();
+		  HAL_TIM_Base_Start_IT(&htim17);
 	  }
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+
+  while (1){
 
 	  /*ProcessStatus = MX_FATFS_Process();
 	 Call middleware background task */
@@ -300,9 +320,13 @@ void SystemClock_Config(void)
   /** Configure the main internal regulator output voltage 
   */
   HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1);
+  /** Configure LSE Drive Capability 
+  */
+  __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
   /** Initializes the CPU, AHB and APB busses clocks 
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSE;
+  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
@@ -331,9 +355,11 @@ void SystemClock_Config(void)
   }
   /** Initializes the peripherals clocks 
   */
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_LPUART1|RCC_PERIPHCLK_FDCAN;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_RTC|RCC_PERIPHCLK_LPUART1
+                              |RCC_PERIPHCLK_FDCAN;
   PeriphClkInit.Lpuart1ClockSelection = RCC_LPUART1CLKSOURCE_PCLK1;
   PeriphClkInit.FdcanClockSelection = RCC_FDCANCLKSOURCE_PCLK1;
+  PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
@@ -352,6 +378,9 @@ static void MX_NVIC_Init(void)
   /* EXTI15_10_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+  /* TIM1_TRG_COM_TIM17_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(TIM1_TRG_COM_TIM17_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(TIM1_TRG_COM_TIM17_IRQn);
 }
 
 /* USER CODE BEGIN 4 */
@@ -363,20 +392,20 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef*hcan, uint32_t RxFifo0ITs){
 	}
 	ID = RxHeader.Identifier;
 	readSigmaData();
-    char datoGrezzo[5];
-    datoGrezzo[0] = cs.ControllerTemperature;
-    datoGrezzo[1] = ',';
-    datoGrezzo[2] = cs.MotorTemperature;
-    /*datoGrezzo[0] = 'A';
-	datoGrezzo[1] = ',';
-	datoGrezzo[2] = 'B';*/
-	datoGrezzo[3] = 0x0d;
-	datoGrezzo[4] = 0x0a;
     if(flag == 1){
-    	scrivi(&datoGrezzo[0], sizeof(datoGrezzo));
+    	scrivi();
     }
 
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+    if (htim->Instance==TIM17) //check if the interrupt comes from TIM2
+        {
+    	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+
+        }
 }
 
 void readSigmaData(void){
@@ -445,7 +474,7 @@ uint32_t PuntaeSepara(char* buff){
 	}
 	return (uint32_t)(e+2);//aggiungo i due caratteri di terminazione
 }
-FRESULT scrivi(BYTE* readBuf, uint8_t size){
+FRESULT scrivi(){
 	FRESULT res1;
 	FIL writeFile;       /* File  object for USER */
 	FATFS USERFatFs;    /* File system object for USER logical drive */
@@ -454,13 +483,22 @@ FRESULT scrivi(BYTE* readBuf, uint8_t size){
 	uint8_t bytesWrote;
 	uint8_t path1[] = "STM32.TXT";
 	res1 = f_mount(&USERFatFs, (TCHAR const*)USERPath, 0);
-	//res1 = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
-	//res1 = f_close(&writeFile);
-	res1 = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
-	f_lseek(&writeFile, indox);
-	indox=indox+5;
-	res1 = f_write(&writeFile, readBuf, size, &bytesWrote);
+	res1 = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
 	res1 = f_close(&writeFile);
+	res1 = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+	if(res1==FR_OK) {
+		f_lseek(&writeFile, indox);
+
+		//res1 = f_write(&writeFile, readBuf, size, &bytesWrote);}
+		HAL_RTC_GetTime(&hrtc, &stimeststuctureget, RTC_FORMAT_BIN);
+		HAL_RTC_GetDate(&hrtc, &Data, RTC_FORMAT_BIN);
+		Time[0] = stimeststuctureget.Hours;
+		Time[1] = stimeststuctureget.Minutes;
+		Time[2] = stimeststuctureget.Seconds;
+
+		indox=indox+f_printf(&writeFile,"%d:%d.%d,%d,%d\n",Time[0],Time[1],Time[2],cs.ControllerTemperature,cs.MotorTemperature);}
+		res1 = f_close(&writeFile);
+
 	return res1;
 }
 /* USER CODE END 4 */
