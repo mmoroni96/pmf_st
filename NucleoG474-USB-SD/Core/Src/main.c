@@ -58,6 +58,7 @@ uint32_t chartotime(char* , uint8_t, uint8_t  );
 int32_t chartocurr(char*, uint8_t, uint8_t );
 FRESULT scrivi();
 uint32_t PuntaeSepara(char*);
+FRESULT leggi();
 int32_t ProcessStatus = 0;
 uint8_t ubKeyNumber = 0x0;
 FDCAN_RxHeaderTypeDef RxHeader;
@@ -79,6 +80,7 @@ uint8_t Time[3];
 uint8_t Date[3];
 RTC_TimeTypeDef stimeststuctureget;
 RTC_DateTypeDef Data;
+FATFS USERFatFs;    /* File system object for USER logical drive */
 struct{
 	int16_t Temp_0;
 	int16_t Temp_1;
@@ -165,6 +167,7 @@ int main(void)
   }
   MX_FDCAN1_Init();
   MX_RTC_Init();
+  MX_TIM16_Init();
   MX_TIM17_Init();
 
   /* Initialize interrupts */
@@ -201,17 +204,23 @@ int main(void)
         }
 
       uint8_t workBuffer[_MAX_SS];
-      FATFS USERFatFs;    /* File system object for USER logical drive */
+
       FIL USERFile,readFile,writeFile;       /* File  object for USER */
       char USERPath[4];   /* USER logical drive path */
       FRESULT res,res1; /* FatFs function common result code */
       uint8_t path1[] = "STM32.TXT";
 
       if(MY_SD_GetCardState(0) == BSP_ERROR_NONE){
-    	  res = f_mkfs(USERPath, FM_ANY, 0, workBuffer, sizeof(workBuffer));
-    	  if (res != FR_OK){
-			Error_Handler();
-    	  }
+
+    	  if(HAL_GPIO_ReadPin(B1_GPIO_Port,B1_Pin)==GPIO_PIN_SET){
+    		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+    		  res = f_mkfs(USERPath, FM_ANY, 0, workBuffer, sizeof(workBuffer));
+    		  if (res != FR_OK){
+    			  Error_Handler();
+    		  }
+    		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+    		  HAL_Delay(2000);
+}
 
       }
       res = f_mount(&USERFatFs, (TCHAR const*)USERPath, 0);
@@ -220,7 +229,9 @@ int main(void)
       if(flag == 0){
 		  flag = 1;
 		  MX_NVIC_Init();
+
 		  HAL_TIM_Base_Start_IT(&htim17);
+		  HAL_TIM_Base_Start_IT(&htim16);
 	  }
 
   /* USER CODE END 2 */
@@ -381,6 +392,9 @@ static void MX_NVIC_Init(void)
   /* TIM1_TRG_COM_TIM17_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(TIM1_TRG_COM_TIM17_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(TIM1_TRG_COM_TIM17_IRQn);
+  /* TIM1_UP_TIM16_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(TIM1_UP_TIM16_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(TIM1_UP_TIM16_IRQn);
 }
 
 /* USER CODE BEGIN 4 */
@@ -403,9 +417,19 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     if (htim->Instance==TIM17) //check if the interrupt comes from TIM2
         {
-    	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+
 
         }
+    if (htim->Instance==TIM16) //check if the interrupt comes from TIM2
+            {
+        	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+        	leggi();
+        	scrivi();
+        	if(HAL_GPIO_ReadPin(B1_GPIO_Port,B1_Pin)==GPIO_PIN_SET)
+        	{
+        		HAL_Delay(10000);
+        	}
+            }
 }
 
 void readSigmaData(void){
@@ -474,19 +498,35 @@ uint32_t PuntaeSepara(char* buff){
 	}
 	return (uint32_t)(e+2);//aggiungo i due caratteri di terminazione
 }
+FRESULT leggi(){
+	FRESULT res;
+	FIL readFile;       /* File  object for USER */
+	   /* File system object for USER logical drive */
+	//FIL USERFile;     /* File  object for USER */
+	char USERPath[4];   /* USER logical drive path */
+	uint8_t bytesWrote;
+	uint8_t path1[] = "current.txt";
+	res = f_open(&readFile, &path1, FA_READ);
+	f_lseek(&readFile, indice);
+	res = f_read(&readFile,readBuff, 34, &br);
+	indice =indice+ PuntaeSepara(readBuff);
+	res = f_close(&readFile);
+	return res;
+
+}
 FRESULT scrivi(){
-	FRESULT res1;
+	FRESULT res;
 	FIL writeFile;       /* File  object for USER */
-	FATFS USERFatFs;    /* File system object for USER logical drive */
-	FIL USERFile;     /* File  object for USER */
+	   /* File system object for USER logical drive */
+	//FIL USERFile;     /* File  object for USER */
 	char USERPath[4];   /* USER logical drive path */
 	uint8_t bytesWrote;
 	uint8_t path1[] = "STM32.TXT";
-	res1 = f_mount(&USERFatFs, (TCHAR const*)USERPath, 0);
-	res1 = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
-	res1 = f_close(&writeFile);
-	res1 = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
-	if(res1==FR_OK) {
+	//res1 = f_mount(&USERFatFs, (TCHAR const*)USERPath, 0);
+	res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+	res = f_close(&writeFile);
+	res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+	if(res==FR_OK) {
 		f_lseek(&writeFile, indox);
 
 		//res1 = f_write(&writeFile, readBuf, size, &bytesWrote);}
@@ -496,10 +536,10 @@ FRESULT scrivi(){
 		Time[1] = stimeststuctureget.Minutes;
 		Time[2] = stimeststuctureget.Seconds;
 
-		indox=indox+f_printf(&writeFile,"%d:%d.%d,%d,%d\n",Time[0],Time[1],Time[2],cs.ControllerTemperature,cs.MotorTemperature);}
-		res1 = f_close(&writeFile);
+		indox=indox+f_printf(&writeFile,"%d:%d.%d,%d,%d\n",Time[0],Time[1],Time[2],curr,cs.MotorTemperature);}
+		res = f_close(&writeFile);
 
-	return res1;
+	return res;
 }
 /* USER CODE END 4 */
 
