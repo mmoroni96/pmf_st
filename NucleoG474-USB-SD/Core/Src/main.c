@@ -417,7 +417,17 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     if (htim->Instance==TIM17) //check if the interrupt comes from TIM2
         {
-
+    	/*TxHeader.ExtId=ID;
+		TxHeader.DLC=8;
+		TxData0[0]=(int8_t)(timer  & 0x000000FF);
+		TxData0[1]=(int8_t)((timer & 0x0000FF00)>>8);
+		TxData0[2]=(int8_t)((timer & 0x00FF0000)>>16);
+		TxData0[3]=(int8_t)((timer & 0xFF000000)>>24);
+		TxData0[4]=(int8_t)(Data[0].Gir_x & 0x00FF);
+		TxData0[5]=(int8_t)((Data[0].Gir_x & 0xFF00 )>> 8);
+		TxData0[6]=(int8_t)(Data[0].Gir_y  & 0x00FF);
+		TxData0[7]=(int8_t)((Data[0].Gir_y & 0xFF00 )>> 8);
+		HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);*/
 
         }
     if (htim->Instance==TIM16) //check if the interrupt comes from TIM2
@@ -505,7 +515,7 @@ FRESULT leggi(){
 	//FIL USERFile;     /* File  object for USER */
 	char USERPath[4];   /* USER logical drive path */
 	uint8_t bytesWrote;
-	uint8_t path1[] = "current.txt";
+	uint8_t path1[] = "coppia.txt";
 	res = f_open(&readFile, &path1, FA_READ);
 	f_lseek(&readFile, indice);
 	res = f_read(&readFile,readBuff, 34, &br);
