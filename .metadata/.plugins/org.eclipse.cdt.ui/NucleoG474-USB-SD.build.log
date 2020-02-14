@@ -1,0 +1,10 @@
+20:41:48 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  32640	     44	   4276	  36960	   9060	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+
+20:41:50 Build Finished. 0 errors, 0 warnings. (took 1s.955ms)
+

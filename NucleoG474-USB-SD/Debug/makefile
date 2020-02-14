@@ -35,6 +35,9 @@ default.size.stdout \
 OBJDUMP_LIST += \
 NucleoG474-USB-SD.list \
 
+OBJCOPY_BIN += \
+NucleoG474-USB-SD.bin \
+
 
 # All Target
 all: NucleoG474-USB-SD.elf secondary-outputs
@@ -55,12 +58,17 @@ NucleoG474-USB-SD.list: $(EXECUTABLES)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+NucleoG474-USB-SD.bin: $(EXECUTABLES)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "NucleoG474-USB-SD.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
 	-$(RM) *
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)
 
 .PHONY: all clean dependents
 .SECONDARY:

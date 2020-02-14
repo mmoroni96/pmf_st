@@ -40,10 +40,20 @@ typedef union{
 	uint16_t	Data16u[4];
 	int16_t		Data16[4];
 }data_typedef;
+
+typedef enum{
+	IDLE		= 0x00U,
+	STARTUP		= 0X01U,
+	SPIN		= 0x02U,
+	STOP		= 0X03U
+}Sigma2_Status;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define MAXTORQUE	100	// Maximum allowable torque[Nm]
+#define MAXCURRENT	600 // Maximum allowable rms current[A]
+#define KT			140 // Toqe constant [Nm/kArms]
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -54,16 +64,12 @@ typedef union{
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint32_t chartotime(char* , uint8_t, uint8_t  );
-int32_t chartocurr(char*, uint8_t, uint8_t );
-FRESULT scrivi();
-uint32_t PuntaeSepara(char*);
-FRESULT leggi();
 int32_t ProcessStatus = 0;
 uint8_t ubKeyNumber = 0x0;
 FDCAN_RxHeaderTypeDef RxHeader;
 uint8_t RxData[8];
 data_typedef rxData;
+data_typedef txData;
 char buffer[100];
 FDCAN_TxHeaderTypeDef TxHeader;
 uint8_t TxData[8];
@@ -72,9 +78,9 @@ uint8_t DataSpi[8];
 uint8_t readBuff[64];
 uint8_t br;
 int32_t curr;
-uint32_t indice =0;
+uint32_t indice = 0;
 uint32_t time;
-uint32_t indox=0;
+uint32_t index = 0;
 uint8_t flag = 0;
 uint8_t Time[3];
 uint8_t Date[3];
@@ -109,17 +115,44 @@ struct{
 	uint8_t ID;
 }Dati;
 uint32_t ID = 0x00;
+int32_t torque;
+uint8_t dir = 0;
+uint8_t fs = 0;
+uint8_t en = 0;
 MS_typedef ms;
 CS_typedef cs;
 DS_typedef ds;
+DC_typedef dc;
+unsigned char motorTemp;
+int32_t torque;
+Sigma2_Status status;
+uint8_t	controlStatus;
+uint8_t	count = 0;
+
+//uint8_t path[];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
+uint32_t chartotime(uint8_t*, uint8_t, uint8_t);
+int32_t chartotorque(uint8_t*, uint8_t, uint8_t);
+FRESULT scrivi();
+uint32_t PuntaeSepara(uint8_t*);
+FRESULT leggi();
 void Success_Handler(void);
-void readSigmaData(void);
+void salvaDati(void);
+
+uint8_t readSigmaData(void);
+void CAN_TxData_Init(void);
+void DC_TxData_Build(int32_t torque);
+//void DC_Data_Build(int32_t torque);
+uint8_t CAN_TxMsg(void);
+uint16_t SetThrottle(int32_t torque);
+void Set_Switch(uint8_t Dir, uint8_t Fs, uint8_t En, uint8_t HandBrake);
+void StartUp_Sequence(void);
+void Toggle_Bit(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -173,144 +206,115 @@ int main(void)
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
-  TxHeader.Identifier = 0x0;
-    TxHeader.IdType = FDCAN_EXTENDED_ID;
-    TxHeader.TxFrameType = FDCAN_DATA_FRAME;
-    TxHeader.DataLength = FDCAN_DLC_BYTES_8;
-    TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
-    TxHeader.BitRateSwitch = FDCAN_BRS_OFF;
-    TxHeader.FDFormat = FDCAN_CLASSIC_CAN;
-    TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
-    TxHeader.MessageMarker = 0;
-    TxData[0] = ubKeyNumber++;
-    TxData[1] = 0xAD;
-    TxData[2] = 0xDE;
-    TxData[3] = 0xAD;
-    TxData[4] = 0xBE;
-    TxData[5] = 0xEF;
-    TxData[6] = 0xFA;
-    TxData[7] = 0xCE;
-    uint16_t aug=3456;
-    if (HAL_FDCAN_Start(&hfdcan1) != HAL_OK)
-        {
-          /* Start Error */
-          Error_Handler();
-        }
+  CAN_TxData_Init();
 
-      if ( HAL_FDCAN_ActivateNotification(&hfdcan1, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0) != HAL_OK)
-        {
-          /* Notification Error */
-          Error_Handler();
-        }
+  //uint16_t aug = 3456;
 
-      uint8_t workBuffer[_MAX_SS];
+    if (HAL_FDCAN_Start(&hfdcan1) != HAL_OK){
+        /* Start Error */
+        Error_Handler();
+    }
 
-      FIL USERFile,readFile,writeFile;       /* File  object for USER */
-      char USERPath[4];   /* USER logical drive path */
-      FRESULT res,res1; /* FatFs function common result code */
-      uint8_t path1[] = "STM32.TXT";
-
-      if(MY_SD_GetCardState(0) == BSP_ERROR_NONE){
-
-    	  if(HAL_GPIO_ReadPin(B1_GPIO_Port,B1_Pin)==GPIO_PIN_SET){
-    		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-    		  res = f_mkfs(USERPath, FM_ANY, 0, workBuffer, sizeof(workBuffer));
-    		  if (res != FR_OK){
-    			  Error_Handler();
-    		  }
-    		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-    		  HAL_Delay(2000);
-}
-
-      }
-      res = f_mount(&USERFatFs, (TCHAR const*)USERPath, 0);
-      res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
-      res = f_close(&writeFile);
-      if(flag == 0){
-		  flag = 1;
-		  MX_NVIC_Init();
-
-		  HAL_TIM_Base_Start_IT(&htim17);
-		  HAL_TIM_Base_Start_IT(&htim16);
-	  }
-
+    if ( HAL_FDCAN_ActivateNotification(&hfdcan1, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0) != HAL_OK){
+        /* Notification Error */
+        Error_Handler();
+    }
+    torque = 0;
+    dir = 0; fs = 0; en = 0;
+    Set_Switch(dir, fs, en, 0);
+    DC_TxData_Build(torque);
+    HAL_TIM_Base_Start_IT(&htim17);
+    fresult = f_mount(&fs, "", 0);
+    //StartUp_Sequence();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
   while (1){
+	  /*torque = 0;
+	  CAN_TxMsg();
+	  readSigmaData();*/
 
-	  /*ProcessStatus = MX_FATFS_Process();
-	 Call middleware background task */
-	/*if (ProcessStatus == APP_ERROR)
-	{
-	  Error_Handler();
-	}
-	else if (ProcessStatus == APP_OK)
-	{
-	  Success_Handler();
-	}
-*/
+	  switch(status){
 
+	  case IDLE:
+		  torque = 0;
+		  dir = 0; fs = 0; en = 0;
+		  Set_Switch(dir, fs, en, 0);
+		  DC_TxData_Build(torque);
 
-	/*if(MY_SD_GetCardState(0) == BSP_ERROR_NONE){
-		//res = f_mkfs(USERPath, FM_ANY, 0, workBuffer, sizeof(workBuffer));
+		  if(count > 100){
+			  status = STARTUP;
+			  controlStatus = 1;
+			  count = 0;
+		  }
+		  break;
 
-		if (res != FR_OK){
-			Error_Handler();
-		}/*
-		uint32_t byteswritten, bytesread; /* File write/read counts
-		uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
-		/*uint8_t rtext[100]; /* File read buffer */
-		/*uint8_t path0[] = "current.TXT";
+	  case STARTUP:
+		  torque = 0;
+		  switch(controlStatus){
 
+		  case 1:
+			  // enable
+			  if(count > 100){
+				  en = 1;
+				  Set_Switch(dir, fs, en, 0);
+				  DC_TxData_Build(torque);
+				  controlStatus = 2;
+				  count = 0;
+			  }
+			  DC_TxData_Build(torque);
+			  break;
+		  case 2:
+			  // footswitch
+			  if(count > 100){
+				  fs = 1;
+				  Set_Switch(dir, fs, en, 0);
+				  DC_TxData_Build(torque);
+				  controlStatus = 3;
+				  count = 0;
+			  }
+			  DC_TxData_Build(torque);
+			  break;
+		  case 3:
+			  // direction
+			  if(count > 100){
+				  dir = 1; // forward
+				  Set_Switch(dir, fs, en, 0);
+				  DC_TxData_Build(torque);
+				  status = SPIN;
+				  count = 0;
+			  }
+			  DC_TxData_Build(torque);
+			  break;
+		  default:
+			  en = 0; fs = 0; dir = 0;
+			  Set_Switch(dir, fs, en, 0);
+			  DC_TxData_Build(torque);
+			  controlStatus = 1;
+			  break;
+		  }
+		  break;
+	  case SPIN:
+		  /*for(uint8_t i=0; i<20; i++){
+			  torque++;
+		  }*/
+		  torque = 50;
+		  DC_TxData_Build(torque);
+		  break;
+	  case STOP:
 
+		  break;
+	  default:
+		  break;
+	  }
 
-		/* Register the file system object to the FatFs module */
-		//res = f_mount(&USERFatFs, (TCHAR const*)USERPath, 0);
-
-
-
-		/*if(res == FR_OK){}
-		else while(1);
-		/* Create and Open a new text file object with write access */
-		/*for(uint32_t  e=0;e<10;e++){
-
-		res = f_open(&readFile, &path0, FA_READ );
-
-
-		f_lseek(&readFile, indice);
-		for(uint32_t  i=0;i<1;i++){
-			BYTE readBuf[30];
-			strncpy((char*)readBuf, "1616161616", 10);
-			UINT bytesWrote;
-
-
-			//res = f_write(&USERFile, readBuf, 10,&bytesWrote);
-
-			res = f_read(&readFile,readBuff, 34, &br);
-			indice =indice+ PuntaeSepara(readBuff);
-
-			}
-
-		res = f_close(&readFile);
-
-		}
-		HAL_Delay(50);
-*/
-
-
-	//}
-	/*else{
-		Error_Handler();
-	}*/
-
-		   /*if(HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &TxHeader, TxData) != HAL_OK)
-		  	{
-		  	  //Transmission request Error
-		  	  Error_Handler();
-		  	}*/
+	  //CAN_TxMsg();
+	  HAL_Delay(10);
+	  //readSigmaData();
+	  //HAL_Delay(50);
+	  count++;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -406,44 +410,42 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef*hcan, uint32_t RxFifo0ITs){
 	}
 	ID = RxHeader.Identifier;
 	readSigmaData();
-    if(flag == 1){
-    	scrivi();
-    }
+    /*if(flag == 1){
+    	salvaDati();
+    }*/
 
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+	//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-    if (htim->Instance==TIM17) //check if the interrupt comes from TIM2
-        {
-    	/*TxHeader.ExtId=ID;
-		TxHeader.DLC=8;
-		TxData0[0]=(int8_t)(timer  & 0x000000FF);
-		TxData0[1]=(int8_t)((timer & 0x0000FF00)>>8);
-		TxData0[2]=(int8_t)((timer & 0x00FF0000)>>16);
-		TxData0[3]=(int8_t)((timer & 0xFF000000)>>24);
-		TxData0[4]=(int8_t)(Data[0].Gir_x & 0x00FF);
-		TxData0[5]=(int8_t)((Data[0].Gir_x & 0xFF00 )>> 8);
-		TxData0[6]=(int8_t)(Data[0].Gir_y  & 0x00FF);
-		TxData0[7]=(int8_t)((Data[0].Gir_y & 0xFF00 )>> 8);
-		HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);*/
+    if (htim->Instance==TIM17){ //check if the interrupt comes from TIM2 (occur every 100mS)
 
-        }
-    if (htim->Instance==TIM16) //check if the interrupt comes from TIM2
+    	CAN_TxMsg();
+
+    }
+    /*if (htim->Instance==TIM17) //check if the interrupt comes from TIM2
             {
-        	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-        	leggi();
-        	scrivi();
+        	//HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+        	// TO DO: perchè scrivi() viene chiamato qui?
+        	//uint8_t path[] = "STM32.TXT";
+        	//uint8_t path1[] = "COPPIA.TXT";
+
+        	//leggi();
+			//CAN_TxMsg();
+        	//scrivi();
         	if(HAL_GPIO_ReadPin(B1_GPIO_Port,B1_Pin)==GPIO_PIN_SET)
         	{
         		HAL_Delay(10000);
         	}
-            }
+     }*/
 }
 
-void readSigmaData(void){
-	switch(ID){
+uint8_t readSigmaData(void){
+	uint8_t res;
+	res = HAL_FDCAN_GetRxMessage(&hfdcan1,FDCAN_RX_FIFO0,&RxHeader,rxData.Data8u);
+
+	switch(RxHeader.Identifier){
 	case MS:
 			ms.MotorSpeed			= rxData.Data16u[0];
 			ms.MotorCurrent			= rxData.Data16[1];
@@ -455,9 +457,9 @@ void readSigmaData(void){
 			ds.ActualTorque			= rxData.Data16[0];
 			ds.ActualSpeed			= rxData.Data16[1];
 			ds.DriveStatusIndicator	= rxData.Data8u[4] & 0x0F;
-			ds.SpeedLimitIndicator	= rxData.Data8u[4] >> 4;
+			ds.SpeedLimitIndicator	= rxData.Data8u[4] >> 0x04;
 			ds.TorqueLimitIndicator	= rxData.Data8u[5] & 0x0F;
-			ds.MotorLimitIndicator	= rxData.Data8u[5] >> 4;
+			ds.MotorLimitIndicator	= rxData.Data8u[5] >> 0x04;
 			ds.FaultCode			= rxData.Data8u[6];
 			ds.Code					= rxData.Data8u[7];
 	break;
@@ -465,9 +467,122 @@ void readSigmaData(void){
 			cs.ControllerTemperature= rxData.Data8u[0];
 			cs.MotorTemperature		= rxData.Data8u[1];
 			cs.BDI					= rxData.Data8u[2];
-			cs.FaultSubCode			= rxData.Data8u[3]<<8 | rxData.Data8u[4];
+			cs.FaultSubCode			= rxData.Data8u[3] << 0x08 | rxData.Data8u[4];
 	break;
 	}
+	return res;
+}
+
+/*void DC_Data_Build(int32_t torque){
+	dc.Trottle = SetThrottle(torque);
+}*/
+
+void Set_Switch(uint8_t Dir, uint8_t Fs, uint8_t En, uint8_t HandBrake){
+	// Dir = 1 Forward, Dir = 0 Reverse
+	if(Dir > 0){
+		dc.DigitalInputs = dc.DigitalInputs | 0x01<<FD;			// Set Forward Direction
+		dc.DigitalInputs = dc.DigitalInputs & ~(0x01<<RD);		// Reset Reverse Direction
+	}
+	else if(Dir < 0){
+		dc.DigitalInputs = dc.DigitalInputs | 0x01<<RD;			// Set Reverse Direction
+		dc.DigitalInputs = dc.DigitalInputs & ~(0x01<<FD);		// Reset Forward Direction
+	}
+	else{
+		dc.DigitalInputs = dc.DigitalInputs & ~(0x01<<FD);		// Reset Forward Direction
+		dc.DigitalInputs = dc.DigitalInputs & ~(0x01<<RD);		// Reset Reverse Direction
+	}
+
+	if(Fs > 0){
+		dc.DigitalInputs = dc.DigitalInputs | 0x01<<FS;			// Set Foot Switch
+	}
+	else{
+		dc.DigitalInputs = dc.DigitalInputs & ~(0x01<<FS);		// Reset Foot Switch
+	}
+
+	if(En > 0){
+		dc.DigitalInputs = dc.DigitalInputs | 0x01<<EN;			// Set Enable
+	}
+	else{
+		dc.DigitalInputs = dc.DigitalInputs & ~(0x01<<EN);		// Reset Enable
+	}
+
+	if(HandBrake > 0){
+		dc.DigitalInputs = dc.DigitalInputs | 0x01<<HB;			// Set Hand Brake
+	}
+	else{
+		dc.DigitalInputs = dc.DigitalInputs & ~(0x01<<HB);		// Reset Hand Brake
+	}
+}
+
+void Toggle_Bit(){
+	if(txData.Data8u[7]){
+		//dc.ToggleSecurityBit = 0x00;
+		txData.Data8u[7] = 0x00;
+	}
+	else{
+		//dc.ToggleSecurityBit = 0x01;
+		txData.Data8u[7] = 0x01;
+	}
+}
+
+void DC_TxData_Build(int32_t torque){
+  TxHeader.Identifier = DC;
+
+  dc.Trottle = SetThrottle(torque);
+
+  txData.Data16u[0] = dc.Trottle;
+  txData.Data16u[1] = dc.BrakePedal;
+  txData.Data16[2] = dc.AD3;
+  txData.Data8u[6] = dc.DigitalInputs;
+  //txData.Data8u[7] = dc.ToggleSecurityBit;
+}
+
+void StartUp_Sequence(void){
+	en = 1;
+	Set_Switch(dir, fs, en, 0);
+	if (CAN_TxMsg() != HAL_OK){
+	  // Transmission request Error
+	  Error_Handler();
+	}
+	HAL_Delay(10);
+	//readSigmaData();
+	HAL_Delay(10);
+	dir = 1;
+	Set_Switch(dir, fs, en, 0);
+	if (CAN_TxMsg() != HAL_OK){
+	  // Transmission request Error
+	  Error_Handler();
+	}
+	HAL_Delay(10);
+	//readSigmaData();
+	HAL_Delay(10);
+	fs = 1;
+	Set_Switch(dir, fs, en, 0);
+	if (CAN_TxMsg() != HAL_OK){
+	  // Transmission request Error
+	  Error_Handler();
+	}
+	HAL_Delay(10);
+	//readSigmaData();
+	HAL_Delay(10);
+}
+
+uint8_t CAN_TxMsg(void){
+	uint8_t res;
+	Toggle_Bit();
+	//DC_TxData_Build(torque);
+	res = HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &TxHeader, txData.Data8u);
+
+	return res;
+}
+
+// torque [Nm] -> thottle [%/4096]
+uint16_t SetThrottle(int32_t torque){
+	uint16_t throttle;
+	// throttle is expressed in % of the maximum torque limit coded in 16bit
+	//throttle = torque * 4096  / (MAXCURRENT * KT);
+	throttle=torque;
+	return throttle;
 }
 
 void Success_Handler(void)
@@ -477,79 +592,93 @@ void Success_Handler(void)
   {
   }
 }
-uint32_t chartotime(char* buff,uint8_t off, uint8_t leng ){
+uint32_t chartotime(uint8_t* buff,uint8_t off, uint8_t leng ){
 	char str[8];
 	for(int i=off;i<leng+off;i++){
-    str[i]=buff[i];
+    str[i] = buff[i];
 	}
 	return (uint32_t)atoi(str);
 }
-int32_t chartocurr(char* buff,uint8_t off, uint8_t leng ){
+
+int32_t chartotorque(uint8_t* buff,uint8_t off, uint8_t leng ){
 	char str[8];
 	for(int i=0;i<leng;i++){
-    str[i]=buff[i+off];
+    str[i] = buff[i+off];
 	}
 	return (int32_t)atoi(str);
 }
-uint32_t PuntaeSepara(char* buff){
+
+uint32_t PuntaeSepara(uint8_t* buff){
 	uint8_t h;
 	uint8_t e;
 	for(h=0;h<64;h++){
 		if(readBuff[h]==','){
-			time=chartotime(readBuff,0,h);
+			time = chartotime(readBuff,0,h);
 			break;
 		}
 	}
 	for(e=h;e<64;e++){
-		if(readBuff[e]==0xd&&readBuff[e+1]==0xa){
-			curr=chartocurr(readBuff,h+1,e-h);
+		//if(readBuff[e]==0xd&&readBuff[e+1]==0xa)
+		if(readBuff[e]==0x0A){ // Quando termina riga salva la prima e la seconda colonna
+			torque = chartotorque(readBuff,h+1,e-h);// / 1000;
 			break;
 		}
 	}
 	return (uint32_t)(e+2);//aggiungo i due caratteri di terminazione
 }
-FRESULT leggi(){
+
+FRESULT leggi(void){
 	FRESULT res;
 	FIL readFile;       /* File  object for USER */
-	   /* File system object for USER logical drive */
-	//FIL USERFile;     /* File  object for USER */
-	char USERPath[4];   /* USER logical drive path */
-	uint8_t bytesWrote;
-	uint8_t path1[] = "coppia.txt";
-	res = f_open(&readFile, &path1, FA_READ);
-	f_lseek(&readFile, indice);
-	res = f_read(&readFile,readBuff, 34, &br);
-	indice =indice+ PuntaeSepara(readBuff);
-	res = f_close(&readFile);
+	uint8_t path[] = "COPPIA.TXT";
+	res = f_open(&readFile, &path, FA_READ);
+	if(res == FR_OK){
+		f_lseek(&readFile, indice);
+		res = f_read(&readFile,readBuff, 34, &br);
+		indice = indice + PuntaeSepara(readBuff);
+		res = f_close(&readFile);
+	}
 	return res;
 
 }
-FRESULT scrivi(){
+
+void salvaDati(void){
+	motorTemp = cs.MotorTemperature - 50;
+
+}
+
+// TO DO: passare il percorso file ed eventualmente altro alla funzione
+FRESULT scrivi(void){
 	FRESULT res;
 	FIL writeFile;       /* File  object for USER */
-	   /* File system object for USER logical drive */
-	//FIL USERFile;     /* File  object for USER */
-	char USERPath[4];   /* USER logical drive path */
-	uint8_t bytesWrote;
-	uint8_t path1[] = "STM32.TXT";
-	//res1 = f_mount(&USERFatFs, (TCHAR const*)USERPath, 0);
-	res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
-	res = f_close(&writeFile);
-	res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+	uint8_t path[] = "STM32.TXT";
+	res = f_open(&writeFile, &path, FA_WRITE | FA_OPEN_ALWAYS);
 	if(res==FR_OK) {
-		f_lseek(&writeFile, indox);
-
-		//res1 = f_write(&writeFile, readBuf, size, &bytesWrote);}
+		f_lseek(&writeFile, index);
+		// TO DO: capire cosa fanno e se si possono spostare
 		HAL_RTC_GetTime(&hrtc, &stimeststuctureget, RTC_FORMAT_BIN);
 		HAL_RTC_GetDate(&hrtc, &Data, RTC_FORMAT_BIN);
 		Time[0] = stimeststuctureget.Hours;
 		Time[1] = stimeststuctureget.Minutes;
 		Time[2] = stimeststuctureget.Seconds;
-
-		indox=indox+f_printf(&writeFile,"%d:%d.%d,%d,%d\n",Time[0],Time[1],Time[2],curr,cs.MotorTemperature);}
+		// DO: modificati i dati scritti (cs.MotorTemperature)
+		index = index + f_printf(&writeFile,"%d:%d:%d,%d,%d\n",Time[0],Time[1],Time[2],torque,motorTemp);
+	}
 		res = f_close(&writeFile);
 
 	return res;
+}
+
+void CAN_TxData_Init(void){
+  TxHeader.Identifier = 0x0;
+  TxHeader.IdType = FDCAN_STANDARD_ID;
+  TxHeader.TxFrameType = FDCAN_DATA_FRAME;
+  TxHeader.DataLength = FDCAN_DLC_BYTES_8;
+  TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
+  TxHeader.BitRateSwitch = FDCAN_BRS_OFF;
+  TxHeader.FDFormat = FDCAN_CLASSIC_CAN;
+  TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+  TxHeader.MessageMarker = 0;
 }
 /* USER CODE END 4 */
 

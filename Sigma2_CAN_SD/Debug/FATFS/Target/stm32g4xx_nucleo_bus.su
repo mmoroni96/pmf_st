@@ -1,0 +1,9 @@
+stm32g4xx_nucleo_bus.c:35:9:BSP_SPI2_Init	8	static
+stm32g4xx_nucleo_bus.c:64:9:BSP_SPI2_DeInit	8	static
+stm32g4xx_nucleo_bus.c:84:26:MX_BSP_SPI2_Init	16	static
+stm32g4xx_nucleo_bus.c:109:9:BSP_SPI2_Send	24	static
+stm32g4xx_nucleo_bus.c:127:9:BSP_SPI2_Recv	24	static
+stm32g4xx_nucleo_bus.c:146:9:BSP_SPI2_SendRecv	40	static
+stm32g4xx_nucleo_bus.c:162:9:BSP_GetTick	8	static
+stm32g4xx_nucleo_bus.c:231:13:SPI_MspInit	56	static
+stm32g4xx_nucleo_bus.c:270:13:SPI_MspDeInit	40	static
