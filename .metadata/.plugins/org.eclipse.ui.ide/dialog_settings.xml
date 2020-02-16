@@ -9,6 +9,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\mmoro\OneDrive\Desktop\SDCardTest"/>
 			<item value="C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD"/>
 			<item value="C:\Users\mmoro\OneDrive\Documents\pmf_st\Sigma2_CAN_SD"/>
 			<item value="C:\Users\mmoro\OneDrive\Documents\pmf_st\Michele Vignati - VCU_ElectricBrake"/>

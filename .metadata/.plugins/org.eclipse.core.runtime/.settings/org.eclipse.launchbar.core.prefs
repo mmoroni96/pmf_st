@@ -1,7 +1,10 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=9af72bc01ff6ddeb9ff0d012439a0ede47e621a1
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
-configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:SD-CARD-SPI.elf,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:NucleoG474-USB-SD Debug
+configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MainBoard-TestCAN-Receive Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Sigma2_CAN Debug (1),org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Sigma2_CAN Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:integrazioniponti Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:master Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:NucleoG474-USB-SD Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:SD-CARD-SPI.elf
 eclipse.preferences.version=1
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MainBoard-TestCAN-Receive\ Debug/activeLaunchMode=debug
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MainBoard-TestCAN-Receive\ Debug/activeLaunchTarget=null\:---

@@ -31,7 +31,6 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "Sigma2_Def.h"
-#define N 16 //lunghezza stringa
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,6 +54,11 @@ typedef union{
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+uint32_t chartotime(char* , uint8_t, uint8_t  );
+int32_t chartocurr(char*, uint8_t, uint8_t );
+FRESULT scrivi();
+uint32_t PuntaeSepara(char*);
+FRESULT leggi();
 int32_t ProcessStatus = 0;
 uint8_t ubKeyNumber = 0x0;
 FDCAN_RxHeaderTypeDef RxHeader;
@@ -67,11 +71,10 @@ uint32_t id;
 uint8_t DataSpi[8];
 uint8_t readBuff[64];
 uint8_t br;
-int32_t copp;
 int32_t curr;
 uint32_t indice =0;
-uint64_t time;
-uint32_t index = 0;
+uint32_t time;
+uint32_t indox=0;
 uint8_t flag = 0;
 uint8_t Time[3];
 uint8_t Date[3];
@@ -109,27 +112,14 @@ uint32_t ID = 0x00;
 MS_typedef ms;
 CS_typedef cs;
 DS_typedef ds;
-unsigned char motorTemp;
-
-//uint8_t path[];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
-uint32_t chartotime(uint8_t* , uint8_t, uint8_t  );
-int32_t chartocurr(uint8_t*, uint8_t, uint8_t );
-FRESULT scrivi();
-uint32_t PuntaeSepara(uint8_t*);
-FRESULT leggi();
-uint8_t lettura();
-FRESULT readFile();
-const char* getfield(char*, int32_t);
 void Success_Handler(void);
 void readSigmaData(void);
-void CAN_TxData_Build(void);
-void salvaDati(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -144,7 +134,7 @@ void salvaDati(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	BYTE TxBuff[512];
+
   /* USER CODE END 1 */
   
 
@@ -183,10 +173,24 @@ int main(void)
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
-  CAN_TxData_Build();
-
-  //uint16_t aug = 3456;
-
+  TxHeader.Identifier = 0x0;
+    TxHeader.IdType = FDCAN_EXTENDED_ID;
+    TxHeader.TxFrameType = FDCAN_DATA_FRAME;
+    TxHeader.DataLength = FDCAN_DLC_BYTES_8;
+    TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
+    TxHeader.BitRateSwitch = FDCAN_BRS_OFF;
+    TxHeader.FDFormat = FDCAN_CLASSIC_CAN;
+    TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+    TxHeader.MessageMarker = 0;
+    TxData[0] = ubKeyNumber++;
+    TxData[1] = 0xAD;
+    TxData[2] = 0xDE;
+    TxData[3] = 0xAD;
+    TxData[4] = 0xBE;
+    TxData[5] = 0xEF;
+    TxData[6] = 0xFA;
+    TxData[7] = 0xCE;
+    uint16_t aug=3456;
     if (HAL_FDCAN_Start(&hfdcan1) != HAL_OK)
         {
           /* Start Error */
@@ -201,56 +205,112 @@ int main(void)
 
       uint8_t workBuffer[_MAX_SS];
 
-      FIL writeFile;      				/* File  object for USER */
-      char USERPath[4];   				/* USER logical drive path */
-      FRESULT res;						/* FatFs function common result code */
-      uint8_t path[] = "STM32.TXT";
+      FIL USERFile,readFile,writeFile;       /* File  object for USER */
+      char USERPath[4];   /* USER logical drive path */
+      FRESULT res,res1; /* FatFs function common result code */
+      uint8_t path1[] = "STM32.TXT";
 
       if(MY_SD_GetCardState(0) == BSP_ERROR_NONE){
 
     	  if(HAL_GPIO_ReadPin(B1_GPIO_Port,B1_Pin)==GPIO_PIN_SET){
     		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-    		  // DO: cambiato FM_ANY -> FM_FAT32
-    		  res = f_mkfs(USERPath, FM_FAT32, 0, workBuffer, sizeof(workBuffer));
+    		  res = f_mkfs(USERPath, FM_ANY, 0, workBuffer, sizeof(workBuffer));
     		  if (res != FR_OK){
     			  Error_Handler();
     		  }
     		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
     		  HAL_Delay(2000);
-    	  }
+}
+
       }
-      res =  disk_initialize(0);
-      res =  disk_write (
-      			0,			/* Physical drive number (0) */
-      			TxBuff,		/* Pointer to the data to write */
-      			44444,		/* Start sector number (LBA) */
-      			1			/* Number of sectors to write (1..128) */
-      		);
-      	if(res != FR_OK){
-
-      				////FAILED!
-      	}
       res = f_mount(&USERFatFs, (TCHAR const*)USERPath, 0);
-      res = f_open(&writeFile, &path, FA_CREATE_ALWAYS);
+      res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
       res = f_close(&writeFile);
-
       if(flag == 0){
 		  flag = 1;
 		  MX_NVIC_Init();
 
-		  //HAL_TIM_Base_Start_IT(&htim17);
-		  //HAL_TIM_Base_Start_IT(&htim16);
+		  HAL_TIM_Base_Start_IT(&htim17);
+		  HAL_TIM_Base_Start_IT(&htim16);
 	  }
 
   /* USER CODE END 2 */
- 
- 
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
   while (1){
-	  leggi();
+
+	  /*ProcessStatus = MX_FATFS_Process();
+	 Call middleware background task */
+	/*if (ProcessStatus == APP_ERROR)
+	{
+	  Error_Handler();
+	}
+	else if (ProcessStatus == APP_OK)
+	{
+	  Success_Handler();
+	}
+*/
+
+
+	/*if(MY_SD_GetCardState(0) == BSP_ERROR_NONE){
+		//res = f_mkfs(USERPath, FM_ANY, 0, workBuffer, sizeof(workBuffer));
+
+		if (res != FR_OK){
+			Error_Handler();
+		}/*
+		uint32_t byteswritten, bytesread; /* File write/read counts
+		uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+		/*uint8_t rtext[100]; /* File read buffer */
+		/*uint8_t path0[] = "current.TXT";
+
+
+
+		/* Register the file system object to the FatFs module */
+		//res = f_mount(&USERFatFs, (TCHAR const*)USERPath, 0);
+
+
+
+		/*if(res == FR_OK){}
+		else while(1);
+		/* Create and Open a new text file object with write access */
+		/*for(uint32_t  e=0;e<10;e++){
+
+		res = f_open(&readFile, &path0, FA_READ );
+
+
+		f_lseek(&readFile, indice);
+		for(uint32_t  i=0;i<1;i++){
+			BYTE readBuf[30];
+			strncpy((char*)readBuf, "1616161616", 10);
+			UINT bytesWrote;
+
+
+			//res = f_write(&USERFile, readBuf, 10,&bytesWrote);
+
+			res = f_read(&readFile,readBuff, 34, &br);
+			indice =indice+ PuntaeSepara(readBuff);
+
+			}
+
+		res = f_close(&readFile);
+
+		}
+		HAL_Delay(50);
+*/
+
+
+	//}
+	/*else{
+		Error_Handler();
+	}*/
+
+		   /*if(HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &TxHeader, TxData) != HAL_OK)
+		  	{
+		  	  //Transmission request Error
+		  	  Error_Handler();
+		  	}*/
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -345,10 +405,10 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef*hcan, uint32_t RxFifo0ITs){
 		Error_Handler();
 	}
 	ID = RxHeader.Identifier;
-	//readSigmaData();
-    //if(flag == 1){
-    	//salvaDati();
-    //}
+	readSigmaData();
+    if(flag == 1){
+    	scrivi();
+    }
 
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
 }
@@ -357,26 +417,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     if (htim->Instance==TIM17) //check if the interrupt comes from TIM2
         {
-    	/*TxHeader.ExtId=ID;
-		TxHeader.DLC=8;
-		TxData0[0]=(int8_t)(timer  & 0x000000FF);
-		TxData0[1]=(int8_t)((timer & 0x0000FF00)>>8);
-		TxData0[2]=(int8_t)((timer & 0x00FF0000)>>16);
-		TxData0[3]=(int8_t)((timer & 0xFF000000)>>24);
-		TxData0[4]=(int8_t)(Data[0].Gir_x & 0x00FF);
-		TxData0[5]=(int8_t)((Data[0].Gir_x & 0xFF00 )>> 8);
-		TxData0[6]=(int8_t)(Data[0].Gir_y  & 0x00FF);
-		TxData0[7]=(int8_t)((Data[0].Gir_y & 0xFF00 )>> 8);
-		HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);*/
+
 
         }
     if (htim->Instance==TIM16) //check if the interrupt comes from TIM2
             {
         	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-        	// TO DO: perchè scrivi() viene chiamato qui?
-        	//uint8_t path[] = "STM32.TXT";
-        	//uint8_t path1[] = "COPPIA.TXT";
-
         	leggi();
         	scrivi();
         	if(HAL_GPIO_ReadPin(B1_GPIO_Port,B1_Pin)==GPIO_PIN_SET)
@@ -414,26 +460,6 @@ void readSigmaData(void){
 	}
 }
 
-void CAN_TxData_Build(void){
-  TxHeader.Identifier = 0x0;
-  TxHeader.IdType = FDCAN_EXTENDED_ID;
-  TxHeader.TxFrameType = FDCAN_DATA_FRAME;
-  TxHeader.DataLength = FDCAN_DLC_BYTES_8;
-  TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
-  TxHeader.BitRateSwitch = FDCAN_BRS_OFF;
-  TxHeader.FDFormat = FDCAN_CLASSIC_CAN;
-  TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
-  TxHeader.MessageMarker = 0;
-  TxData[0] = ubKeyNumber++;
-  TxData[1] = 0xAD;
-  TxData[2] = 0xDE;
-  TxData[3] = 0xAD;
-  TxData[4] = 0xBE;
-  TxData[5] = 0xEF;
-  TxData[6] = 0xFA;
-  TxData[7] = 0xCE;
-}
-
 void Success_Handler(void)
 {
   //printf("** Success. ** \n\r");
@@ -441,111 +467,80 @@ void Success_Handler(void)
   {
   }
 }
-uint32_t chartotime(uint8_t* buff,uint8_t off, uint8_t leng ){
+uint32_t chartotime(char* buff,uint8_t off, uint8_t leng ){
 	char str[8];
 	for(int i=off;i<leng+off;i++){
-    str[i] = buff[i];
+    str[i]=buff[i];
 	}
 	return (uint32_t)atoi(str);
 }
-
-int32_t chartocurr(uint8_t* buff,uint8_t off, uint8_t leng ){
+int32_t chartocurr(char* buff,uint8_t off, uint8_t leng ){
 	char str[8];
 	for(int i=0;i<leng;i++){
-    str[i] = buff[i+off];
+    str[i]=buff[i+off];
 	}
 	return (int32_t)atoi(str);
 }
-
-uint32_t PuntaeSepara(uint8_t* buff){
+uint32_t PuntaeSepara(char* buff){
 	uint8_t h;
 	uint8_t e;
 	for(h=0;h<64;h++){
-		if(readBuff[h]==';'){
-			time = chartotime(readBuff,0,h);
+		if(readBuff[h]==','){
+			time=chartotime(readBuff,0,h);
 			break;
 		}
 	}
 	for(e=h;e<64;e++){
-		if(readBuff[e]==0xd&&readBuff[e+1]==0xa){ // Quando termina riga salva la prima e la seconda colonna
-			curr = chartocurr(readBuff,h+1,e-h);
+		if(readBuff[e]==0xd&&readBuff[e+1]==0xa){
+			curr=chartocurr(readBuff,h+1,e-h);
 			break;
 		}
 	}
 	return (uint32_t)(e+2);//aggiungo i due caratteri di terminazione
 }
-
-const char* getfield(char* line, int32_t num)
-{
-    const char* tok;
-    for (tok = strtok(line, ",");
-            tok && *tok;
-            tok = strtok(NULL, "\n"))
-    {
-        if (!--num)
-            return tok;
-    }
-    return NULL;
-}
-FRESULT leggi(void){
-    char buf[N];
-    FRESULT res;
-	FIL readFile;
-	uint8_t path[] = "COPPIA.TXT";
-	uint8_t contatore=0;
-	res = f_open(&readFile, &path, FA_READ);
-	while(f_gets((char*)buf, sizeof(buf), &readFile))
-		{
-		HAL_Delay(1);
-		char* tmp = strdup(buf);
-		time=(uint64_t)atoi(getfield(tmp, 1));
-		free(tmp);
-		tmp = strdup(buf);
-		curr=(int32_t)atoi(getfield(tmp, 2));
-		free(tmp);
-		for(int i=0;i<N;i++){
-			buf[i]=0;
-		}
-		}
-	res=f_close(&readFile);
-
-
+FRESULT leggi(){
+	FRESULT res;
+	FIL readFile;       /* File  object for USER */
+	   /* File system object for USER logical drive */
+	//FIL USERFile;     /* File  object for USER */
+	char USERPath[4];   /* USER logical drive path */
+	uint8_t bytesWrote;
+	uint8_t path1[] = "current.txt";
+	res = f_open(&readFile, &path1, FA_READ);
+	f_lseek(&readFile, indice);
+	res = f_read(&readFile,readBuff, 34, &br);
+	indice =indice+ PuntaeSepara(readBuff);
+	res = f_close(&readFile);
 	return res;
 
 }
-void salvaDati(void){
-	motorTemp = cs.MotorTemperature - 50;
-
-}
-
-// TO DO: passare il percorso file ed eventualmente altro alla funzione
-FRESULT scrivi(void){
+FRESULT scrivi(){
 	FRESULT res;
 	FIL writeFile;       /* File  object for USER */
-	//uint8_t bytesWrote;
-	uint8_t path[] = "STM32.TXT";
+	   /* File system object for USER logical drive */
+	//FIL USERFile;     /* File  object for USER */
+	char USERPath[4];   /* USER logical drive path */
+	uint8_t bytesWrote;
+	uint8_t path1[] = "STM32.TXT";
 	//res1 = f_mount(&USERFatFs, (TCHAR const*)USERPath, 0);
-	//res = f_open(&writeFile, &path, FA_CREATE_ALWAYS);
-	//res = f_close(&writeFile);
-	res = f_open(&writeFile, &path, FA_WRITE | FA_OPEN_ALWAYS);
+	res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+	res = f_close(&writeFile);
+	res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
 	if(res==FR_OK) {
-		f_lseek(&writeFile, index);
+		f_lseek(&writeFile, indox);
 
 		//res1 = f_write(&writeFile, readBuf, size, &bytesWrote);}
-		//TO DO: capire cosa fanno e se si possono spostare
 		HAL_RTC_GetTime(&hrtc, &stimeststuctureget, RTC_FORMAT_BIN);
 		HAL_RTC_GetDate(&hrtc, &Data, RTC_FORMAT_BIN);
 		Time[0] = stimeststuctureget.Hours;
 		Time[1] = stimeststuctureget.Minutes;
 		Time[2] = stimeststuctureget.Seconds;
-		// DO: modificati i dati scritti (cs.MotorTemperature)
-		index = index + f_printf(&writeFile,"%d:%d:%d,%d,%d\n",Time[0],Time[1],Time[2],curr,motorTemp);
-	}
+
+		indox=indox+f_printf(&writeFile,"%d:%d.%d,%d,%d\n",Time[0],Time[1],Time[2],curr,cs.MotorTemperature);}
 		res = f_close(&writeFile);
 
 	return res;
 }
-
 /* USER CODE END 4 */
 
 /**

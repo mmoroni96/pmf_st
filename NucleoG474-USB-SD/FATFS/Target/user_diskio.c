@@ -28,6 +28,8 @@
  * the section contents can be deleted.
  */
 /* USER CODE BEGIN 0 */
+
+
 /* USER CODE END 0 */
 #endif
 
@@ -36,13 +38,35 @@
 /* Includes ------------------------------------------------------------------*/
 #include <string.h>
 #include "ff_gen_drv.h"
+#include "stm32g4xx_nucleo_errno.h"
+#include "my_sd.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+#if defined(SDMMC_DATATIMEOUT)
+#define SD_TIMEOUT SDMMC_DATATIMEOUT
+#elif defined(SD_DATATIMEOUT)
+#define SD_TIMEOUT SD_DATATIMEOUT
+#else
+#define SD_TIMEOUT 30 * 1000
+#endif
 
+#define SD_DEFAULT_BLOCK_SIZE 512
+#define DISABLE_SD_INIT
 /* Private variables ---------------------------------------------------------*/
 /* Disk status */
 static volatile DSTATUS Stat = STA_NOINIT;
+static DSTATUS USER_CheckStatus(BYTE lun)
+{
+  Stat = STA_NOINIT;
+  // TO DO:
+  if(MY_SD_GetCardState(0) == BSP_ERROR_NONE)
+  {
+    Stat &= ~STA_NOINIT;
+  }
+
+  return Stat;
+}
 
 /* USER CODE END DECL */
 
@@ -83,6 +107,14 @@ DSTATUS USER_initialize (
 {
   /* USER CODE BEGIN INIT */
     Stat = STA_NOINIT;
+	#if !defined(DISABLE_SD_INIT)
+	  if(MY_SD_Init(0) == BSP_ERROR_NONE)
+	  {
+		Stat = USER_CheckStatus(pdrv);
+	  }
+	#else
+	  Stat = USER_CheckStatus(pdrv);
+	#endif
     return Stat;
   /* USER CODE END INIT */
 }
@@ -97,8 +129,7 @@ DSTATUS USER_status (
 )
 {
   /* USER CODE BEGIN STATUS */
-    Stat = STA_NOINIT;
-    return Stat;
+    return USER_CheckStatus(pdrv);
   /* USER CODE END STATUS */
 }
 
@@ -118,7 +149,18 @@ DRESULT USER_read (
 )
 {
   /* USER CODE BEGIN READ */
-    return RES_OK;
+	DRESULT res = RES_ERROR;
+	  if(MY_SD_ReadBlocks(0, (uint32_t*)buff,
+						   (uint32_t) (sector),
+						   count) == BSP_ERROR_NONE)
+	  {
+		/* wait until the read operation is finished */
+		while( MY_SD_GetCardState(0)!= BSP_ERROR_NONE)
+		{
+		}
+		res = RES_OK;
+	  }
+	  return res;
   /* USER CODE END READ */
 }
 
@@ -140,7 +182,19 @@ DRESULT USER_write (
 { 
   /* USER CODE BEGIN WRITE */
   /* USER CODE HERE */
-    return RES_OK;
+	DRESULT res = RES_ERROR;
+	  if(MY_SD_WriteBlocks(0, (uint32_t*)buff,
+	                        (uint32_t)(sector),
+	                        count) == BSP_ERROR_NONE)
+	  {
+	  /* wait until the Write operation is finished */
+	    while(MY_SD_GetCardState(0) != BSP_ERROR_NONE)
+	    {
+	    }
+	    res = RES_OK;
+	  }
+
+	  return res;
   /* USER CODE END WRITE */
 }
 #endif /* _USE_WRITE == 1 */
@@ -160,8 +214,44 @@ DRESULT USER_ioctl (
 )
 {
   /* USER CODE BEGIN IOCTL */
-    DRESULT res = RES_ERROR;
-    return res;
+	DRESULT res = RES_ERROR;
+	  SD_CardInfo_t CardInfo;
+
+	  if (Stat & STA_NOINIT) return RES_NOTRDY;
+
+	  switch (cmd)
+	  {
+	  /* Make sure that no pending write process */
+	  case CTRL_SYNC :
+	    res = RES_OK;
+	    break;
+
+	  /* Get number of sectors on the disk (DWORD) */
+	  case GET_SECTOR_COUNT :
+	    MY_SD_GetCardInfo(0, &CardInfo);
+	    *(DWORD*)buff = CardInfo.LogBlockNbr;
+	    res = RES_OK;
+	    break;
+
+	  /* Get R/W sector size (WORD) */
+	  case GET_SECTOR_SIZE :
+	    MY_SD_GetCardInfo(0, &CardInfo);
+	    *(WORD*)buff = CardInfo.LogBlockSize;
+	    res = RES_OK;
+	    break;
+
+	  /* Get erase block size in unit of sector (DWORD) */
+	  case GET_BLOCK_SIZE :
+	    MY_SD_GetCardInfo(0, &CardInfo);
+	    *(DWORD*)buff = CardInfo.LogBlockSize / SD_DEFAULT_BLOCK_SIZE;
+		res = RES_OK;
+	    break;
+
+	  default:
+	    res = RES_PARERR;
+	  }
+
+	  return res;
   /* USER CODE END IOCTL */
 }
 #endif /* _USE_IOCTL == 1 */

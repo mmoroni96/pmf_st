@@ -3194,3 +3194,11 @@
 2020-02-17 00:03:36,993 [INFO] ProjectBuilder:1971 - Suppression de : usb_device.h
 2020-02-17 00:03:36,993 [INFO] ProjectBuilder:1971 - Suppression de : usbd_conf.c
 2020-02-17 00:03:36,993 [INFO] ProjectBuilder:1971 - Suppression de : usbd_conf.h
+2020-02-17 00:24:08,446 [INFO] Activator:176 - 
+
+
+2020-02-17 00:24:08,448 [INFO] Activator:177 - !SESSION log4j initialized
+2020-02-17 00:24:09,712 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] [Fatal Error] :145:2: The content of elements must consist of well-formed character data or markup.
+2020-02-17 00:24:09,713 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] 
+2020-02-17 00:24:11,704 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] [Fatal Error] :196:2: The content of elements must consist of well-formed character data or markup.
+2020-02-17 00:24:11,704 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] 
