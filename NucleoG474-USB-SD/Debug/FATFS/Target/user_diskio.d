@@ -38,10 +38,7 @@ FATFS/Target/user_diskio.o: ../FATFS/Target/user_diskio.c \
  C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h \
  C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h \
  C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h \
- C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h \
- ../FATFS/Target/stm32g4xx_nucleo_errno.h ../FATFS/Target/my_sd.h \
- ../FATFS/Target/my_conf.h ../FATFS/Target/stm32g4xx_nucleo_conf.h \
- ../FATFS/Target/stm32g4xx_nucleo_bus.h
+ C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h
 
 C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:
 
@@ -124,13 +121,3 @@ C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL
 C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h:
 
 C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h:
-
-../FATFS/Target/stm32g4xx_nucleo_errno.h:
-
-../FATFS/Target/my_sd.h:
-
-../FATFS/Target/my_conf.h:
-
-../FATFS/Target/stm32g4xx_nucleo_conf.h:
-
-../FATFS/Target/stm32g4xx_nucleo_bus.h:

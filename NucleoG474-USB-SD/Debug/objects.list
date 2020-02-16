@@ -5,7 +5,6 @@
 "Core/Src/spi.o"
 "Core/Src/stm32g4xx_hal_msp.o"
 "Core/Src/stm32g4xx_it.o"
-"Core/Src/sys.o"
 "Core/Src/syscalls.o"
 "Core/Src/sysmem.o"
 "Core/Src/system_stm32g4xx.o"
