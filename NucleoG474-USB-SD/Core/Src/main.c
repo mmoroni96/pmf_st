@@ -21,16 +21,11 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "app_fatfs.h"
-#include "fdcan.h"
-#include "usart.h"
-#include "rtc.h"
-#include "spi.h"
-#include "tim.h"
-#include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "Sigma2_Def.h"
+#define N 64
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -52,12 +47,20 @@ typedef union{
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+FDCAN_HandleTypeDef hfdcan1;
+
+UART_HandleTypeDef hlpuart1;
+
+RTC_HandleTypeDef hrtc;
+
+SPI_HandleTypeDef hspi2;
+
+TIM_HandleTypeDef htim17;
 
 /* USER CODE BEGIN PV */
-uint32_t chartotime(char* , uint8_t, uint8_t  );
-int32_t chartocurr(char*, uint8_t, uint8_t );
+
 FRESULT scrivi();
-uint32_t PuntaeSepara(char*);
+const char* getfield(char* , int32_t);
 FRESULT leggi();
 int32_t ProcessStatus = 0;
 uint8_t ubKeyNumber = 0x0;
@@ -72,9 +75,10 @@ uint8_t DataSpi[8];
 uint8_t readBuff[64];
 uint8_t br;
 int32_t curr;
+int32_t copp;
 uint32_t indice =0;
 uint32_t time;
-uint32_t indox=0;
+
 uint8_t flag = 0;
 uint8_t Time[3];
 uint8_t Date[3];
@@ -112,10 +116,17 @@ uint32_t ID = 0x00;
 MS_typedef ms;
 CS_typedef cs;
 DS_typedef ds;
+FIL USERFile,readFile,writeFile;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_LPUART1_UART_Init(void);
+static void MX_SPI2_Init(void);
+static void MX_FDCAN1_Init(void);
+static void MX_RTC_Init(void);
+static void MX_TIM17_Init(void);
 static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
 void Success_Handler(void);
@@ -167,7 +178,6 @@ int main(void)
   }
   MX_FDCAN1_Init();
   MX_RTC_Init();
-  MX_TIM16_Init();
   MX_TIM17_Init();
 
   /* Initialize interrupts */
@@ -205,7 +215,7 @@ int main(void)
 
       uint8_t workBuffer[_MAX_SS];
 
-      FIL USERFile,readFile,writeFile;       /* File  object for USER */
+            /* File  object for USER */
       char USERPath[4];   /* USER logical drive path */
       FRESULT res,res1; /* FatFs function common result code */
       uint8_t path1[] = "STM32.TXT";
@@ -214,7 +224,7 @@ int main(void)
 
     	  if(HAL_GPIO_ReadPin(B1_GPIO_Port,B1_Pin)==GPIO_PIN_SET){
     		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-    		  res = f_mkfs(USERPath, FM_ANY, 0, workBuffer, sizeof(workBuffer));
+    		  res = f_mkfs(USERPath, FM_FAT32, 10, workBuffer, sizeof(workBuffer));
     		  if (res != FR_OK){
     			  Error_Handler();
     		  }
@@ -226,13 +236,11 @@ int main(void)
       res = f_mount(&USERFatFs, (TCHAR const*)USERPath, 0);
       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
       res = f_close(&writeFile);
-      if(flag == 0){
-		  flag = 1;
-		  MX_NVIC_Init();
+      res = f_open(&writeFile, &path1,FA_OPEN_APPEND | FA_WRITE);
+      MX_NVIC_Init();
+      HAL_TIM_Base_Start_IT(&htim17);
 
-		  HAL_TIM_Base_Start_IT(&htim17);
-		  HAL_TIM_Base_Start_IT(&htim16);
-	  }
+
 
   /* USER CODE END 2 */
 
@@ -392,73 +400,308 @@ static void MX_NVIC_Init(void)
   /* TIM1_TRG_COM_TIM17_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(TIM1_TRG_COM_TIM17_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(TIM1_TRG_COM_TIM17_IRQn);
-  /* TIM1_UP_TIM16_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(TIM1_UP_TIM16_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(TIM1_UP_TIM16_IRQn);
+}
+
+/**
+  * @brief FDCAN1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_FDCAN1_Init(void)
+{
+
+  /* USER CODE BEGIN FDCAN1_Init 0 */
+
+  /* USER CODE END FDCAN1_Init 0 */
+
+  /* USER CODE BEGIN FDCAN1_Init 1 */
+
+  /* USER CODE END FDCAN1_Init 1 */
+  hfdcan1.Instance = FDCAN1;
+  hfdcan1.Init.ClockDivider = FDCAN_CLOCK_DIV2;
+  hfdcan1.Init.FrameFormat = FDCAN_FRAME_CLASSIC;
+  hfdcan1.Init.Mode = FDCAN_MODE_NORMAL;
+  hfdcan1.Init.AutoRetransmission = DISABLE;
+  hfdcan1.Init.TransmitPause = DISABLE;
+  hfdcan1.Init.ProtocolException = DISABLE;
+  hfdcan1.Init.NominalPrescaler = 40;
+  hfdcan1.Init.NominalSyncJumpWidth = 1;
+  hfdcan1.Init.NominalTimeSeg1 = 13;
+  hfdcan1.Init.NominalTimeSeg2 = 2;
+  hfdcan1.Init.DataPrescaler = 1;
+  hfdcan1.Init.DataSyncJumpWidth = 1;
+  hfdcan1.Init.DataTimeSeg1 = 1;
+  hfdcan1.Init.DataTimeSeg2 = 1;
+  hfdcan1.Init.StdFiltersNbr = 0;
+  hfdcan1.Init.ExtFiltersNbr = 0;
+  hfdcan1.Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
+  if (HAL_FDCAN_Init(&hfdcan1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN FDCAN1_Init 2 */
+
+  /* USER CODE END FDCAN1_Init 2 */
+
+}
+
+/**
+  * @brief LPUART1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_LPUART1_UART_Init(void)
+{
+
+  /* USER CODE BEGIN LPUART1_Init 0 */
+
+  /* USER CODE END LPUART1_Init 0 */
+
+  /* USER CODE BEGIN LPUART1_Init 1 */
+
+  /* USER CODE END LPUART1_Init 1 */
+  hlpuart1.Instance = LPUART1;
+  hlpuart1.Init.BaudRate = 115200;
+  hlpuart1.Init.WordLength = UART_WORDLENGTH_8B;
+  hlpuart1.Init.StopBits = UART_STOPBITS_1;
+  hlpuart1.Init.Parity = UART_PARITY_NONE;
+  hlpuart1.Init.Mode = UART_MODE_TX_RX;
+  hlpuart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  hlpuart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  hlpuart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_UART_Init(&hlpuart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetTxFifoThreshold(&hlpuart1, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetRxFifoThreshold(&hlpuart1, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_DisableFifoMode(&hlpuart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN LPUART1_Init 2 */
+
+  /* USER CODE END LPUART1_Init 2 */
+
+}
+
+/**
+  * @brief RTC Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_RTC_Init(void)
+{
+
+  /* USER CODE BEGIN RTC_Init 0 */
+
+  /* USER CODE END RTC_Init 0 */
+
+  RTC_TimeTypeDef sTime = {0};
+  RTC_DateTypeDef sDate = {0};
+
+  /* USER CODE BEGIN RTC_Init 1 */
+
+  /* USER CODE END RTC_Init 1 */
+  /** Initialize RTC Only 
+  */
+  hrtc.Instance = RTC;
+  hrtc.Init.HourFormat = RTC_HOURFORMAT_24;
+  hrtc.Init.AsynchPrediv = 127;
+  hrtc.Init.SynchPrediv = 255;
+  hrtc.Init.OutPut = RTC_OUTPUT_DISABLE;
+  hrtc.Init.OutPutRemap = RTC_OUTPUT_REMAP_NONE;
+  hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
+  hrtc.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
+  hrtc.Init.OutPutPullUp = RTC_OUTPUT_PULLUP_NONE;
+  if (HAL_RTC_Init(&hrtc) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /* USER CODE BEGIN Check_RTC_BKUP */
+    
+  /* USER CODE END Check_RTC_BKUP */
+
+  /** Initialize RTC and set the Time and Date 
+  */
+  sTime.Hours = 0x0;
+  sTime.Minutes = 0x0;
+  sTime.Seconds = 0x0;
+  sTime.SubSeconds = 0x0;
+  sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+  sTime.StoreOperation = RTC_STOREOPERATION_RESET;
+  if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BCD) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sDate.WeekDay = RTC_WEEKDAY_MONDAY;
+  sDate.Month = RTC_MONTH_JANUARY;
+  sDate.Date = 0x1;
+  sDate.Year = 0x0;
+
+  if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BCD) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN RTC_Init 2 */
+
+  /* USER CODE END RTC_Init 2 */
+
+}
+
+/**
+  * @brief SPI2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SPI2_Init(void)
+{
+
+  /* USER CODE BEGIN SPI2_Init 0 */
+
+  /* USER CODE END SPI2_Init 0 */
+
+  /* USER CODE BEGIN SPI2_Init 1 */
+
+  /* USER CODE END SPI2_Init 1 */
+  /* SPI2 parameter configuration*/
+  hspi2.Instance = SPI2;
+  hspi2.Init.Mode = SPI_MODE_MASTER;
+  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi2.Init.CLKPolarity = SPI_POLARITY_HIGH;
+  hspi2.Init.CLKPhase = SPI_PHASE_2EDGE;
+  hspi2.Init.NSS = SPI_NSS_SOFT;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi2.Init.CRCPolynomial = 7;
+  hspi2.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
+  hspi2.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
+  if (HAL_SPI_Init(&hspi2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN SPI2_Init 2 */
+
+  /* USER CODE END SPI2_Init 2 */
+
+}
+
+/**
+  * @brief TIM17 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM17_Init(void)
+{
+
+  /* USER CODE BEGIN TIM17_Init 0 */
+
+  /* USER CODE END TIM17_Init 0 */
+
+  /* USER CODE BEGIN TIM17_Init 1 */
+
+  /* USER CODE END TIM17_Init 1 */
+  htim17.Instance = TIM17;
+  htim17.Init.Prescaler = 63999;
+  htim17.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim17.Init.Period = 100;
+  htim17.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim17.Init.RepetitionCounter = 0;
+  htim17.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  if (HAL_TIM_Base_Init(&htim17) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM17_Init 2 */
+
+  /* USER CODE END TIM17_Init 2 */
+
+}
+
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_GPIO_Init(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOF_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : B1_Pin */
+  GPIO_InitStruct.Pin = B1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PA5 */
+  GPIO_InitStruct.Pin = GPIO_PIN_5;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
 }
 
 /* USER CODE BEGIN 4 */
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef*hcan, uint32_t RxFifo0ITs){
 	if(HAL_FDCAN_GetRxMessage(&hfdcan1,FDCAN_RX_FIFO0,&RxHeader,rxData.Data8u) != HAL_OK){
-		/* Transmission request Error */
-		Error_Handler();
+		 if(RxHeader.Identifier<100){
+		        Dati.ID=(uint8_t)RxHeader.Identifier;
+		        Dati.Timer=RxData[0]+RxData[1]*256+RxData[2]*256*256+RxData[3]*256*256*256;
+		        Dati.Gir_x=RxData[4]+RxData[5]*256;
+		        Dati.Gir_y=RxData[6]+RxData[7]*256;
+		    }
+		    else{
+		        Dati.ID=(uint8_t)RxHeader.Identifier&0x0FFFFFFF;
+		        Dati.Acc_x=RxData[0]+RxData[1]*256;
+		        Dati.Acc_y=RxData[2]+RxData[3]*256;
+		        Dati.Acc_z=RxData[4]+RxData[5]*256;
+		        Dati.T_b=RxData[6]+RxData[7]*256;
+		    }
 	}
-	ID = RxHeader.Identifier;
-	readSigmaData();
-    if(flag == 1){
-    	scrivi();
-    }
-
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
 }
-
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-    if (htim->Instance==TIM17) //check if the interrupt comes from TIM2
+{FRESULT res;
+    if (htim->Instance==TIM17) //check if the interrupt comes from TIM17
         {
+    	if(HAL_GPIO_ReadPin(B1_GPIO_Port,B1_Pin)==GPIO_PIN_SET){
+
+    		res = f_close(&writeFile);
+    		HAL_TIM_Base_Stop_IT(&htim17);
 
 
+
+    	}
+    	else{
+
+    		int r =f_printf(&writeFile,"%d,%d,%d,%d,%d,%d,%d,%d\n",Dati.Timer,Dati.ID,Dati.Acc_x,Dati.Acc_y,Dati.Acc_z,Dati.Gir_x,Dati.Gir_y,Dati.T_b);
+
+    	}
         }
-    if (htim->Instance==TIM16) //check if the interrupt comes from TIM2
-            {
-        	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-        	leggi();
-        	scrivi();
-        	if(HAL_GPIO_ReadPin(B1_GPIO_Port,B1_Pin)==GPIO_PIN_SET)
-        	{
-        		HAL_Delay(10000);
-        	}
-            }
+
 }
 
-void readSigmaData(void){
-	switch(ID){
-	case MS:
-			ms.MotorSpeed			= rxData.Data16u[0];
-			ms.MotorCurrent			= rxData.Data16[1];
-			ms.MotorVoltage			= rxData.Data8u[4];
-			ms.BatteryVoltage		= rxData.Data8u[5];
-			ms.BatteryCurrent		= rxData.Data16[4];
-	break;
-	case DS:
-			ds.ActualTorque			= rxData.Data16[0];
-			ds.ActualSpeed			= rxData.Data16[1];
-			ds.DriveStatusIndicator	= rxData.Data8u[4] & 0x0F;
-			ds.SpeedLimitIndicator	= rxData.Data8u[4] >> 4;
-			ds.TorqueLimitIndicator	= rxData.Data8u[5] & 0x0F;
-			ds.MotorLimitIndicator	= rxData.Data8u[5] >> 4;
-			ds.FaultCode			= rxData.Data8u[6];
-			ds.Code					= rxData.Data8u[7];
-	break;
-	case CS:
-			cs.ControllerTemperature= rxData.Data8u[0];
-			cs.MotorTemperature		= rxData.Data8u[1];
-			cs.BDI					= rxData.Data8u[2];
-			cs.FaultSubCode			= rxData.Data8u[3]<<8 | rxData.Data8u[4];
-	break;
-	}
-}
+
 
 void Success_Handler(void)
 {
@@ -467,53 +710,44 @@ void Success_Handler(void)
   {
   }
 }
-uint32_t chartotime(char* buff,uint8_t off, uint8_t leng ){
-	char str[8];
-	for(int i=off;i<leng+off;i++){
-    str[i]=buff[i];
-	}
-	return (uint32_t)atoi(str);
+const char* getfield(char* line, int32_t num)
+{
+    const char* tok;
+    for (tok = strtok(line, ",");
+            tok && *tok;
+            tok = strtok(NULL, "\n"))
+    {
+        if (!--num)
+            return tok;
+    }
+    return NULL;
 }
-int32_t chartocurr(char* buff,uint8_t off, uint8_t leng ){
-	char str[8];
-	for(int i=0;i<leng;i++){
-    str[i]=buff[i+off];
-	}
-	return (int32_t)atoi(str);
-}
-uint32_t PuntaeSepara(char* buff){
-	uint8_t h;
-	uint8_t e;
-	for(h=0;h<64;h++){
-		if(readBuff[h]==','){
-			time=chartotime(readBuff,0,h);
-			break;
+FRESULT leggi(void){
+    char buf[N];
+    FRESULT res;
+	FIL readFile;
+	uint8_t path[] = "COPPIA.TXT";
+	uint8_t contatore=0;
+	res = f_open(&readFile, &path, FA_READ);
+	while(f_gets((char*)buf, sizeof(buf), &readFile))
+		{
+		HAL_Delay(1);
+		char* tmp = strdup(buf);
+		time=(uint32_t)atoi(getfield(tmp, 1));
+		free(tmp);
+		tmp = strdup(buf);
+		copp=(int32_t)atoi(getfield(tmp, 2));
+		free(tmp);
+		for(int i=0;i<N;i++){
+			buf[i]=0;
 		}
-	}
-	for(e=h;e<64;e++){
-		if(readBuff[e]==0xd&&readBuff[e+1]==0xa){
-			curr=chartocurr(readBuff,h+1,e-h);
-			break;
 		}
-	}
-	return (uint32_t)(e+2);//aggiungo i due caratteri di terminazione
-}
-FRESULT leggi(){
-	FRESULT res;
-	FIL readFile;       /* File  object for USER */
-	   /* File system object for USER logical drive */
-	//FIL USERFile;     /* File  object for USER */
-	char USERPath[4];   /* USER logical drive path */
-	uint8_t bytesWrote;
-	uint8_t path1[] = "current.txt";
-	res = f_open(&readFile, &path1, FA_READ);
-	f_lseek(&readFile, indice);
-	res = f_read(&readFile,readBuff, 34, &br);
-	indice =indice+ PuntaeSepara(readBuff);
-	res = f_close(&readFile);
-	return res;
+	res=f_close(&readFile);
 
+
+	return res;
 }
+
 FRESULT scrivi(){
 	FRESULT res;
 	FIL writeFile;       /* File  object for USER */
@@ -523,20 +757,21 @@ FRESULT scrivi(){
 	uint8_t bytesWrote;
 	uint8_t path1[] = "STM32.TXT";
 	//res1 = f_mount(&USERFatFs, (TCHAR const*)USERPath, 0);
-	res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
-	res = f_close(&writeFile);
+
 	res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
 	if(res==FR_OK) {
-		f_lseek(&writeFile, indox);
+		f_lseek(&writeFile,indice);
 
 		//res1 = f_write(&writeFile, readBuf, size, &bytesWrote);}
-		HAL_RTC_GetTime(&hrtc, &stimeststuctureget, RTC_FORMAT_BIN);
+		/*HAL_RTC_GetTime(&hrtc, &stimeststuctureget, RTC_FORMAT_BIN);
 		HAL_RTC_GetDate(&hrtc, &Data, RTC_FORMAT_BIN);
 		Time[0] = stimeststuctureget.Hours;
 		Time[1] = stimeststuctureget.Minutes;
 		Time[2] = stimeststuctureget.Seconds;
+		Time[3] = stimeststuctureget.SecondFraction;
+		Time[4] = stimeststuctureget.SubSeconds;*/
 
-		indox=indox+f_printf(&writeFile,"%d:%d.%d,%d,%d\n",Time[0],Time[1],Time[2],curr,cs.MotorTemperature);}
+		indice=indice+f_printf(&writeFile,"%d,%d,%d,%d,%d,%d,%d,%d\n",Dati.Timer,Dati.ID,Dati.Acc_x,Dati.Acc_y,Dati.Acc_z,Dati.Gir_x,Dati.Gir_y,Dati.T_b);}
 		res = f_close(&writeFile);
 
 	return res;

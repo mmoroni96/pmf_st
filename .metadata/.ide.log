@@ -3202,3 +3202,605 @@
 2020-02-17 00:24:09,713 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] 
 2020-02-17 00:24:11,704 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] [Fatal Error] :196:2: The content of elements must consist of well-formed character data or markup.
 2020-02-17 00:24:11,704 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] 
+2020-02-17 00:39:12,760 [INFO] ApplicationProperties:181 - Using Application install path: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511
+2020-02-17 00:39:12,768 [INFO] DbMcusXml:69 - Set database path to: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511\\db\/mcu/
+2020-02-17 00:39:12,772 [INFO] DbBoardsPdsc:54 - Set plugin database path to: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511\\db\/plugins/boardmanager/
+2020-02-17 00:39:12,772 [INFO] DbMcus:264 - Set plugin images path to: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511\\db\/plugins/mcufinder/images/
+2020-02-17 00:39:12,772 [INFO] DbBoards:232 - Set plugin images path to: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511\\db\/plugins/mcufinder/images/
+2020-02-17 00:39:12,772 [INFO] APIGFXSelector:72 - Set database path to: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511\\db\/plugins/mcufinder/mcu/
+2020-02-17 00:39:12,781 [INFO] DbMcusAds:72 - Set database path to: C:\Users\mmoro\.stmcufinder\plugins\mcufinder//mcu/
+2020-02-17 00:39:12,781 [INFO] DbMcusDocs:92 - Set database path to: C:\Users\mmoro\.stmcufinder\plugins\mcufinder//mcu/
+2020-02-17 00:39:12,781 [INFO] DbMcusJson:59 - Set database path to: C:\Users\mmoro\.stmcufinder\plugins\mcufinder//mcu/
+2020-02-17 00:39:12,781 [INFO] DbBoardsDocs:84 - Set database path to: C:\Users\mmoro\.stmcufinder\plugins\mcufinder//mcu/
+2020-02-17 00:39:12,785 [INFO] DbBoardsJson:51 - Set database path to: C:\Users\mmoro\.stmcufinder\plugins\mcufinder//mcu/
+2020-02-17 00:39:13,795 [INFO] CrossReferenceDbSqlite:197 - Set database path to: C:\Users\mmoro\.stmcufinder\plugins\mcufinder//mcu/cs/
+2020-02-17 00:39:13,878 [INFO] RulesReader:52 - Compatibility file has been processed (205 Rules)
+2020-02-17 00:39:13,963 [INFO] MicroXplorer:570 - Detected Java Version = 1.8.0_202
+2020-02-17 00:39:13,963 [INFO] DbMcusXml:69 - Set database path to: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511\\db\/mcu/
+2020-02-17 00:39:13,963 [INFO] DbBoardsPdsc:54 - Set plugin database path to: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511\\db\/plugins/boardmanager/
+2020-02-17 00:39:13,963 [INFO] DbMcus:264 - Set plugin images path to: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511\\db\/plugins/mcufinder/images/
+2020-02-17 00:39:13,963 [INFO] DbBoards:232 - Set plugin images path to: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511\\db\/plugins/mcufinder/images/
+2020-02-17 00:39:13,963 [INFO] APIGFXSelector:72 - Set database path to: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511\\db\/plugins/mcufinder/mcu/
+2020-02-17 00:39:13,963 [WARN] DbFile:31 - Overriding database path with different value: C:\Users\mmoro\.stmcufinder\plugins\mcufinder/ => C:\Users\mmoro\.stmcufinder\plugins\mcufinder
+2020-02-17 00:39:13,963 [INFO] DbMcusAds:72 - Set database path to: C:\Users\mmoro\.stmcufinder\plugins\mcufinder//mcu/
+2020-02-17 00:39:13,963 [WARN] DbFile:31 - Overriding database path with different value: C:\Users\mmoro\.stmcufinder\plugins\mcufinder/ => C:\Users\mmoro\.stmcufinder\plugins\mcufinder
+2020-02-17 00:39:13,967 [INFO] DbMcusDocs:92 - Set database path to: C:\Users\mmoro\.stmcufinder\plugins\mcufinder//mcu/
+2020-02-17 00:39:13,967 [WARN] DbFile:31 - Overriding database path with different value: C:\Users\mmoro\.stmcufinder\plugins\mcufinder/ => C:\Users\mmoro\.stmcufinder\plugins\mcufinder
+2020-02-17 00:39:13,967 [INFO] DbMcusJson:59 - Set database path to: C:\Users\mmoro\.stmcufinder\plugins\mcufinder//mcu/
+2020-02-17 00:39:13,967 [WARN] DbFile:31 - Overriding database path with different value: C:\Users\mmoro\.stmcufinder\plugins\mcufinder/ => C:\Users\mmoro\.stmcufinder\plugins\mcufinder
+2020-02-17 00:39:13,967 [INFO] DbBoardsDocs:84 - Set database path to: C:\Users\mmoro\.stmcufinder\plugins\mcufinder//mcu/
+2020-02-17 00:39:13,967 [WARN] DbFile:31 - Overriding database path with different value: C:\Users\mmoro\.stmcufinder\plugins\mcufinder/ => C:\Users\mmoro\.stmcufinder\plugins\mcufinder
+2020-02-17 00:39:13,967 [INFO] DbBoardsJson:51 - Set database path to: C:\Users\mmoro\.stmcufinder\plugins\mcufinder//mcu/
+2020-02-17 00:39:13,967 [WARN] DbFile:31 - Overriding database path with different value: C:\Users\mmoro\.stmcufinder\plugins\mcufinder/ => C:\Users\mmoro\.stmcufinder\plugins\mcufinder
+2020-02-17 00:39:13,967 [WARN] DbFile:31 - Overriding database path with different value: C:\Users\mmoro\.stmcufinder\plugins\mcufinder/ => C:\Users\mmoro\.stmcufinder\plugins\mcufinder
+2020-02-17 00:39:14,793 [INFO] CrossReferenceDbSqlite:197 - Set database path to: C:\Users\mmoro\.stmcufinder\plugins\mcufinder//mcu/cs/
+2020-02-17 00:39:14,861 [INFO] MainPanel:180 - HeapMemory: 447741952
+2020-02-17 00:39:14,913 [INFO] DbMcusXml:69 - Set database path to: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511\\db\/mcu/
+2020-02-17 00:39:14,913 [INFO] DbBoardsPdsc:54 - Set plugin database path to: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511\\db\/plugins/boardmanager/
+2020-02-17 00:39:14,913 [INFO] DbMcus:264 - Set plugin images path to: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511\\db\/plugins/mcufinder/images/
+2020-02-17 00:39:14,913 [INFO] DbBoards:232 - Set plugin images path to: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511\\db\/plugins/mcufinder/images/
+2020-02-17 00:39:14,913 [INFO] APIGFXSelector:72 - Set database path to: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511\\db\/plugins/mcufinder/mcu/
+2020-02-17 00:39:14,913 [WARN] DbFile:31 - Overriding database path with different value: C:\Users\mmoro\.stmcufinder\plugins\mcufinder/ => C:\Users\mmoro\.stmcufinder\plugins\mcufinder
+2020-02-17 00:39:14,913 [INFO] DbMcusAds:72 - Set database path to: C:\Users\mmoro\.stmcufinder\plugins\mcufinder//mcu/
+2020-02-17 00:39:14,913 [WARN] DbFile:31 - Overriding database path with different value: C:\Users\mmoro\.stmcufinder\plugins\mcufinder/ => C:\Users\mmoro\.stmcufinder\plugins\mcufinder
+2020-02-17 00:39:14,913 [INFO] DbMcusDocs:92 - Set database path to: C:\Users\mmoro\.stmcufinder\plugins\mcufinder//mcu/
+2020-02-17 00:39:14,913 [WARN] DbFile:31 - Overriding database path with different value: C:\Users\mmoro\.stmcufinder\plugins\mcufinder/ => C:\Users\mmoro\.stmcufinder\plugins\mcufinder
+2020-02-17 00:39:14,913 [INFO] DbMcusJson:59 - Set database path to: C:\Users\mmoro\.stmcufinder\plugins\mcufinder//mcu/
+2020-02-17 00:39:14,913 [WARN] DbFile:31 - Overriding database path with different value: C:\Users\mmoro\.stmcufinder\plugins\mcufinder/ => C:\Users\mmoro\.stmcufinder\plugins\mcufinder
+2020-02-17 00:39:14,913 [INFO] DbBoardsDocs:84 - Set database path to: C:\Users\mmoro\.stmcufinder\plugins\mcufinder//mcu/
+2020-02-17 00:39:14,913 [WARN] DbFile:31 - Overriding database path with different value: C:\Users\mmoro\.stmcufinder\plugins\mcufinder/ => C:\Users\mmoro\.stmcufinder\plugins\mcufinder
+2020-02-17 00:39:14,913 [INFO] DbBoardsJson:51 - Set database path to: C:\Users\mmoro\.stmcufinder\plugins\mcufinder//mcu/
+2020-02-17 00:39:14,913 [WARN] DbFile:31 - Overriding database path with different value: C:\Users\mmoro\.stmcufinder\plugins\mcufinder/ => C:\Users\mmoro\.stmcufinder\plugins\mcufinder
+2020-02-17 00:39:14,913 [WARN] DbFile:31 - Overriding database path with different value: C:\Users\mmoro\.stmcufinder\plugins\mcufinder/ => C:\Users\mmoro\.stmcufinder\plugins\mcufinder
+2020-02-17 00:39:15,795 [INFO] CrossReferenceDbSqlite:197 - Set database path to: C:\Users\mmoro\.stmcufinder\plugins\mcufinder//mcu/cs/
+2020-02-17 00:39:15,816 [INFO] ApplicationProperties:181 - Using Application install path: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511
+2020-02-17 00:39:15,816 [INFO] PluginManage:178 - Search for loadable plugins [exclusion list=]
+2020-02-17 00:39:15,820 [INFO] PluginManage:292 - Check plugin analytics
+2020-02-17 00:39:15,824 [INFO] PluginManage:342 - Loaded plugin analytics (category:tool,tabindex:-1)
+2020-02-17 00:39:15,824 [INFO] PluginManage:292 - Check plugin clock
+2020-02-17 00:39:15,832 [INFO] PluginManage:342 - Loaded plugin clock (category:base,tabindex:2)
+2020-02-17 00:39:15,832 [INFO] PluginManage:292 - Check plugin ddr
+2020-02-17 00:39:15,832 [INFO] PluginManage:342 - Loaded plugin ddr (category:tool,tabindex:6)
+2020-02-17 00:39:15,832 [INFO] PluginManage:292 - Check plugin filemanager
+2020-02-17 00:39:15,925 [INFO] PluginManage:342 - Loaded plugin filemanager (category:base,tabindex:10)
+2020-02-17 00:39:15,925 [INFO] PluginManage:292 - Check plugin ipmanager
+2020-02-17 00:39:15,933 [INFO] PluginManage:342 - Loaded plugin ipmanager (category:base,tabindex:5)
+2020-02-17 00:39:15,933 [INFO] PluginManage:292 - Check plugin pinoutandconfiguration
+2020-02-17 00:39:15,941 [INFO] PluginManage:342 - Loaded plugin pinoutandconfiguration (category:base,tabindex:1)
+2020-02-17 00:39:15,941 [INFO] PluginManage:292 - Check plugin pinoutconfig
+2020-02-17 00:39:15,960 [INFO] PluginManage:342 - Loaded plugin pinoutconfig (category:base,tabindex:0)
+2020-02-17 00:39:15,960 [INFO] PluginManage:292 - Check plugin power
+2020-02-17 00:39:15,968 [INFO] PluginManage:342 - Loaded plugin power (category:power,tabindex:4)
+2020-02-17 00:39:15,968 [INFO] PluginManage:292 - Check plugin projectmanager
+2020-02-17 00:39:15,980 [INFO] PluginManage:342 - Loaded plugin projectmanager (category:projectmanager,tabindex:3)
+2020-02-17 00:39:15,980 [INFO] PluginManage:292 - Check plugin thirdparty
+2020-02-17 00:39:16,008 [INFO] ThirdPartyDb:295 - Open Third Party DataBase File (C:/Users/mmoro/.stm32cubemx/plugins/thirdparty/db/thirdparties_db.xml) : 12 ms. number of Sw pack : 9
+2020-02-17 00:39:16,024 [INFO] PluginManage:342 - Loaded plugin thirdparty (category:base,tabindex:-1)
+2020-02-17 00:39:16,024 [INFO] PluginManage:292 - Check plugin tools
+2020-02-17 00:39:16,028 [INFO] PluginManage:342 - Loaded plugin tools (category:base,tabindex:7)
+2020-02-17 00:39:16,028 [INFO] PluginManage:292 - Check plugin updater
+2020-02-17 00:39:16,036 [INFO] PluginManage:342 - Loaded plugin updater (category:base,tabindex:12)
+2020-02-17 00:39:16,036 [INFO] PluginManage:265 - PluginManage : Loaded plugins [12]
+2020-02-17 00:39:16,179 [INFO] PinOutPanel:1399 - setPackage(No Configuration,No Configuration)
+2020-02-17 00:39:16,251 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,255 [INFO] PluginManager:200 - loadIPPluginJar : add adc
+2020-02-17 00:39:16,255 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,255 [INFO] PluginManager:200 - loadIPPluginJar : add aes
+2020-02-17 00:39:16,255 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,255 [INFO] PluginManager:200 - loadIPPluginJar : add can
+2020-02-17 00:39:16,259 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,259 [INFO] PluginManager:200 - loadIPPluginJar : add comp
+2020-02-17 00:39:16,259 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,259 [INFO] PluginManager:200 - loadIPPluginJar : add cryp
+2020-02-17 00:39:16,263 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,263 [INFO] PluginManager:200 - loadIPPluginJar : add dfsdm
+2020-02-17 00:39:16,267 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,267 [INFO] PluginManager:200 - loadIPPluginJar : add dma
+2020-02-17 00:39:16,267 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,267 [INFO] PluginManager:200 - loadIPPluginJar : add fatfs
+2020-02-17 00:39:16,271 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,271 [INFO] PluginManager:200 - loadIPPluginJar : add fmc
+2020-02-17 00:39:16,275 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,275 [INFO] PluginManager:200 - loadIPPluginJar : add freertos
+2020-02-17 00:39:16,275 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,275 [INFO] PluginManager:200 - loadIPPluginJar : add genericplugin
+2020-02-17 00:39:16,283 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,283 [INFO] PluginManager:200 - loadIPPluginJar : add gfxmmu
+2020-02-17 00:39:16,283 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,283 [INFO] PluginManager:200 - loadIPPluginJar : add gfxsimulator
+2020-02-17 00:39:16,287 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,291 [INFO] PluginManager:200 - loadIPPluginJar : add gic
+2020-02-17 00:39:16,291 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,291 [INFO] PluginManager:200 - loadIPPluginJar : add gpio
+2020-02-17 00:39:16,295 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,295 [INFO] PluginManager:200 - loadIPPluginJar : add gtzc
+2020-02-17 00:39:16,295 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,295 [INFO] PluginManager:200 - loadIPPluginJar : add hash
+2020-02-17 00:39:16,299 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,299 [INFO] PluginManager:200 - loadIPPluginJar : add i2c
+2020-02-17 00:39:16,299 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,299 [INFO] PluginManager:200 - loadIPPluginJar : add i2s
+2020-02-17 00:39:16,303 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,303 [INFO] PluginManager:200 - loadIPPluginJar : add ipddr
+2020-02-17 00:39:16,303 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,303 [INFO] PluginManager:200 - loadIPPluginJar : add ltdc
+2020-02-17 00:39:16,307 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,307 [INFO] PluginManager:200 - loadIPPluginJar : add mdma
+2020-02-17 00:39:16,307 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,307 [INFO] PluginManager:200 - loadIPPluginJar : add nvic
+2020-02-17 00:39:16,311 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,311 [INFO] PluginManager:200 - loadIPPluginJar : add opamp
+2020-02-17 00:39:16,311 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,311 [INFO] PluginManager:200 - loadIPPluginJar : add pdm2pcm
+2020-02-17 00:39:16,315 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,319 [INFO] PluginManager:200 - loadIPPluginJar : add plateformsettings
+2020-02-17 00:39:16,319 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,319 [INFO] PluginManager:200 - loadIPPluginJar : add quadspi
+2020-02-17 00:39:16,323 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,323 [INFO] PluginManager:200 - loadIPPluginJar : add resmgrutility
+2020-02-17 00:39:16,324 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,324 [INFO] PluginManager:200 - loadIPPluginJar : add sai
+2020-02-17 00:39:16,324 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,324 [INFO] PluginManager:200 - loadIPPluginJar : add spi
+2020-02-17 00:39:16,328 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,328 [INFO] PluginManager:200 - loadIPPluginJar : add stm32_wpan
+2020-02-17 00:39:16,328 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,328 [INFO] PluginManager:200 - loadIPPluginJar : add tim
+2020-02-17 00:39:16,332 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,332 [INFO] PluginManager:200 - loadIPPluginJar : add touchsensing
+2020-02-17 00:39:16,332 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,332 [INFO] PluginManager:200 - loadIPPluginJar : add tracer_emb
+2020-02-17 00:39:16,336 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,336 [INFO] PluginManager:200 - loadIPPluginJar : add ts
+2020-02-17 00:39:16,336 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,336 [INFO] PluginManager:200 - loadIPPluginJar : add tsc
+2020-02-17 00:39:16,336 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,336 [INFO] PluginManager:200 - loadIPPluginJar : add ucpd
+2020-02-17 00:39:16,340 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:16,340 [INFO] PluginManager:200 - loadIPPluginJar : add usart
+2020-02-17 00:39:16,763 [INFO] BoardConnectionPanel:226 - [DDR PANEL] osNameString: Windows
+2020-02-17 00:39:16,882 [INFO] BoardConnectionPanel:3472 - [DDR PANEL] STM32CubeIDE environment
+2020-02-17 00:39:16,882 [INFO] MainDdrPanel:103 - [DDR PANEL] GETTER - cubeProgrammerPath is: null
+2020-02-17 00:39:17,071 [FATAL] Updater:277 - Updater called before beeing initialized
+2020-02-17 00:39:17,251 [FATAL] Updater:277 - Updater called before beeing initialized
+2020-02-17 00:39:17,255 [INFO] PinOutPanel:1399 - setPackage(No Configuration,No Configuration)
+2020-02-17 00:39:17,255 [FATAL] Updater:277 - Updater called before beeing initialized
+2020-02-17 00:39:17,255 [INFO] BoardConnectionPanel:3472 - [DDR PANEL] STM32CubeIDE environment
+2020-02-17 00:39:17,259 [INFO] MainDdrPanel:103 - [DDR PANEL] GETTER - cubeProgrammerPath is: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer.win32_1.1.0.201910081157\tools\bin
+2020-02-17 00:39:17,263 [INFO] ProgrammerExecThread:148 - [ProgrammerAPI] CubeProgrammer command construction: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer.win32_1.1.0.201910081157\tools\bin\STM32_Programmer_CLI.exe -l
+2020-02-17 00:39:17,363 [INFO] MainDdrPanel:93 - [DDR PANEL] SETTER - Set cubeProgrammerPath to: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer.win32_1.1.0.201910081157\tools\bin
+2020-02-17 00:39:17,363 [INFO] Updater:886 - Updater Version found : 5.5.0
+2020-02-17 00:39:17,379 [INFO] ApplicationProperties:181 - Using Application install path: C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511
+2020-02-17 00:39:18,260 [INFO] MainUpdater:2230 - connection check result : 10
+2020-02-17 00:39:18,260 [INFO] MainUpdater:236 - Updater Check For Update Now.
+2020-02-17 00:39:18,260 [INFO] MicroXplorer:420 - Change Database Version : DB.5.0.50
+2020-02-17 00:39:18,292 [INFO] CheckServerUpdateThread:92 - End of CheckServer Thread
+2020-02-17 00:39:18,465 [INFO] MainUpdater:2230 - connection check result : 10
+2020-02-17 00:39:18,545 [INFO] MicroXplorer:390 - Change Database Path : 
+2020-02-17 00:39:18,545 [INFO] MicroXplorer:420 - Change Database Version : DB.5.0.50
+2020-02-17 00:39:18,553 [INFO] PinOutPanel:1399 - setPackage(No Configuration,No Configuration)
+2020-02-17 00:39:18,553 [INFO] UtilMem:74 - Begin LoadConfig() Used Memory: 330423600 Bytes (447741952)
+2020-02-17 00:39:18,557 [INFO] MicroXplorer:390 - Change Database Path : C:/Users/mmoro/.stm32cubemx/databases/DB.5.0.40/db/
+2020-02-17 00:39:18,557 [INFO] MicroXplorer:420 - Change Database Version : DB.5.0.40
+2020-02-17 00:39:18,557 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] *****Project Manager Settings
+2020-02-17 00:39:19,044 [INFO] ThirdPartyDb:261 - Close Third Party DataBase File (C:/Users/mmoro/.stm32cubemx/plugins/thirdparty/db/thirdparties_db.xml)
+2020-02-17 00:39:19,064 [INFO] IntegrityCheckThread:98 - End integrity checks thread
+2020-02-17 00:39:22,806 [INFO] OpenFileManager:274 - Change cursor
+2020-02-17 00:39:24,424 [INFO] ImportTextPane:162 - (OptionalMessage_ERROR) IP (RCC) : Invalid parameter (FamilyName)
+2020-02-17 00:39:24,424 [INFO] ImportTextPane:162 - (OptionalMessage_ERROR) IP (RCC) : Invalid parameter (HSICECFreq_Value)
+2020-02-17 00:39:24,561 [INFO] UtilMem:74 - End LoadConfig() Used Memory: 310536640 Bytes (447741952)
+2020-02-17 00:39:24,565 [INFO] ThirdPartyDb:295 - Open Third Party DataBase File (C:/Users/mmoro/.stm32cubemx/plugins/thirdparty/db/thirdparties_db.xml) : 0 ms. number of Sw pack : 9
+2020-02-17 00:39:24,613 [INFO] ThirdParty:899 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-BLE1 4.4.0
+2020-02-17 00:39:24,613 [INFO] ThirdParty:899 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-MEMS1 7.0.0
+2020-02-17 00:39:24,613 [INFO] ThirdParty:899 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-SUBG2 1.0.0
+2020-02-17 00:39:24,613 [INFO] ThirdParty:899 - CMSIS Pack Vendor :ARM CMSIS 5.6.0
+2020-02-17 00:39:24,613 [INFO] ThirdParty:899 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-GNSS1 4.0.0
+2020-02-17 00:39:24,613 [INFO] ThirdParty:899 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-NFC4 1.5.1
+2020-02-17 00:39:24,613 [INFO] ThirdParty:899 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-BLE2 1.0.0
+2020-02-17 00:39:24,817 [INFO] PinOutPanel:1399 - setPackage(No Configuration,No Configuration)
+2020-02-17 00:39:24,821 [INFO] PinOutPanel:1399 - setPackage(STM32F042C6Ux,UFQFPN48)
+2020-02-17 00:39:25,380 [INFO] UtilMem:74 - Before build in PCC Used Memory: 228259352 Bytes (447741952)
+2020-02-17 00:39:25,670 [INFO] SharedServices:71 - Folder for power plug-in: C:/Users/mmoro/.stm32cubemx/plugins/power
+2020-02-17 00:39:25,670 [INFO] UtilMem:74 - After build in PCC Used Memory: 242939416 Bytes (447741952)
+2020-02-17 00:39:25,690 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,694 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,694 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,694 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,695 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,699 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,699 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,699 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:25,711 [INFO] Can:56 - Can Add PropertyChangeListener com.st.microxplorer.plugins.ip.can.Can@37c6547b
+2020-02-17 00:39:25,739 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] toolchainItems.length=====1
+2020-02-17 00:39:25,818 [INFO] OpenFileManager:294 - Restore cursor
+2020-02-17 00:39:25,818 [INFO] DbMcusXml:107 - Load MCU database from C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511\\db\/mcu/families.xml
+2020-02-17 00:39:25,818 [INFO] DbMcusXml:107 - Load MCU database from C:\ST\STM32CubeIDE_1.2.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_5.5.0.201912201511\\db\/mcu/families.xml
+2020-02-17 00:39:26,595 [INFO] DbMcusJson:87 - JSON generation date=Tue Feb 11 16:02:54 CET 2020 (1581433374)
+2020-02-17 00:39:26,607 [INFO] DbMcusJson:87 - JSON generation date=Tue Feb 11 16:02:54 CET 2020 (1581433374)
+2020-02-17 00:39:27,732 [INFO] DbMcus:192 - Found 1628 MCUs (1588 are supported by CubeMX, 1588 are visible in CubeMX)
+2020-02-17 00:39:27,732 [INFO] DbMcus:192 - Found 1628 MCUs (1588 are supported by CubeMX, 1588 are visible in CubeMX)
+2020-02-17 00:39:27,732 [INFO] ApiDb:158 - Load user favorites file C:\Users\mmoro/.stm32cubemx/favorites.mcus.txt: 0 item(s)
+2020-02-17 00:39:27,732 [INFO] ApiDb:158 - Load user favorites file C:\Users\mmoro/.stm32cubemx/favorites.mcus.txt: 0 item(s)
+2020-02-17 00:39:27,732 [INFO] ApiDb:163 - User favorites MCUs=[]
+2020-02-17 00:39:27,732 [INFO] DbMcus:203 - Set 0 / 0 favorites MCUs
+2020-02-17 00:39:27,732 [INFO] ApiDb:163 - User favorites MCUs=[]
+2020-02-17 00:39:27,732 [INFO] DbMcus:203 - Set 0 / 0 favorites MCUs
+2020-02-17 00:39:27,842 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 418741736 Bytes (716177408)
+2020-02-17 00:39:40,249 [INFO] MainUpdater:2230 - connection check result : 10
+2020-02-17 00:39:40,353 [INFO] I2cTimingTraitement:320 - 0x0000020B
+2020-02-17 00:39:40,357 [INFO] MicroXplorer:390 - Change Database Path : 
+2020-02-17 00:39:40,357 [INFO] MicroXplorer:420 - Change Database Version : DB.5.0.50
+2020-02-17 00:39:40,361 [INFO] PinOutPanel:1399 - setPackage(No Configuration,No Configuration)
+2020-02-17 00:39:40,361 [INFO] UtilMem:74 - Begin LoadConfig() Used Memory: 671105736 Bytes (846200832)
+2020-02-17 00:39:40,365 [INFO] MicroXplorer:390 - Change Database Path : C:/Users/mmoro/.stm32cubemx/databases/DB.5.0.40/db/
+2020-02-17 00:39:40,365 [INFO] MicroXplorer:420 - Change Database Version : DB.5.0.40
+2020-02-17 00:39:40,365 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] *****Project Manager Settings
+2020-02-17 00:39:41,990 [INFO] OpenFileManager:274 - Change cursor
+2020-02-17 00:39:42,006 [INFO] RulesReader:52 - Compatibility file has been processed (179 Rules)
+2020-02-17 00:39:47,630 [WARN] IP:1931 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:47,630 [WARN] IP:1931 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:47,630 [WARN] IP:1931 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:47,630 [WARN] IP:1931 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:47,630 [WARN] IP:1931 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:47,630 [WARN] IP:1931 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:47,630 [WARN] IP:1931 - RxBufferSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:47,630 [WARN] IP:1931 - TxEventsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:47,630 [WARN] IP:1931 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:47,630 [WARN] IP:1931 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:47,630 [WARN] IP:1931 - TxElmtSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:47,630 [INFO] ImportTextPane:162 - (OptionalMessage_ERROR) IP (RCC) : Invalid parameter (FamilyName)
+2020-02-17 00:39:47,630 [INFO] ImportTextPane:162 - (OptionalMessage_ERROR) IP (RCC) : Parameter (USBFreq_Value) has invalid value (42666666.666666664)
+2020-02-17 00:39:48,160 [INFO] UtilMem:74 - End LoadConfig() Used Memory: 392898720 Bytes (892338176)
+2020-02-17 00:39:48,176 [INFO] ThirdParty:899 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-BLE1 4.4.0
+2020-02-17 00:39:48,176 [INFO] ThirdParty:899 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-MEMS1 7.0.0
+2020-02-17 00:39:48,176 [INFO] ThirdParty:899 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-SUBG2 1.0.0
+2020-02-17 00:39:48,176 [INFO] ThirdParty:899 - CMSIS Pack Vendor :ARM CMSIS 5.6.0
+2020-02-17 00:39:48,176 [INFO] ThirdParty:899 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-GNSS1 4.0.0
+2020-02-17 00:39:48,176 [INFO] ThirdParty:899 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-NFC4 1.5.1
+2020-02-17 00:39:48,176 [INFO] ThirdParty:899 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-TOUCHGFX 4.13.0
+2020-02-17 00:39:48,176 [INFO] ThirdParty:899 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AI 5.0.0
+2020-02-17 00:39:48,176 [INFO] ThirdParty:899 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-BLE2 1.0.0
+2020-02-17 00:39:48,376 [INFO] PinOutPanel:1399 - setPackage(No Configuration,No Configuration)
+2020-02-17 00:39:48,376 [INFO] PinOutPanel:1399 - setPackage(STM32G474RETx,LQFP64)
+2020-02-17 00:39:48,591 [INFO] UtilMem:74 - Before build in PCC Used Memory: 525810520 Bytes (892338176)
+2020-02-17 00:39:48,763 [INFO] SharedServices:71 - Folder for power plug-in: C:/Users/mmoro/.stm32cubemx/plugins/power
+2020-02-17 00:39:48,776 [INFO] UtilMem:74 - After build in PCC Used Memory: 556741472 Bytes (892338176)
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,788 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,792 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,792 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,792 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,792 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,792 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,792 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,792 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,792 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,793 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,797 [INFO] IPUIPlugin:65 - create IPUIPlugin
+2020-02-17 00:39:48,825 [INFO] OpenFileManager:294 - Restore cursor
+2020-02-17 00:39:48,842 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 572996440 Bytes (892338176)
+2020-02-17 00:39:48,882 [WARN] IP:1931 - OutPut1 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,882 [WARN] IP:1931 - OutPut2 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,882 [WARN] IP:1931 - OutPut3 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,882 [WARN] IP:1931 - OutPut1 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,882 [WARN] IP:1931 - OutPut2 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,882 [WARN] IP:1931 - OutPut3 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,882 [WARN] IP:1931 - OutPut1 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,882 [WARN] IP:1931 - OutPut2 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,882 [WARN] IP:1931 - OutPut3 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,882 [WARN] IP:1931 - OutPut1 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,882 [WARN] IP:1931 - OutPut2 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,882 [WARN] IP:1931 - OutPut3 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,918 [WARN] IP:1931 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - RxBufferSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - TxEventsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - TxElmtSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - RxBufferSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - TxEventsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:39:48,922 [WARN] IP:1931 - TxElmtSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:43,185 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 361744528 Bytes (892338176)
+2020-02-17 00:40:45,200 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 370133136 Bytes (892338176)
+2020-02-17 00:40:47,729 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 461359248 Bytes (892338176)
+2020-02-17 00:40:48,042 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: SPI
+2020-02-17 00:40:48,042 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: SYS
+2020-02-17 00:40:48,042 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: RCC
+2020-02-17 00:40:48,042 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: LPUART
+2020-02-17 00:40:48,042 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: RTC
+2020-02-17 00:40:48,042 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: NVIC
+2020-02-17 00:40:48,042 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: TIM1_8G4
+2020-02-17 00:40:48,042 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: GPIO
+2020-02-17 00:40:48,042 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: FDCAN
+2020-02-17 00:40:48,042 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: FATFS
+2020-02-17 00:40:48,042 [INFO] CodeGenerator:601 - code generatio: config db path: C:/Users/mmoro/.stm32cubemx/databases/DB.5.0.40/db/
+2020-02-17 00:40:48,058 [WARN] IP:1931 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:48,058 [WARN] IP:1931 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:48,058 [WARN] IP:1931 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:48,058 [WARN] IP:1931 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:48,058 [WARN] IP:1931 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:48,058 [WARN] IP:1931 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:48,058 [WARN] IP:1931 - RxBufferSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:48,058 [WARN] IP:1931 - TxEventsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:48,058 [WARN] IP:1931 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:48,058 [WARN] IP:1931 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:48,058 [WARN] IP:1931 - TxElmtSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:48,066 [WARN] IP:1931 - OutPut1 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:48,066 [WARN] IP:1931 - OutPut2 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:48,070 [WARN] IP:1931 - OutPut3 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:48,070 [WARN] IP:1931 - OutPut1 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:48,070 [WARN] IP:1931 - OutPut2 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:48,070 [WARN] IP:1931 - OutPut3 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:48,371 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\MXTmpFiles\license.tmp_save
+2020-02-17 00:40:48,632 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\MXTmpFiles\license.tmp
+2020-02-17 00:40:48,781 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\MXTmpFiles\gpio.tmp_save
+2020-02-17 00:40:48,906 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\MXTmpFiles\gpio.tmp
+2020-02-17 00:40:49,215 [WARN] IP:1931 - OutPut1 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:49,215 [WARN] IP:1931 - OutPut2 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:49,215 [WARN] IP:1931 - OutPut3 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:40:49,387 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line
+2020-02-17 00:40:49,395 [INFO] ApiDbMcu:445 - Load IP Config File for FATFS
+2020-02-17 00:40:49,399 [INFO] Middleware:1107 - No code input for Bsp Dependency
+2020-02-17 00:40:49,427 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\MXTmpFiles\fatfs_HalInit.tmp_save
+2020-02-17 00:40:49,503 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\MXTmpFiles\fatfs_HalInit.tmp
+2020-02-17 00:40:49,543 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\Target\ffconf.h_save
+2020-02-17 00:40:49,658 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\Target\ffconf.h
+2020-02-17 00:40:49,690 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\Target\user_diskio.c_save
+2020-02-17 00:40:49,766 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\Target\user_diskio.c
+2020-02-17 00:40:49,828 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\Target\user_diskio.h_save
+2020-02-17 00:40:49,896 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\Target\user_diskio.h
+2020-02-17 00:40:49,924 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\App\app_fatfs.c_save
+2020-02-17 00:40:50,004 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\App\app_fatfs.c
+2020-02-17 00:40:50,040 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\App\app_fatfs.h_save
+2020-02-17 00:40:50,112 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\App\app_fatfs.h
+2020-02-17 00:40:50,112 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line
+2020-02-17 00:40:50,112 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Debug : prepare data for FDCAN
+2020-02-17 00:40:50,116 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line test
+2020-02-17 00:40:50,116 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line
+2020-02-17 00:40:50,116 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Debug : prepare data for USART
+2020-02-17 00:40:50,116 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line test
+2020-02-17 00:40:50,120 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line
+2020-02-17 00:40:50,120 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Debug : prepare data for RTC
+2020-02-17 00:40:50,120 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line test
+2020-02-17 00:40:50,120 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line
+2020-02-17 00:40:50,124 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Debug : prepare data for SPI
+2020-02-17 00:40:50,124 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line test
+2020-02-17 00:40:50,124 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line
+2020-02-17 00:40:50,128 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Debug : prepare data for TIM
+2020-02-17 00:40:50,128 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line test
+2020-02-17 00:40:50,128 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Debug : prepare data for NVIC
+2020-02-17 00:40:50,128 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line test
+2020-02-17 00:40:50,168 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Src\stm32g4xx_it.c_save
+2020-02-17 00:40:50,314 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Src\stm32g4xx_it.c
+2020-02-17 00:40:50,342 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Inc\stm32g4xx_it.h_save
+2020-02-17 00:40:50,430 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Inc\stm32g4xx_it.h
+2020-02-17 00:40:50,474 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Src\stm32g4xx_hal_msp.c_save
+2020-02-17 00:40:50,604 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Src\stm32g4xx_hal_msp.c
+2020-02-17 00:40:50,668 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\MXTmpFiles\system.tmp_save
+2020-02-17 00:40:50,719 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\MXTmpFiles\system.tmp
+2020-02-17 00:40:50,755 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Inc\stm32g4xx_hal_conf.h_save
+2020-02-17 00:40:50,823 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Inc\stm32g4xx_hal_conf.h
+2020-02-17 00:40:50,843 [WARN] IPConfigManager:2706 - IP not found : TIM
+2020-02-17 00:40:50,843 [WARN] IPConfigManager:2706 - IP not found : gpio
+2020-02-17 00:40:50,847 [WARN] CodeGenerator:2776 - IP not found : TIM
+2020-02-17 00:40:50,847 [WARN] CodeGenerator:2776 - IP not found : gpio
+2020-02-17 00:40:50,895 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Inc\main.h_save
+2020-02-17 00:40:51,015 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Inc\main.h
+2020-02-17 00:40:51,067 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Src\main.c_save
+2020-02-17 00:40:51,246 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Src\main.c
+2020-02-17 00:40:51,746 [INFO] ProjectBuilder:1843 - Time for Copy HAL[2] : 4mS.
+2020-02-17 00:40:51,758 [INFO] ProjectBuilder:2428 - Project Generator version: 3.6.0
+2020-02-17 00:40:51,975 [INFO] ConfigFileManager:1043 - The Die is : DIE469
+2020-02-17 00:40:53,592 [INFO] ProjectBuilder:2595 - Time for Generating toolchain IDE Files: 1834mS.
+2020-02-17 00:40:53,596 [INFO] ProjectBuilder:1703 - Time for Copy CMSIS : 4mS.
+2020-02-17 00:40:53,600 [INFO] ProjectBuilder:1703 - Time for Copy CMSIS : 4mS.
+2020-02-17 00:50:00,138 [WARN] IP:1931 - OutPut1 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:50:00,138 [WARN] IP:1931 - OutPut2 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:50:00,138 [WARN] IP:1931 - OutPut3 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:50:00,138 [WARN] IP:1931 - OutPut1 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:50:00,138 [WARN] IP:1931 - OutPut2 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:50:00,138 [WARN] IP:1931 - OutPut3 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:50:00,158 [WARN] IP:1931 - OutPut1 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:50:00,158 [WARN] IP:1931 - OutPut2 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:50:00,158 [WARN] IP:1931 - OutPut3 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:50:00,158 [WARN] IP:1931 - OutPut1 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:50:00,158 [WARN] IP:1931 - OutPut2 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:50:00,158 [WARN] IP:1931 - OutPut3 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:43,135 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 504295872 Bytes (977272832)
+2020-02-17 00:55:44,154 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 512684480 Bytes (977272832)
+2020-02-17 00:55:44,310 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 523696568 Bytes (977272832)
+2020-02-17 00:55:44,434 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: SPI
+2020-02-17 00:55:44,434 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: SYS
+2020-02-17 00:55:44,434 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: RCC
+2020-02-17 00:55:44,434 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: LPUART
+2020-02-17 00:55:44,434 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: RTC
+2020-02-17 00:55:44,434 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: NVIC
+2020-02-17 00:55:44,434 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: TIM1_8G4
+2020-02-17 00:55:44,434 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: GPIO
+2020-02-17 00:55:44,434 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: FDCAN
+2020-02-17 00:55:44,434 [INFO] BlockDiagram:2751 - set Specific Code input for plugin: FATFS
+2020-02-17 00:55:44,438 [INFO] CodeGenerator:601 - code generatio: config db path: C:/Users/mmoro/.stm32cubemx/databases/DB.5.0.40/db/
+2020-02-17 00:55:44,446 [WARN] IP:1931 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,446 [WARN] IP:1931 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,446 [WARN] IP:1931 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,446 [WARN] IP:1931 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,446 [WARN] IP:1931 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,446 [WARN] IP:1931 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,446 [WARN] IP:1931 - RxBufferSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,446 [WARN] IP:1931 - TxEventsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,446 [WARN] IP:1931 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,446 [WARN] IP:1931 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,446 [WARN] IP:1931 - TxElmtSize not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,455 [WARN] IP:1931 - OutPut1 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,455 [WARN] IP:1931 - OutPut2 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,455 [WARN] IP:1931 - OutPut3 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,455 [WARN] IP:1931 - OutPut1 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,455 [WARN] IP:1931 - OutPut2 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,455 [WARN] IP:1931 - OutPut3 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,608 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\MXTmpFiles\license.tmp_save
+2020-02-17 00:55:44,656 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\MXTmpFiles\license.tmp
+2020-02-17 00:55:44,705 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\MXTmpFiles\gpio.tmp_save
+2020-02-17 00:55:44,761 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\MXTmpFiles\gpio.tmp
+2020-02-17 00:55:44,866 [WARN] IP:1931 - OutPut1 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,866 [WARN] IP:1931 - OutPut2 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,866 [WARN] IP:1931 - OutPut3 not found: check if there is a RefParameter without a condition.
+2020-02-17 00:55:44,983 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line
+2020-02-17 00:55:44,987 [INFO] Middleware:1107 - No code input for Bsp Dependency
+2020-02-17 00:55:45,007 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\MXTmpFiles\fatfs_HalInit.tmp_save
+2020-02-17 00:55:45,055 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\MXTmpFiles\fatfs_HalInit.tmp
+2020-02-17 00:55:45,083 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\Target\ffconf.h_save
+2020-02-17 00:55:45,248 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\Target\ffconf.h
+2020-02-17 00:55:45,272 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\Target\user_diskio.c_save
+2020-02-17 00:55:45,337 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\Target\user_diskio.c
+2020-02-17 00:55:45,365 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\Target\user_diskio.h_save
+2020-02-17 00:55:45,429 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\Target\user_diskio.h
+2020-02-17 00:55:45,459 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\App\app_fatfs.c_save
+2020-02-17 00:55:45,539 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\App\app_fatfs.c
+2020-02-17 00:55:45,567 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\App\app_fatfs.h_save
+2020-02-17 00:55:45,628 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\FATFS\App\app_fatfs.h
+2020-02-17 00:55:45,628 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line
+2020-02-17 00:55:45,628 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Debug : prepare data for FDCAN
+2020-02-17 00:55:45,632 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line test
+2020-02-17 00:55:45,632 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line
+2020-02-17 00:55:45,632 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Debug : prepare data for USART
+2020-02-17 00:55:45,632 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line test
+2020-02-17 00:55:45,632 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line
+2020-02-17 00:55:45,636 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Debug : prepare data for RTC
+2020-02-17 00:55:45,636 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line test
+2020-02-17 00:55:45,636 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line
+2020-02-17 00:55:45,636 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Debug : prepare data for SPI
+2020-02-17 00:55:45,636 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line test
+2020-02-17 00:55:45,640 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line
+2020-02-17 00:55:45,640 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Debug : prepare data for TIM
+2020-02-17 00:55:45,640 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line test
+2020-02-17 00:55:45,640 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Debug : prepare data for NVIC
+2020-02-17 00:55:45,640 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] Command line test
+2020-02-17 00:55:45,668 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Src\stm32g4xx_it.c_save
+2020-02-17 00:55:45,754 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Src\stm32g4xx_it.c
+2020-02-17 00:55:45,790 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Inc\stm32g4xx_it.h_save
+2020-02-17 00:55:45,850 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Inc\stm32g4xx_it.h
+2020-02-17 00:55:45,886 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Src\stm32g4xx_hal_msp.c_save
+2020-02-17 00:55:46,003 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Src\stm32g4xx_hal_msp.c
+2020-02-17 00:55:46,023 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\MXTmpFiles\system.tmp_save
+2020-02-17 00:55:46,069 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\MXTmpFiles\system.tmp
+2020-02-17 00:55:46,105 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Inc\stm32g4xx_hal_conf.h_save
+2020-02-17 00:55:46,229 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Inc\stm32g4xx_hal_conf.h
+2020-02-17 00:55:46,245 [WARN] IPConfigManager:2706 - IP not found : TIM
+2020-02-17 00:55:46,245 [WARN] IPConfigManager:2706 - IP not found : gpio
+2020-02-17 00:55:46,245 [WARN] CodeGenerator:2776 - IP not found : TIM
+2020-02-17 00:55:46,245 [WARN] CodeGenerator:2776 - IP not found : gpio
+2020-02-17 00:55:46,281 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Inc\main.h_save
+2020-02-17 00:55:46,341 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Inc\main.h
+2020-02-17 00:55:46,369 [INFO] CodeEngine:193 - oldGeneratedFile, C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Src\main.c_save
+2020-02-17 00:55:46,538 [INFO] CodeEngine:211 - Generated code: C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\Core\Src\main.c
+2020-02-17 00:55:46,954 [INFO] ProjectBuilder:1843 - Time for Copy HAL[2] : 16mS.
+2020-02-17 00:55:46,954 [INFO] ProjectBuilder:2428 - Project Generator version: 3.6.0
+2020-02-17 00:55:47,371 [INFO] ConfigFileManager:1043 - The Die is : DIE469
+2020-02-17 00:55:48,618 [INFO] ProjectBuilder:2595 - Time for Generating toolchain IDE Files: 1664mS.
+2020-02-17 00:55:48,622 [INFO] ProjectBuilder:1703 - Time for Copy CMSIS : 4mS.
+2020-02-17 00:55:48,626 [INFO] ProjectBuilder:1703 - Time for Copy CMSIS : 0mS.
+2020-02-17 01:43:31,853 [INFO] Activator:176 - 
+
+
+2020-02-17 01:43:31,853 [INFO] Activator:177 - !SESSION log4j initialized

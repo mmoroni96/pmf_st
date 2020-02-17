@@ -44,10 +44,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../FATFS/Target/user_diskio.h ../FATFS/Target/my_sd.h \
  ../FATFS/Target/my_conf.h ../FATFS/Target/stm32g4xx_nucleo_conf.h \
  ../FATFS/Target/stm32g4xx_nucleo_errno.h \
- ../FATFS/Target/stm32g4xx_nucleo_bus.h ../Core/Inc/fdcan.h \
- ../Core/Inc/main.h ../Core/Inc/usart.h ../Core/Inc/rtc.h \
- ../Core/Inc/spi.h ../Core/Inc/tim.h ../Core/Inc/gpio.h \
- ../Core/Inc/Sigma2_Def.h
+ ../FATFS/Target/stm32g4xx_nucleo_bus.h ../Core/Inc/Sigma2_Def.h
 
 ../Core/Inc/main.h:
 
@@ -146,19 +143,5 @@ C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Par
 ../FATFS/Target/stm32g4xx_nucleo_errno.h:
 
 ../FATFS/Target/stm32g4xx_nucleo_bus.h:
-
-../Core/Inc/fdcan.h:
-
-../Core/Inc/main.h:
-
-../Core/Inc/usart.h:
-
-../Core/Inc/rtc.h:
-
-../Core/Inc/spi.h:
-
-../Core/Inc/tim.h:
-
-../Core/Inc/gpio.h:
 
 ../Core/Inc/Sigma2_Def.h:

@@ -1,7 +1,2084 @@
-00:27:53 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+01:10:07 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_OPEN_APPEND);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:273:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:274:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:275:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:276:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:281:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:288:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:691:7: warning: implicit declaration of function 'close'; did you mean 'f_close'? [-Wimplicit-function-declaration]
+       close(&writeFile);
+       ^~~~~
+       f_close
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:712:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:712:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:714:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:727:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:731:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:731:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:726:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:757:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:753:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:752:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+arm-none-eabi-gcc -o "NucleoG474-USB-SD.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NucleoG474-USB-SD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NucleoG474-USB-SD.elf
+ 
+arm-none-eabi-objdump -h -S  NucleoG474-USB-SD.elf  > "NucleoG474-USB-SD.list"
+arm-none-eabi-objcopy  -O binary  NucleoG474-USB-SD.elf  "NucleoG474-USB-SD.bin"
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44264	    144	   5336	  49744	   c250	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+Finished building: NucleoG474-USB-SD.bin
+ 
+Finished building: NucleoG474-USB-SD.list
+ 
+01:11:20 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
 make -j12 all 
 arm-none-eabi-size   NucleoG474-USB-SD.elf 
    text	   data	    bss	    dec	    hex	filename
-  47808	    508	   4292	  52608	   cd80	NucleoG474-USB-SD.elf
+  44264	    144	   5336	  49744	   c250	NucleoG474-USB-SD.elf
 Finished building: default.size.stdout
+ 
+01:12:08 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44264	    144	   5336	  49744	   c250	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+01:13:13 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44264	    144	   5336	  49744	   c250	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+01:15:01 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44264	    144	   5336	  49744	   c250	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+01:16:10 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:273:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:274:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:275:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:276:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:281:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:288:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:691:7: warning: implicit declaration of function 'close'; did you mean 'f_close'? [-Wimplicit-function-declaration]
+       close(&writeFile);
+       ^~~~~
+       f_close
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:712:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:712:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:714:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:727:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:731:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:731:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:726:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:757:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:753:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:752:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+arm-none-eabi-gcc -o "NucleoG474-USB-SD.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NucleoG474-USB-SD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NucleoG474-USB-SD.elf
+ 
+arm-none-eabi-objdump -h -S  NucleoG474-USB-SD.elf  > "NucleoG474-USB-SD.list"
+arm-none-eabi-objcopy  -O binary  NucleoG474-USB-SD.elf  "NucleoG474-USB-SD.bin"
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44264	    144	   5336	  49744	   c250	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+Finished building: NucleoG474-USB-SD.bin
+ 
+Finished building: NucleoG474-USB-SD.list
+ 
+01:17:40 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:250:3: error: expected identifier or '(' before 'while'
+   while (1){
+   ^~~~~
+../Core/Src/main.c:270:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:271:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:272:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:273:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:278:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:285:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:327:1: error: expected identifier or '(' before '}' token
+ }
+ ^
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:688:7: warning: implicit declaration of function 'close'; did you mean 'f_close'? [-Wimplicit-function-declaration]
+       close(&writeFile);
+       ^~~~~
+       f_close
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:709:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:709:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:711:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:724:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:728:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:728:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:723:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:754:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:750:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:749:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+make: *** [Core/Src/subdir.mk:33: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+01:17:58 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:270:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:271:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:272:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:273:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:278:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:285:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:688:7: warning: implicit declaration of function 'close'; did you mean 'f_close'? [-Wimplicit-function-declaration]
+       close(&writeFile);
+       ^~~~~
+       f_close
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:709:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:709:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:711:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:724:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:728:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:728:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:723:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:754:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:750:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:749:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+arm-none-eabi-gcc -o "NucleoG474-USB-SD.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NucleoG474-USB-SD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NucleoG474-USB-SD.elf
+ 
+arm-none-eabi-objdump -h -S  NucleoG474-USB-SD.elf  > "NucleoG474-USB-SD.list"
+arm-none-eabi-objcopy  -O binary  NucleoG474-USB-SD.elf  "NucleoG474-USB-SD.bin"
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44248	    144	   5336	  49728	   c240	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+Finished building: NucleoG474-USB-SD.bin
+ 
+Finished building: NucleoG474-USB-SD.list
+ 
+01:18:22 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44248	    144	   5336	  49728	   c240	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+01:19:17 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44248	    144	   5336	  49728	   c240	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+01:19:34 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44248	    144	   5336	  49728	   c240	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+01:21:04 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:270:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:271:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:272:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:273:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:278:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:285:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:709:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:709:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:711:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:724:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:728:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:728:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:723:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:754:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:750:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:749:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+arm-none-eabi-gcc -o "NucleoG474-USB-SD.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NucleoG474-USB-SD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NucleoG474-USB-SD.elf
+ 
+arm-none-eabi-objdump -h -S  NucleoG474-USB-SD.elf  > "NucleoG474-USB-SD.list"
+arm-none-eabi-objcopy  -O binary  NucleoG474-USB-SD.elf  "NucleoG474-USB-SD.bin"
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44176	     44	   5332	  49552	   c190	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+Finished building: NucleoG474-USB-SD.bin
+ 
+Finished building: NucleoG474-USB-SD.list
+ 
+01:22:12 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44176	     44	   5332	  49552	   c190	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+01:22:51 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44176	     44	   5332	  49552	   c190	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+01:23:05 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44176	     44	   5332	  49552	   c190	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+01:27:25 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:270:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:271:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:272:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:273:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:278:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:285:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:713:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:713:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:715:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:728:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:732:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:732:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:727:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:758:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:754:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:753:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+arm-none-eabi-gcc -o "NucleoG474-USB-SD.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NucleoG474-USB-SD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NucleoG474-USB-SD.elf
+ 
+arm-none-eabi-objdump -h -S  NucleoG474-USB-SD.elf  > "NucleoG474-USB-SD.list"
+arm-none-eabi-objcopy  -O binary  NucleoG474-USB-SD.elf  "NucleoG474-USB-SD.bin"
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44184	     44	   5332	  49560	   c198	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+Finished building: NucleoG474-USB-SD.bin
+ 
+Finished building: NucleoG474-USB-SD.list
+ 
+01:30:17 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:270:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:271:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:272:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:273:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:278:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:285:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:713:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:713:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:715:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:728:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:732:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:732:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:727:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:758:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:754:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:753:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+arm-none-eabi-gcc -o "NucleoG474-USB-SD.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NucleoG474-USB-SD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NucleoG474-USB-SD.elf
+ 
+arm-none-eabi-objdump -h -S  NucleoG474-USB-SD.elf  > "NucleoG474-USB-SD.list"
+arm-none-eabi-objcopy  -O binary  NucleoG474-USB-SD.elf  "NucleoG474-USB-SD.bin"
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44272	     44	   5332	  49648	   c1f0	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+Finished building: NucleoG474-USB-SD.bin
+ 
+Finished building: NucleoG474-USB-SD.list
+ 
+01:31:01 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:270:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:271:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:272:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:273:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:278:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:285:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:695:11: warning: unused variable 'r' [-Wunused-variable]
+       int r =f_printf(&writeFile,"%d,%d,%d,%d,%d,%d,%d,%d\n",Dati.Timer,Dati.ID,Dati.Acc_x,Dati.Acc_y,Dati.Acc_z,Dati.Gir_x,Dati.Gir_y,Dati.T_b);
+           ^
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:713:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:713:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:715:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:728:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:732:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:732:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:727:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:758:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:754:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:753:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+arm-none-eabi-gcc -o "NucleoG474-USB-SD.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NucleoG474-USB-SD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NucleoG474-USB-SD.elf
+ 
+arm-none-eabi-objdump -h -S  NucleoG474-USB-SD.elf  > "NucleoG474-USB-SD.list"
+arm-none-eabi-objcopy  -O binary  NucleoG474-USB-SD.elf  "NucleoG474-USB-SD.bin"
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44272	     44	   5332	  49648	   c1f0	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+Finished building: NucleoG474-USB-SD.bin
+ 
+Finished building: NucleoG474-USB-SD.list
+ 
+01:32:33 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:270:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:271:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:272:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:273:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:278:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:285:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:688:7: error: 'res' undeclared (first use in this function)
+       res = f_close(&writeFile);
+       ^~~
+../Core/Src/main.c:688:7: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:695:11: warning: unused variable 'r' [-Wunused-variable]
+       int r =f_printf(&writeFile,"%d,%d,%d,%d,%d,%d,%d,%d\n",Dati.Timer,Dati.ID,Dati.Acc_x,Dati.Acc_y,Dati.Acc_z,Dati.Gir_x,Dati.Gir_y,Dati.T_b);
+           ^
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:713:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:713:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:715:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:728:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:732:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:732:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:727:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:758:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:754:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:753:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+make: *** [Core/Src/subdir.mk:33: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+01:33:19 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:270:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:271:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:272:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:273:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:278:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:285:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:688:15: warning: variable 'res' set but not used [-Wunused-but-set-variable]
+       FRESULT res;
+               ^~~
+../Core/Src/main.c:696:11: warning: unused variable 'r' [-Wunused-variable]
+       int r =f_printf(&writeFile,"%d,%d,%d,%d,%d,%d,%d,%d\n",Dati.Timer,Dati.ID,Dati.Acc_x,Dati.Acc_y,Dati.Acc_z,Dati.Gir_x,Dati.Gir_y,Dati.T_b);
+           ^
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:714:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:714:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:716:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:729:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:733:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:733:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:728:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:759:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:755:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:754:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+arm-none-eabi-gcc -o "NucleoG474-USB-SD.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NucleoG474-USB-SD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NucleoG474-USB-SD.elf
+ 
+arm-none-eabi-objdump -h -S  NucleoG474-USB-SD.elf  > "NucleoG474-USB-SD.list"
+arm-none-eabi-objcopy  -O binary  NucleoG474-USB-SD.elf  "NucleoG474-USB-SD.bin"
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44280	     44	   5332	  49656	   c1f8	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+Finished building: NucleoG474-USB-SD.bin
+ 
+Finished building: NucleoG474-USB-SD.list
+ 
+01:36:36 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_OPEN_APPEND);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:270:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:271:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:272:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:273:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:278:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:285:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:688:15: warning: variable 'res' set but not used [-Wunused-but-set-variable]
+       FRESULT res;
+               ^~~
+../Core/Src/main.c:696:11: warning: unused variable 'r' [-Wunused-variable]
+       int r =f_printf(&writeFile,"%d,%d,%d,%d,%d,%d,%d,%d\n",Dati.Timer,Dati.ID,Dati.Acc_x,Dati.Acc_y,Dati.Acc_z,Dati.Gir_x,Dati.Gir_y,Dati.T_b);
+           ^
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:714:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:714:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:716:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:729:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:733:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:733:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:728:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:759:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:755:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:754:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+arm-none-eabi-gcc -o "NucleoG474-USB-SD.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NucleoG474-USB-SD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NucleoG474-USB-SD.elf
+ 
+arm-none-eabi-objdump -h -S  NucleoG474-USB-SD.elf  > "NucleoG474-USB-SD.list"
+arm-none-eabi-objcopy  -O binary  NucleoG474-USB-SD.elf  "NucleoG474-USB-SD.bin"
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44280	     44	   5332	  49656	   c1f8	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+Finished building: NucleoG474-USB-SD.bin
+ 
+Finished building: NucleoG474-USB-SD.list
+ 
+01:39:04 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1,FA_OPEN_APPEND | FA_WRITE);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:270:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:271:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:272:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:273:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:278:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:285:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:688:15: warning: variable 'res' set but not used [-Wunused-but-set-variable]
+       FRESULT res;
+               ^~~
+../Core/Src/main.c:696:11: warning: unused variable 'r' [-Wunused-variable]
+       int r =f_printf(&writeFile,"%d,%d,%d,%d,%d,%d,%d,%d\n",Dati.Timer,Dati.ID,Dati.Acc_x,Dati.Acc_y,Dati.Acc_z,Dati.Gir_x,Dati.Gir_y,Dati.T_b);
+           ^
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:714:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:714:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:716:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:729:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:733:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:733:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:728:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:759:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:755:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:754:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+arm-none-eabi-gcc -o "NucleoG474-USB-SD.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NucleoG474-USB-SD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NucleoG474-USB-SD.elf
+ 
+arm-none-eabi-objdump -h -S  NucleoG474-USB-SD.elf  > "NucleoG474-USB-SD.list"
+arm-none-eabi-objcopy  -O binary  NucleoG474-USB-SD.elf  "NucleoG474-USB-SD.bin"
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44280	     44	   5332	  49656	   c1f8	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+Finished building: NucleoG474-USB-SD.bin
+ 
+Finished building: NucleoG474-USB-SD.list
+ 
+01:46:42 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1,FA_OPEN_APPEND | FA_WRITE);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:270:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:271:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:272:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:273:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:278:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:285:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:688:15: warning: variable 'res' set but not used [-Wunused-but-set-variable]
+       FRESULT res;
+               ^~~
+../Core/Src/main.c:696:7: error: 'res' undeclared (first use in this function)
+       res = f_open(&writeFile, &path1,FA_OPEN_APPEND | FA_WRITE);
+       ^~~
+../Core/Src/main.c:696:7: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:696:33: error: 'path1' undeclared (first use in this function)
+       res = f_open(&writeFile, &path1,FA_OPEN_APPEND | FA_WRITE);
+                                 ^~~~~
+../Core/Src/main.c:697:11: warning: unused variable 'r' [-Wunused-variable]
+       int r =f_printf(&writeFile,"%d,%d,%d,%d,%d,%d,%d,%d\n",Dati.Timer,Dati.ID,Dati.Acc_x,Dati.Acc_y,Dati.Acc_z,Dati.Gir_x,Dati.Gir_y,Dati.T_b);
+           ^
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:716:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:716:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:718:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:731:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:735:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:735:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:730:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:761:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:757:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:756:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+make: *** [Core/Src/subdir.mk:33: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+01:47:19 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1,FA_OPEN_APPEND | FA_WRITE);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:270:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:271:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:272:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:273:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:278:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:285:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:688:15: warning: variable 'res' set but not used [-Wunused-but-set-variable]
+       FRESULT res;
+               ^~~
+../Core/Src/main.c:696:7: error: 'res' undeclared (first use in this function)
+       res = f_open(&writeFile, "st32.txt",FA_OPEN_APPEND | FA_WRITE);
+       ^~~
+../Core/Src/main.c:696:7: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:697:11: warning: unused variable 'r' [-Wunused-variable]
+       int r =f_printf(&writeFile,"%d,%d,%d,%d,%d,%d,%d,%d\n",Dati.Timer,Dati.ID,Dati.Acc_x,Dati.Acc_y,Dati.Acc_z,Dati.Gir_x,Dati.Gir_y,Dati.T_b);
+           ^
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:716:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:716:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:718:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:731:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:735:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:735:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:730:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:761:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:757:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:756:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+make: *** [Core/Src/subdir.mk:33: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+01:47:54 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1,FA_OPEN_APPEND | FA_WRITE);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:270:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:271:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:272:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:273:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:278:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:285:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:697:11: warning: unused variable 'r' [-Wunused-variable]
+       int r =f_printf(&writeFile,"%d,%d,%d,%d,%d,%d,%d,%d\n",Dati.Timer,Dati.ID,Dati.Acc_x,Dati.Acc_y,Dati.Acc_z,Dati.Gir_x,Dati.Gir_y,Dati.T_b);
+           ^
+../Core/Src/main.c:684:10: warning: variable 'res' set but not used [-Wunused-but-set-variable]
+ {FRESULT res;
+          ^~~
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:716:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:716:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:718:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:731:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:735:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:735:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:730:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:761:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:757:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:756:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+arm-none-eabi-gcc -o "NucleoG474-USB-SD.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NucleoG474-USB-SD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NucleoG474-USB-SD.elf
+ 
+arm-none-eabi-objdump -h -S  NucleoG474-USB-SD.elf  > "NucleoG474-USB-SD.list"
+arm-none-eabi-objcopy  -O binary  NucleoG474-USB-SD.elf  "NucleoG474-USB-SD.bin"
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44316	     44	   5332	  49692	   c21c	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+Finished building: NucleoG474-USB-SD.bin
+ 
+Finished building: NucleoG474-USB-SD.list
+ 
+01:50:19 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1,FA_OPEN_APPEND | FA_WRITE);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:270:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:271:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:272:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:273:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:278:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:285:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:697:11: warning: unused variable 'r' [-Wunused-variable]
+       int r =f_printf(&writeFile,"%d,%d,%d,%d,%d,%d,%d,%d\n",Dati.Timer,Dati.ID,Dati.Acc_x,Dati.Acc_y,Dati.Acc_z,Dati.Gir_x,Dati.Gir_y,Dati.T_b);
+           ^
+../Core/Src/main.c:684:10: warning: variable 'res' set but not used [-Wunused-but-set-variable]
+ {FRESULT res;
+          ^~~
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:716:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:716:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:718:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:731:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:735:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:735:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:730:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:761:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:757:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:756:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+arm-none-eabi-gcc -o "NucleoG474-USB-SD.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NucleoG474-USB-SD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NucleoG474-USB-SD.elf
+ 
+arm-none-eabi-objdump -h -S  NucleoG474-USB-SD.elf  > "NucleoG474-USB-SD.list"
+arm-none-eabi-objcopy  -O binary  NucleoG474-USB-SD.elf  "NucleoG474-USB-SD.bin"
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44316	     44	   5332	  49692	   c21c	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+Finished building: NucleoG474-USB-SD.bin
+ 
+Finished building: NucleoG474-USB-SD.list
+ 
+01:53:23 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44316	     44	   5332	  49692	   c21c	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+01:53:44 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44316	     44	   5332	  49692	   c21c	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+01:54:12 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44316	     44	   5332	  49692	   c21c	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+01:55:28 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1,FA_OPEN_APPEND | FA_WRITE);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:270:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:271:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:272:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:273:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:278:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:285:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:697:11: warning: unused variable 'r' [-Wunused-variable]
+       int r =f_printf(&writeFile,"%d,%d,%d,%d,%d,%d,%d,%d\n",Dati.Timer,Dati.ID,Dati.Acc_x,Dati.Acc_y,Dati.Acc_z,Dati.Gir_x,Dati.Gir_y,Dati.T_b);
+           ^
+../Core/Src/main.c:684:10: warning: variable 'res' set but not used [-Wunused-but-set-variable]
+ {FRESULT res;
+          ^~~
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:716:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:716:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:718:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:731:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:735:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:735:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:730:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:761:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:757:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:756:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+arm-none-eabi-gcc -o "NucleoG474-USB-SD.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NucleoG474-USB-SD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NucleoG474-USB-SD.elf
+ 
+arm-none-eabi-objdump -h -S  NucleoG474-USB-SD.elf  > "NucleoG474-USB-SD.list"
+arm-none-eabi-objcopy  -O binary  NucleoG474-USB-SD.elf  "NucleoG474-USB-SD.bin"
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44280	     44	   5332	  49656	   c1f8	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+Finished building: NucleoG474-USB-SD.bin
+ 
+Finished building: NucleoG474-USB-SD.list
+ 
+01:56:24 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44280	     44	   5332	  49656	   c1f8	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+01:56:44 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44280	     44	   5332	  49656	   c1f8	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+01:56:48 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44280	     44	   5332	  49656	   c1f8	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+01:59:08 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1,FA_OPEN_APPEND | FA_WRITE);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:270:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:271:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:272:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:273:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:278:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:285:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:697:11: warning: unused variable 'r' [-Wunused-variable]
+       int r =f_printf(&writeFile,"%d,%d,%d,%d,%d,%d,%d,%d\n",Dati.Timer,Dati.ID,Dati.Acc_x,Dati.Acc_y,Dati.Acc_z,Dati.Gir_x,Dati.Gir_y,Dati.T_b);
+           ^
+../Core/Src/main.c:684:10: warning: variable 'res' set but not used [-Wunused-but-set-variable]
+ {FRESULT res;
+          ^~~
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:716:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:716:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:718:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:731:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:735:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:735:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:730:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:761:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:757:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:756:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+arm-none-eabi-gcc -o "NucleoG474-USB-SD.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NucleoG474-USB-SD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NucleoG474-USB-SD.elf
+ 
+arm-none-eabi-objdump -h -S  NucleoG474-USB-SD.elf  > "NucleoG474-USB-SD.list"
+arm-none-eabi-objcopy  -O binary  NucleoG474-USB-SD.elf  "NucleoG474-USB-SD.bin"
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44280	     44	   5332	  49656	   c1f8	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+Finished building: NucleoG474-USB-SD.bin
+ 
+Finished building: NucleoG474-USB-SD.list
+ 
+02:00:06 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+       res = f_open(&writeFile, &path1,FA_OPEN_APPEND | FA_WRITE);
+                                ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:270:4: warning: "/*" within comment [-Wcomment]
+   }/*
+     
+../Core/Src/main.c:271:37: warning: "/*" within comment [-Wcomment]
+   uint32_t byteswritten, bytesread; /* File write/read counts
+                                      
+../Core/Src/main.c:272:79: warning: "/*" within comment [-Wcomment]
+   uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+                                                                                
+../Core/Src/main.c:273:25: warning: "/*" within comment [-Wcomment]
+   /*uint8_t rtext[100]; /* File read buffer */
+                          
+../Core/Src/main.c:278:3: warning: "/*" within comment [-Wcomment]
+   /* Register the file system object to the FatFs module */
+    
+../Core/Src/main.c:285:3: warning: "/*" within comment [-Wcomment]
+   /* Create and Open a new text file object with write access */
+    
+../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+       FRESULT res,res1; /* FatFs function common result code */
+                   ^~~~
+../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
+     uint16_t aug=3456;
+              ^~~
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:697:11: warning: unused variable 'r' [-Wunused-variable]
+       int r =f_printf(&writeFile,"%d,%d,%d,%d,%d,%d,%d,%d\n",Dati.Timer,Dati.ID,Dati.Acc_x,Dati.Acc_y,Dati.Acc_z,Dati.Gir_x,Dati.Gir_y,Dati.T_b);
+           ^
+../Core/Src/main.c:684:10: warning: variable 'res' set but not used [-Wunused-but-set-variable]
+ {FRESULT res;
+          ^~~
+../Core/Src/main.c: In function 'getfield':
+../Core/Src/main.c:716:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
+     for (tok = strtok(line, ",");
+                ^~~~~~
+                strtol
+../Core/Src/main.c:716:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     for (tok = strtok(line, ",");
+              ^
+../Core/Src/main.c:718:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+             tok = strtok(NULL, "\n"))
+                 ^
+../Core/Src/main.c: In function 'leggi':
+../Core/Src/main.c:731:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&readFile, &path, FA_READ);
+                          ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:735:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
+   char* tmp = strdup(buf);
+               ^~~~~~
+../Core/Src/main.c:735:15: warning: incompatible implicit declaration of built-in function 'strdup'
+../Core/Src/main.c:730:10: warning: unused variable 'contatore' [-Wunused-variable]
+  uint8_t contatore=0;
+          ^~~~~~~~~
+../Core/Src/main.c: In function 'scrivi':
+../Core/Src/main.c:761:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+  res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
+                           ^
+In file included from ../FATFS/App/app_fatfs.h:26:0,
+                 from ../Core/Src/main.c:23:
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
+ FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
+         ^~~~~~
+../Core/Src/main.c:757:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+  uint8_t bytesWrote;
+          ^~~~~~~~~~
+../Core/Src/main.c:756:7: warning: unused variable 'USERPath' [-Wunused-variable]
+  char USERPath[4];   /* USER logical drive path */
+       ^~~~~~~~
+arm-none-eabi-gcc -o "NucleoG474-USB-SD.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NucleoG474-USB-SD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NucleoG474-USB-SD.elf
+ 
+arm-none-eabi-objdump -h -S  NucleoG474-USB-SD.elf  > "NucleoG474-USB-SD.list"
+arm-none-eabi-objcopy  -O binary  NucleoG474-USB-SD.elf  "NucleoG474-USB-SD.bin"
+arm-none-eabi-size   NucleoG474-USB-SD.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44280	     44	   5332	  49656	   c1f8	NucleoG474-USB-SD.elf
+Finished building: default.size.stdout
+ 
+Finished building: NucleoG474-USB-SD.bin
+ 
+Finished building: NucleoG474-USB-SD.list
  
