@@ -8,6 +8,7 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="BSP_SD_DMA_Rx_IRQHandler"/>
 			<item value="FF_FS_EXFAT"/>
 			<item value="get_ldnumber"/>
 			<item value="CMD8"/>

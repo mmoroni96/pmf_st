@@ -1,8 +1,39 @@
-02:00:06 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
+23:51:44 **** Incremental Build of configuration Debug for project NucleoG474-USB-SD ****
 make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DDEBUG -c -I../FATFS/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -I../USB_Device/App -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../USB_Device/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/STM32G4xx_HAL_Driver/Inc -I../Core/Inc -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../FATFS/Target -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Drivers/CMSIS/Include -IC:/Users/galla/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:90:1: error: unknown type name 'USBH_HandleTypeDef'; did you mean 'USBD_HandleTypeDef'?
+ USBH_HandleTypeDef hUSB_Host; /* USB Host handle */
+ ^~~~~~~~~~~~~~~~~~
+ USBD_HandleTypeDef
+../Core/Src/main.c:99:30: error: unknown type name 'USBH_HandleTypeDef'; did you mean 'USBD_HandleTypeDef'?
+ static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id);
+                              ^~~~~~~~~~~~~~~~~~
+                              USBD_HandleTypeDef
 ../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:237:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+../Core/Src/main.c:181:25: error: 'USBH_Driver' undeclared (first use in this function); did you mean 'USER_Driver'?
+    if(FATFS_LinkDriver(&USBH_Driver, USBDISKPath) == 0)
+                         ^~~~~~~~~~~
+                         USER_Driver
+../Core/Src/main.c:181:25: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:184:6: warning: implicit declaration of function 'USBH_Init'; did you mean 'HAL_Init'? [-Wimplicit-function-declaration]
+      USBH_Init(&hUSB_Host, USBH_UserProcess, 0);
+      ^~~~~~~~~
+      HAL_Init
+../Core/Src/main.c:184:28: error: 'USBH_UserProcess' undeclared (first use in this function); did you mean 'USBD_UsrLog'?
+      USBH_Init(&hUSB_Host, USBH_UserProcess, 0);
+                            ^~~~~~~~~~~~~~~~
+                            USBD_UsrLog
+../Core/Src/main.c:187:6: warning: implicit declaration of function 'USBH_RegisterClass'; did you mean 'USB_ReadInterrupts'? [-Wimplicit-function-declaration]
+      USBH_RegisterClass(&hUSB_Host, USBH_MSC_CLASS);
+      ^~~~~~~~~~~~~~~~~~
+      USB_ReadInterrupts
+../Core/Src/main.c:187:37: error: 'USBH_MSC_CLASS' undeclared (first use in this function)
+      USBH_RegisterClass(&hUSB_Host, USBH_MSC_CLASS);
+                                     ^~~~~~~~~~~~~~
+../Core/Src/main.c:190:6: warning: implicit declaration of function 'USBH_Start' [-Wimplicit-function-declaration]
+      USBH_Start(&hUSB_Host);
+      ^~~~~~~~~~
+../Core/Src/main.c:233:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
        res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
                                 ^
 In file included from ../FATFS/App/app_fatfs.h:26:0,
@@ -10,7 +41,7 @@ In file included from ../FATFS/App/app_fatfs.h:26:0,
 C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
  FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
          ^~~~~~
-../Core/Src/main.c:239:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+../Core/Src/main.c:235:32: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
        res = f_open(&writeFile, &path1,FA_OPEN_APPEND | FA_WRITE);
                                 ^
 In file included from ../FATFS/App/app_fatfs.h:26:0,
@@ -18,50 +49,54 @@ In file included from ../FATFS/App/app_fatfs.h:26:0,
 C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
  FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
          ^~~~~~
-../Core/Src/main.c:270:4: warning: "/*" within comment [-Wcomment]
+../Core/Src/main.c:266:4: warning: "/*" within comment [-Wcomment]
    }/*
      
-../Core/Src/main.c:271:37: warning: "/*" within comment [-Wcomment]
+../Core/Src/main.c:267:37: warning: "/*" within comment [-Wcomment]
    uint32_t byteswritten, bytesread; /* File write/read counts
                                       
-../Core/Src/main.c:272:79: warning: "/*" within comment [-Wcomment]
+../Core/Src/main.c:268:79: warning: "/*" within comment [-Wcomment]
    uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
                                                                                 
-../Core/Src/main.c:273:25: warning: "/*" within comment [-Wcomment]
+../Core/Src/main.c:269:25: warning: "/*" within comment [-Wcomment]
    /*uint8_t rtext[100]; /* File read buffer */
                           
-../Core/Src/main.c:278:3: warning: "/*" within comment [-Wcomment]
+../Core/Src/main.c:274:3: warning: "/*" within comment [-Wcomment]
    /* Register the file system object to the FatFs module */
     
-../Core/Src/main.c:285:3: warning: "/*" within comment [-Wcomment]
+../Core/Src/main.c:281:3: warning: "/*" within comment [-Wcomment]
    /* Create and Open a new text file object with write access */
     
-../Core/Src/main.c:220:19: warning: unused variable 'res1' [-Wunused-variable]
+../Core/Src/main.c:216:19: warning: unused variable 'res1' [-Wunused-variable]
        FRESULT res,res1; /* FatFs function common result code */
                    ^~~~
-../Core/Src/main.c:203:14: warning: unused variable 'aug' [-Wunused-variable]
-     uint16_t aug=3456;
-              ^~~
+../Core/Src/main.c:390:13: error: invalid storage class for function 'MX_NVIC_Init'
+ static void MX_NVIC_Init(void)
+             ^~~~~~~~~~~~
+../Core/Src/main.c:408:13: error: invalid storage class for function 'MX_LPUART1_UART_Init'
+ static void MX_LPUART1_UART_Init(void)
+             ^~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:454:13: error: invalid storage class for function 'MX_RTC_Init'
+ static void MX_RTC_Init(void)
+             ^~~~~~~~~~~
+../Core/Src/main.c:519:13: error: invalid storage class for function 'MX_SPI2_Init'
+ static void MX_SPI2_Init(void)
+             ^~~~~~~~~~~~
+../Core/Src/main.c:559:13: error: invalid storage class for function 'MX_TIM17_Init'
+ static void MX_TIM17_Init(void)
+             ^~~~~~~~~~~~~
+../Core/Src/main.c:591:13: error: invalid storage class for function 'MX_GPIO_Init'
+ static void MX_GPIO_Init(void)
+             ^~~~~~~~~~~~
 ../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
-../Core/Src/main.c:697:11: warning: unused variable 'r' [-Wunused-variable]
+../Core/Src/main.c:636:11: warning: unused variable 'r' [-Wunused-variable]
        int r =f_printf(&writeFile,"%d,%d,%d,%d,%d,%d,%d,%d\n",Dati.Timer,Dati.ID,Dati.Acc_x,Dati.Acc_y,Dati.Acc_z,Dati.Gir_x,Dati.Gir_y,Dati.T_b);
            ^
-../Core/Src/main.c:684:10: warning: variable 'res' set but not used [-Wunused-but-set-variable]
+../Core/Src/main.c:623:10: warning: variable 'res' set but not used [-Wunused-but-set-variable]
  {FRESULT res;
           ^~~
-../Core/Src/main.c: In function 'getfield':
-../Core/Src/main.c:716:16: warning: implicit declaration of function 'strtok'; did you mean 'strtol'? [-Wimplicit-function-declaration]
-     for (tok = strtok(line, ",");
-                ^~~~~~
-                strtol
-../Core/Src/main.c:716:14: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
-     for (tok = strtok(line, ",");
-              ^
-../Core/Src/main.c:718:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
-             tok = strtok(NULL, "\n"))
-                 ^
 ../Core/Src/main.c: In function 'leggi':
-../Core/Src/main.c:731:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+../Core/Src/main.c:670:26: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
   res = f_open(&readFile, &path, FA_READ);
                           ^
 In file included from ../FATFS/App/app_fatfs.h:26:0,
@@ -69,15 +104,11 @@ In file included from ../FATFS/App/app_fatfs.h:26:0,
 C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[11] {aka unsigned char (*)[11]}'
  FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
          ^~~~~~
-../Core/Src/main.c:735:15: warning: implicit declaration of function 'strdup' [-Wimplicit-function-declaration]
-   char* tmp = strdup(buf);
-               ^~~~~~
-../Core/Src/main.c:735:15: warning: incompatible implicit declaration of built-in function 'strdup'
-../Core/Src/main.c:730:10: warning: unused variable 'contatore' [-Wunused-variable]
+../Core/Src/main.c:669:10: warning: unused variable 'contatore' [-Wunused-variable]
   uint8_t contatore=0;
           ^~~~~~~~~
 ../Core/Src/main.c: In function 'scrivi':
-../Core/Src/main.c:761:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
+../Core/Src/main.c:700:27: warning: passing argument 2 of 'f_open' from incompatible pointer type [-Wincompatible-pointer-types]
   res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
                            ^
 In file included from ../FATFS/App/app_fatfs.h:26:0,
@@ -85,26 +116,94 @@ In file included from ../FATFS/App/app_fatfs.h:26:0,
 C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_G4_V1.1.0/Middlewares/Third_Party/FatFs/src/ff.h:242:9: note: expected 'const TCHAR * {aka const char *}' but argument is of type 'uint8_t (*)[10] {aka unsigned char (*)[10]}'
  FRESULT f_open (FIL* fp, const TCHAR* path, BYTE mode);    /* Open or create a file */
          ^~~~~~
-../Core/Src/main.c:757:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
+../Core/Src/main.c:696:10: warning: unused variable 'bytesWrote' [-Wunused-variable]
   uint8_t bytesWrote;
           ^~~~~~~~~~
-../Core/Src/main.c:756:7: warning: unused variable 'USERPath' [-Wunused-variable]
+../Core/Src/main.c:695:7: warning: unused variable 'USERPath' [-Wunused-variable]
   char USERPath[4];   /* USER logical drive path */
        ^~~~~~~~
-arm-none-eabi-gcc -o "NucleoG474-USB-SD.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\NucleoG474-USB-SD\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NucleoG474-USB-SD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: NucleoG474-USB-SD.elf
- 
-arm-none-eabi-objdump -h -S  NucleoG474-USB-SD.elf  > "NucleoG474-USB-SD.list"
-arm-none-eabi-objcopy  -O binary  NucleoG474-USB-SD.elf  "NucleoG474-USB-SD.bin"
-arm-none-eabi-size   NucleoG474-USB-SD.elf 
-   text	   data	    bss	    dec	    hex	filename
-  44280	     44	   5332	  49656	   c1f8	NucleoG474-USB-SD.elf
-Finished building: default.size.stdout
- 
-Finished building: NucleoG474-USB-SD.bin
- 
-Finished building: NucleoG474-USB-SD.list
- 
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:718:13: error: invalid storage class for function 'MSC_Application'
+ static void MSC_Application(void)
+             ^~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'MSC_Application':
+../Core/Src/main.c:784:15: warning: implicit declaration of function 'BSP_LED_On' [-Wimplicit-function-declaration]
+               BSP_LED_On(LED4);
+               ^~~~~~~~~~
+../Core/Src/main.c:784:26: error: 'LED4' undeclared (first use in this function)
+               BSP_LED_On(LED4);
+                          ^~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:802:30: error: unknown type name 'USBH_HandleTypeDef'; did you mean 'USBD_HandleTypeDef'?
+ static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id)
+                              ^~~~~~~~~~~~~~~~~~
+                              USBD_HandleTypeDef
+../Core/Src/main.c:860:1: error: expected declaration or statement at end of input
+ }
+ ^
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:100:13: warning: 'MSC_Application' declared 'static' but never defined [-Wunused-function]
+ static void MSC_Application(void);
+             ^~~~~~~~~~~~~~~
+../Core/Src/main.c:138:13: warning: 'MX_GPIO_Init' used but never defined
+ static void MX_GPIO_Init(void);
+             ^~~~~~~~~~~~
+../Core/Src/main.c:139:13: warning: 'MX_LPUART1_UART_Init' used but never defined
+ static void MX_LPUART1_UART_Init(void);
+             ^~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:140:13: warning: 'MX_SPI2_Init' used but never defined
+ static void MX_SPI2_Init(void);
+             ^~~~~~~~~~~~
+../Core/Src/main.c:141:13: warning: 'MX_RTC_Init' used but never defined
+ static void MX_RTC_Init(void);
+             ^~~~~~~~~~~
+../Core/Src/main.c:142:13: warning: 'MX_TIM17_Init' used but never defined
+ static void MX_TIM17_Init(void);
+             ^~~~~~~~~~~~~
+../Core/Src/main.c:143:13: warning: 'MX_NVIC_Init' used but never defined
+ static void MX_NVIC_Init(void);
+             ^~~~~~~~~~~~
+../Core/Src/main.c:851:6: warning: 'Error_Handler' defined but not used [-Wunused-function]
+ void Error_Handler(void)
+      ^~~~~~~~~~~~~
+../Core/Src/main.c:718:13: warning: 'MSC_Application' defined but not used [-Wunused-function]
+ static void MSC_Application(void)
+             ^~~~~~~~~~~~~~~
+../Core/Src/main.c:690:9: warning: 'scrivi' defined but not used [-Wunused-function]
+ FRESULT scrivi(){
+         ^~~~~~
+../Core/Src/main.c:664:9: warning: 'leggi' defined but not used [-Wunused-function]
+ FRESULT leggi(void){
+         ^~~~~
+../Core/Src/main.c:645:6: warning: 'Success_Handler' defined but not used [-Wunused-function]
+ void Success_Handler(void)
+      ^~~~~~~~~~~~~~~
+../Core/Src/main.c:622:6: warning: 'HAL_TIM_PeriodElapsedCallback' defined but not used [-Wunused-function]
+ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:591:13: warning: 'MX_GPIO_Init' defined but not used [-Wunused-function]
+ static void MX_GPIO_Init(void)
+             ^~~~~~~~~~~~
+../Core/Src/main.c:559:13: warning: 'MX_TIM17_Init' defined but not used [-Wunused-function]
+ static void MX_TIM17_Init(void)
+             ^~~~~~~~~~~~~
+../Core/Src/main.c:519:13: warning: 'MX_SPI2_Init' defined but not used [-Wunused-function]
+ static void MX_SPI2_Init(void)
+             ^~~~~~~~~~~~
+../Core/Src/main.c:454:13: warning: 'MX_RTC_Init' defined but not used [-Wunused-function]
+ static void MX_RTC_Init(void)
+             ^~~~~~~~~~~
+../Core/Src/main.c:408:13: warning: 'MX_LPUART1_UART_Init' defined but not used [-Wunused-function]
+ static void MX_LPUART1_UART_Init(void)
+             ^~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:390:13: warning: 'MX_NVIC_Init' defined but not used [-Wunused-function]
+ static void MX_NVIC_Init(void)
+             ^~~~~~~~~~~~
+../Core/Src/main.c:329:6: warning: 'SystemClock_Config' defined but not used [-Wunused-function]
+ void SystemClock_Config(void)
+      ^~~~~~~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:33: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
 
-02:00:11 Build Finished. 0 errors, 22 warnings. (took 4s.822ms)
+23:51:46 Build Failed. 16 errors, 40 warnings. (took 1s.906ms)
 

@@ -16,4 +16,10 @@
 		<item key="DIALOG_X_ORIGIN" value="498"/>
 		<item key="DIALOG_Y_ORIGIN" value="60"/>
 	</section>
+	<section name="ImportExportAction">
+		<item key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID" value="com.st.stm32cube.ide.mcu.converters.truestudio.wizard1"/>
+		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
+			<item value="org.eclipse.ui.Basic"/>
+		</list>
+	</section>
 </section>

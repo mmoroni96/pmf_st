@@ -1,0 +1,26 @@
+02:42:22 **** Incremental Build of configuration Debug for project STM32H743ZI_Nucleo ****
+make all 
+arm-none-eabi-gcc "C:/Users/mmoro/OneDrive/Desktop/STM32Cube_FW_H7_V1.7.0/Projects/NUCLEO-H743ZI/Applications/FatFS/FatFS_uSD_Standalone/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DUSE_STM32H7XX_NUCLEO_144_MB1364 -DADAFRUIT_TFT_JOY_SD_ID802 -c -I../../../Inc -I../../../../../../../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../../../../../../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../../../../../../../Drivers/BSP/STM32H7xx_Nucleo -I../../../../../../../../Drivers/BSP/Components/Common -I../../../../../../../../Middlewares/Third_Party/FatFs/src -I../../../../../../../../Drivers/BSP/Adafruit_Shield -I../../../../../../../../Drivers/CMSIS/Include -Os -ffunction-sections -Wall -Wno-strict-aliasing -fstack-usage -MMD -MP -MF"Application/User/main.d" -MT"Application/User/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Application/User/main.o"
+C:/Users/mmoro/OneDrive/Desktop/STM32Cube_FW_H7_V1.7.0/Projects/NUCLEO-H743ZI/Applications/FatFS/FatFS_uSD_Standalone/Src/main.c:281:13: warning: 'CPU_CACHE_Enable' defined but not used [-Wunused-function]
+ static void CPU_CACHE_Enable(void)
+             ^~~~~~~~~~~~~~~~
+C:/Users/mmoro/OneDrive/Desktop/STM32Cube_FW_H7_V1.7.0/Projects/NUCLEO-H743ZI/Applications/FatFS/FatFS_uSD_Standalone/Src/main.c:251:21: warning: 'TFT_ShieldDetect' defined but not used [-Wunused-function]
+ static ShieldStatus TFT_ShieldDetect(void)
+                     ^~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "STM32H743ZI_Nucleo.elf" @"objects.list"   -mcpu=cortex-m7 -T"../STM32H743ZITx_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32H743ZI_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: STM32H743ZI_Nucleo.elf
+ 
+arm-none-eabi-objdump -h -S  STM32H743ZI_Nucleo.elf  > "STM32H743ZI_Nucleo.list"
+Finished building: STM32H743ZI_Nucleo.list
+ 
+arm-none-eabi-objcopy  -O binary  STM32H743ZI_Nucleo.elf  "STM32H743ZI_Nucleo.bin"
+Finished building: STM32H743ZI_Nucleo.bin
+ 
+arm-none-eabi-size   STM32H743ZI_Nucleo.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20452	    128	  51032	  71612	  117bc	STM32H743ZI_Nucleo.elf
+Finished building: default.size.stdout
+ 
+
+02:42:25 Build Finished. 0 errors, 2 warnings. (took 3s.110ms)
+

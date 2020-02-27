@@ -1,0 +1,633 @@
+23:59:33 **** Build of configuration Debug for project SDIO_USB ****
+make -j12 all 
+arm-none-eabi-gcc "../USB_DEVICE/Target/usbd_conf.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"USB_DEVICE/Target/usbd_conf.d" -MT"USB_DEVICE/Target/usbd_conf.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "USB_DEVICE/Target/usbd_conf.o"
+arm-none-eabi-gcc "../USB_DEVICE/App/usb_device.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"USB_DEVICE/App/usb_device.d" -MT"USB_DEVICE/App/usb_device.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "USB_DEVICE/App/usb_device.o"
+arm-none-eabi-gcc "../USB_DEVICE/App/usbd_desc.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"USB_DEVICE/App/usbd_desc.d" -MT"USB_DEVICE/App/usbd_desc.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "USB_DEVICE/App/usbd_desc.o"
+arm-none-eabi-gcc "../USB_DEVICE/App/usbd_storage_if.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"USB_DEVICE/App/usbd_storage_if.d" -MT"USB_DEVICE/App/usbd_storage_if.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "USB_DEVICE/App/usbd_storage_if.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Middlewares/USB_Device_Library/usbd_core.d" -MT"Middlewares/USB_Device_Library/usbd_core.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Middlewares/USB_Device_Library/usbd_core.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Middlewares/USB_Device_Library/usbd_ctlreq.d" -MT"Middlewares/USB_Device_Library/usbd_ctlreq.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Middlewares/USB_Device_Library/usbd_ctlreq.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Middlewares/USB_Device_Library/usbd_ioreq.d" -MT"Middlewares/USB_Device_Library/usbd_ioreq.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Middlewares/USB_Device_Library/usbd_ioreq.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Src/usbd_msc.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Middlewares/USB_Device_Library/usbd_msc.d" -MT"Middlewares/USB_Device_Library/usbd_msc.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Middlewares/USB_Device_Library/usbd_msc.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Src/usbd_msc_bot.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Middlewares/USB_Device_Library/usbd_msc_bot.d" -MT"Middlewares/USB_Device_Library/usbd_msc_bot.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Middlewares/USB_Device_Library/usbd_msc_bot.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Src/usbd_msc_data.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Middlewares/USB_Device_Library/usbd_msc_data.d" -MT"Middlewares/USB_Device_Library/usbd_msc_data.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Middlewares/USB_Device_Library/usbd_msc_data.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Src/usbd_msc_scsi.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Middlewares/USB_Device_Library/usbd_msc_scsi.d" -MT"Middlewares/USB_Device_Library/usbd_msc_scsi.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Middlewares/USB_Device_Library/usbd_msc_scsi.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src/diskio.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Middlewares/FatFs/diskio.d" -MT"Middlewares/FatFs/diskio.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Middlewares/FatFs/diskio.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src/ff.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Middlewares/FatFs/ff.d" -MT"Middlewares/FatFs/ff.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Middlewares/FatFs/ff.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src/ff_gen_drv.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Middlewares/FatFs/ff_gen_drv.d" -MT"Middlewares/FatFs/ff_gen_drv.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Middlewares/FatFs/ff_gen_drv.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src/option/syscall.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Middlewares/FatFs/syscall.d" -MT"Middlewares/FatFs/syscall.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Middlewares/FatFs/syscall.o"
+arm-none-eabi-gcc "../FATFS/Target/bsp_driver_sd.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"FATFS/Target/bsp_driver_sd.d" -MT"FATFS/Target/bsp_driver_sd.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "FATFS/Target/bsp_driver_sd.o"
+arm-none-eabi-gcc "../FATFS/Target/sd_diskio.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"FATFS/Target/sd_diskio.d" -MT"FATFS/Target/sd_diskio.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "FATFS/Target/sd_diskio.o"
+arm-none-eabi-gcc "../FATFS/App/fatfs.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"FATFS/App/fatfs.d" -MT"FATFS/App/fatfs.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "FATFS/App/fatfs.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_cortex.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_cortex.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_cortex.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_dma.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_dma.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_dma.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_dma_ex.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_dma_ex.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_dma_ex.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_eth.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_eth.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_eth.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth_ex.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_eth_ex.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_eth_ex.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_eth_ex.o"
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src/ff.c: In function 'f_setlabel':
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src/ff.c:5032:2: warning: this 'for' clause does not guard... [-Wmisleading-indentation]
+  for (slen = 0; (UINT)label[slen] >= ' '; slen++) ; /* Get name length */
+  ^~~
+C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src/ff.c:5052:2: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'for'
+  { /* On the FAT12/16/32 volume */
+  ^
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_exti.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_exti.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_exti.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_flash.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_flash.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_flash.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_flash_ex.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_flash_ex.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_flash_ex.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_gpio.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_gpio.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_gpio.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_hsem.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_hsem.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_hsem.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_i2c.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_i2c.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_i2c.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_i2c_ex.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_i2c_ex.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_i2c_ex.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_mdma.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_mdma.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_mdma.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pcd.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pcd.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pcd.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd_ex.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pcd_ex.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pcd_ex.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pcd_ex.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pwr.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pwr.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pwr.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pwr_ex.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pwr_ex.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pwr_ex.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_rcc.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_rcc.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_rcc.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_rcc_ex.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_rcc_ex.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_rcc_ex.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_sd.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_sd.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_sd.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_sd_ex.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_sd_ex.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_sd_ex.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_tim.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_tim.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_tim.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_tim_ex.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_tim_ex.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_tim_ex.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_uart.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_uart.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_uart.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_uart_ex.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_uart_ex.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_uart_ex.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_ll_delayblock.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_ll_delayblock.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_ll_delayblock.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_sdmmc.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_ll_sdmmc.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_ll_sdmmc.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_ll_sdmmc.o"
+arm-none-eabi-gcc "C:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usb.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_ll_usb.d" -MT"Drivers/STM32H7xx_HAL_Driver/stm32h7xx_ll_usb.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32H7xx_HAL_Driver/stm32h7xx_ll_usb.o"
+arm-none-eabi-gcc -mcpu=cortex-m7 -g3 -c -x assembler-with-cpp --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32h743zitx.o" "../Core/Startup/startup_stm32h743zitx.s"
+arm-none-eabi-gcc "../Core/Src/bsp_driver_sd.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/bsp_driver_sd.d" -MT"Core/Src/bsp_driver_sd.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/bsp_driver_sd.o"
+arm-none-eabi-gcc "../Core/Src/crc.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/crc.d" -MT"Core/Src/crc.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/crc.o"
+arm-none-eabi-gcc "../Core/Src/cryp.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/cryp.d" -MT"Core/Src/cryp.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/cryp.o"
+arm-none-eabi-gcc "../Core/Src/dma.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/dma.d" -MT"Core/Src/dma.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/dma.o"
+arm-none-eabi-gcc "../Core/Src/fatfs.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/fatfs.d" -MT"Core/Src/fatfs.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/fatfs.o"
+arm-none-eabi-gcc "../Core/Src/fatfs_platform.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/fatfs_platform.d" -MT"Core/Src/fatfs_platform.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/fatfs_platform.o"
+arm-none-eabi-gcc "../Core/Src/fdcan.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/fdcan.d" -MT"Core/Src/fdcan.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/fdcan.o"
+arm-none-eabi-gcc "../Core/Src/file_handling.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/file_handling.d" -MT"Core/Src/file_handling.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/file_handling.o"
+arm-none-eabi-gcc "../Core/Src/gpio.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/gpio.d" -MT"Core/Src/gpio.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/gpio.o"
+arm-none-eabi-gcc "../Core/Src/hash.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/hash.d" -MT"Core/Src/hash.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/hash.o"
+arm-none-eabi-gcc "../Core/Src/i2c.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/i2c.d" -MT"Core/Src/i2c.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/i2c.o"
+../Core/Src/file_handling.c:8:10: fatal error: file_handling.h: No such file or directory
+ #include "file_handling.h"
+          ^~~~~~~~~~~~~~~~~
+compilation terminated.
+arm-none-eabi-gcc "../Core/Src/iwdg.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../FATFS/App -I../USB_DEVICE/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/Third_Party/FatFs/src -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Drivers/STM32H7xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../FATFS/Target -IC:/Users/mmoro/STM32Cube/Repository/STM32Cube_FW_H7_V1.6.0/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/iwdg.d" -MT"Core/Src/iwdg.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/iwdg.o"
+make: *** [Core/Src/subdir.mk:122: Core/Src/file_handling.o] Error 1
+make: *** Waiting for unfinished jobs....
+In file included from ../Core/Src/crc.c:21:0:
+../Core/Inc/crc.h:33:8: error: unknown type name 'CRC_HandleTypeDef'
+ extern CRC_HandleTypeDef hcrc;
+        ^~~~~~~~~~~~~~~~~
+In file included from ../Core/Src/cryp.c:21:0:
+../Core/Inc/cryp.h:33:8: error: unknown type name 'CRYP_HandleTypeDef'
+ extern CRYP_HandleTypeDef hcryp;
+        ^~~~~~~~~~~~~~~~~~
+../Core/Src/crc.c:27:1: error: unknown type name 'CRC_HandleTypeDef'; did you mean 'I2C_HandleTypeDef'?
+ CRC_HandleTypeDef hcrc;
+ ^~~~~~~~~~~~~~~~~
+ I2C_HandleTypeDef
+../Core/Src/crc.c: In function 'MX_CRC_Init':
+../Core/Src/crc.c:33:7: error: request for member 'Instance' in something not a structure or union
+   hcrc.Instance = CRC;
+       ^
+../Core/Src/crc.c:34:7: error: request for member 'Init' in something not a structure or union
+   hcrc.Init.DefaultPolynomialUse = DEFAULT_POLYNOMIAL_ENABLE;
+       ^
+../Core/Src/cryp.c:27:1: error: unknown type name 'CRYP_HandleTypeDef'; did you mean 'PCD_HandleTypeDef'?
+ CRYP_HandleTypeDef hcryp;
+ ^~~~~~~~~~~~~~~~~~
+ PCD_HandleTypeDef
+../Core/Src/cryp.c: In function 'MX_CRYP_Init':
+../Core/Src/cryp.c:37:8: error: request for member 'Instance' in something not a structure or union
+   hcryp.Instance = CRYP;
+        ^
+../Core/Src/cryp.c:37:20: error: 'CRYP' undeclared (first use in this function); did you mean 'CRC'?
+   hcryp.Instance = CRYP;
+                    ^~~~
+                    CRC
+../Core/Src/cryp.c:37:20: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/cryp.c:38:8: error: request for member 'Init' in something not a structure or union
+   hcryp.Init.DataType = CRYP_DATATYPE_32B;
+        ^
+../Core/Src/crc.c:34:36: error: 'DEFAULT_POLYNOMIAL_ENABLE' undeclared (first use in this function)
+   hcrc.Init.DefaultPolynomialUse = DEFAULT_POLYNOMIAL_ENABLE;
+                                    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/crc.c:34:36: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/crc.c:35:7: error: request for member 'Init' in something not a structure or union
+   hcrc.Init.DefaultInitValueUse = DEFAULT_INIT_VALUE_ENABLE;
+       ^
+../Core/Src/cryp.c:38:25: error: 'CRYP_DATATYPE_32B' undeclared (first use in this function)
+   hcryp.Init.DataType = CRYP_DATATYPE_32B;
+                         ^~~~~~~~~~~~~~~~~
+../Core/Src/cryp.c:39:8: error: request for member 'Init' in something not a structure or union
+   hcryp.Init.pKey = (uint32_t *)pKeyCRYP;
+        ^
+../Core/Src/cryp.c:40:8: error: request for member 'Init' in something not a structure or union
+   hcryp.Init.Algorithm = CRYP_TDES_ECB;
+        ^
+../Core/Src/cryp.c:40:26: error: 'CRYP_TDES_ECB' undeclared (first use in this function); did you mean 'CR_PMODE_BB'?
+   hcryp.Init.Algorithm = CRYP_TDES_ECB;
+                          ^~~~~~~~~~~~~
+                          CR_PMODE_BB
+../Core/Src/cryp.c:41:7: warning: implicit declaration of function 'HAL_CRYP_Init'; did you mean 'MX_CRYP_Init'? [-Wimplicit-function-declaration]
+   if (HAL_CRYP_Init(&hcryp) != HAL_OK)
+       ^~~~~~~~~~~~~
+       MX_CRYP_Init
+../Core/Src/cryp.c: At top level:
+../Core/Src/cryp.c:48:23: error: unknown type name 'CRYP_HandleTypeDef'; did you mean 'PCD_HandleTypeDef'?
+ void HAL_CRYP_MspInit(CRYP_HandleTypeDef* crypHandle)
+                       ^~~~~~~~~~~~~~~~~~
+                       PCD_HandleTypeDef
+../Core/Src/crc.c:35:35: error: 'DEFAULT_INIT_VALUE_ENABLE' undeclared (first use in this function); did you mean 'DEFAULT_POLYNOMIAL_ENABLE'?
+   hcrc.Init.DefaultInitValueUse = DEFAULT_INIT_VALUE_ENABLE;
+                                   ^~~~~~~~~~~~~~~~~~~~~~~~~
+                                   DEFAULT_POLYNOMIAL_ENABLE
+../Core/Src/crc.c:36:7: error: request for member 'Init' in something not a structure or union
+   hcrc.Init.InputDataInversionMode = CRC_INPUTDATA_INVERSION_NONE;
+       ^
+../Core/Src/cryp.c:126:25: error: unknown type name 'CRYP_HandleTypeDef'; did you mean 'PCD_HandleTypeDef'?
+ void HAL_CRYP_MspDeInit(CRYP_HandleTypeDef* crypHandle)
+                         ^~~~~~~~~~~~~~~~~~
+                         PCD_HandleTypeDef
+make: *** [Core/Src/subdir.mk:112: Core/Src/cryp.o] Error 1
+../Core/Src/crc.c:36:38: error: 'CRC_INPUTDATA_INVERSION_NONE' undeclared (first use in this function); did you mean 'CRC_OUTPUTDATA_INVERSION_ENABLED'?
+   hcrc.Init.InputDataInversionMode = CRC_INPUTDATA_INVERSION_NONE;
+                                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                      CRC_OUTPUTDATA_INVERSION_ENABLED
+../Core/Src/crc.c:37:7: error: request for member 'Init' in something not a structure or union
+   hcrc.Init.OutputDataInversionMode = CRC_OUTPUTDATA_INVERSION_DISABLE;
+       ^
+../Core/Src/crc.c:37:39: error: 'CRC_OUTPUTDATA_INVERSION_DISABLE' undeclared (first use in this function); did you mean 'CRC_OUTPUTDATA_INVERSION_DISABLED'?
+   hcrc.Init.OutputDataInversionMode = CRC_OUTPUTDATA_INVERSION_DISABLE;
+                                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                       CRC_OUTPUTDATA_INVERSION_DISABLED
+../Core/Src/crc.c:38:7: error: request for member 'InputDataFormat' in something not a structure or union
+   hcrc.InputDataFormat = CRC_INPUTDATA_FORMAT_BYTES;
+       ^
+In file included from ../Core/Src/fdcan.c:21:0:
+../Core/Inc/fdcan.h:33:8: error: unknown type name 'FDCAN_HandleTypeDef'
+ extern FDCAN_HandleTypeDef hfdcan1;
+        ^~~~~~~~~~~~~~~~~~~
+../Core/Inc/fdcan.h:34:8: error: unknown type name 'FDCAN_HandleTypeDef'
+ extern FDCAN_HandleTypeDef hfdcan2;
+        ^~~~~~~~~~~~~~~~~~~
+../Core/Src/fdcan.c:27:1: error: unknown type name 'FDCAN_HandleTypeDef'; did you mean 'MDMA_HandleTypeDef'?
+ FDCAN_HandleTypeDef hfdcan1;
+ ^~~~~~~~~~~~~~~~~~~
+ MDMA_HandleTypeDef
+../Core/Src/fdcan.c:28:1: error: unknown type name 'FDCAN_HandleTypeDef'; did you mean 'MDMA_HandleTypeDef'?
+ FDCAN_HandleTypeDef hfdcan2;
+ ^~~~~~~~~~~~~~~~~~~
+ MDMA_HandleTypeDef
+../Core/Src/fdcan.c: In function 'MX_FDCAN1_Init':
+../Core/Src/fdcan.c:34:10: error: request for member 'Instance' in something not a structure or union
+   hfdcan1.Instance = FDCAN1;
+          ^
+../Core/Src/fdcan.c:35:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.FrameFormat = FDCAN_FRAME_CLASSIC;
+          ^
+../Core/Src/crc.c:38:26: error: 'CRC_INPUTDATA_FORMAT_BYTES' undeclared (first use in this function); did you mean 'CRC_INPUTDATA_INVERSION_NONE'?
+   hcrc.InputDataFormat = CRC_INPUTDATA_FORMAT_BYTES;
+                          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+                          CRC_INPUTDATA_INVERSION_NONE
+../Core/Src/crc.c:39:7: warning: implicit declaration of function 'HAL_CRC_Init'; did you mean 'HAL_I2C_Init'? [-Wimplicit-function-declaration]
+   if (HAL_CRC_Init(&hcrc) != HAL_OK)
+       ^~~~~~~~~~~~
+       HAL_I2C_Init
+In file included from ../Core/Src/hash.c:21:0:
+../Core/Inc/hash.h:33:8: error: unknown type name 'HASH_HandleTypeDef'
+ extern HASH_HandleTypeDef hhash;
+        ^~~~~~~~~~~~~~~~~~
+../Core/Src/crc.c: At top level:
+../Core/Src/crc.c:46:22: error: unknown type name 'CRC_HandleTypeDef'; did you mean 'I2C_HandleTypeDef'?
+ void HAL_CRC_MspInit(CRC_HandleTypeDef* crcHandle)
+                      ^~~~~~~~~~~~~~~~~
+                      I2C_HandleTypeDef
+../Core/Src/gpio.c: In function 'MX_GPIO_Init':
+../Core/Src/gpio.c:56:21: error: 'SPI1_CS_GPIO_Port' undeclared (first use in this function); did you mean 'STLINK_RX_GPIO_Port'?
+   HAL_GPIO_WritePin(SPI1_CS_GPIO_Port, SPI1_CS_Pin, GPIO_PIN_SET);
+                     ^~~~~~~~~~~~~~~~~
+                     STLINK_RX_GPIO_Port
+../Core/Src/gpio.c:56:21: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/gpio.c:56:40: error: 'SPI1_CS_Pin' undeclared (first use in this function); did you mean 'SPI1_IRQn'?
+   HAL_GPIO_WritePin(SPI1_CS_GPIO_Port, SPI1_CS_Pin, GPIO_PIN_SET);
+                                        ^~~~~~~~~~~
+                                        SPI1_IRQn
+../Core/Src/crc.c:62:24: error: unknown type name 'CRC_HandleTypeDef'; did you mean 'I2C_HandleTypeDef'?
+ void HAL_CRC_MspDeInit(CRC_HandleTypeDef* crcHandle)
+                        ^~~~~~~~~~~~~~~~~
+                        I2C_HandleTypeDef
+../Core/Src/gpio.c:57:21: error: 'SPI4_CS_GPIO_Port' undeclared (first use in this function); did you mean 'SPI1_CS_GPIO_Port'?
+   HAL_GPIO_WritePin(SPI4_CS_GPIO_Port, SPI4_CS_Pin, GPIO_PIN_SET);
+                     ^~~~~~~~~~~~~~~~~
+                     SPI1_CS_GPIO_Port
+../Core/Src/hash.c:27:1: error: unknown type name 'HASH_HandleTypeDef'; did you mean 'UART_HandleTypeDef'?
+ HASH_HandleTypeDef hhash;
+ ^~~~~~~~~~~~~~~~~~
+ UART_HandleTypeDef
+../Core/Src/hash.c: In function 'MX_HASH_Init':
+../Core/Src/hash.c:34:8: error: request for member 'Init' in something not a structure or union
+   hhash.Init.DataType = HASH_DATATYPE_32B;
+        ^
+../Core/Src/gpio.c:57:40: error: 'SPI4_CS_Pin' undeclared (first use in this function); did you mean 'SPI1_CS_Pin'?
+   HAL_GPIO_WritePin(SPI4_CS_GPIO_Port, SPI4_CS_Pin, GPIO_PIN_SET);
+                                        ^~~~~~~~~~~
+                                        SPI1_CS_Pin
+make: *** [Core/Src/subdir.mk:110: Core/Src/crc.o] Error 1
+../Core/Src/fdcan.c:35:30: error: 'FDCAN_FRAME_CLASSIC' undeclared (first use in this function); did you mean 'FDCAN_HPMS_MSI'?
+   hfdcan1.Init.FrameFormat = FDCAN_FRAME_CLASSIC;
+                              ^~~~~~~~~~~~~~~~~~~
+                              FDCAN_HPMS_MSI
+../Core/Src/fdcan.c:35:30: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/fdcan.c:36:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.Mode = FDCAN_MODE_NORMAL;
+          ^
+In file included from ../Core/Src/iwdg.c:21:0:
+../Core/Inc/iwdg.h:33:8: error: unknown type name 'IWDG_HandleTypeDef'
+ extern IWDG_HandleTypeDef hiwdg1;
+        ^~~~~~~~~~~~~~~~~~
+../Core/Src/gpio.c:60:21: error: 'UART7_TXE_GPIO_Port' undeclared (first use in this function); did you mean 'STLINK_TX_GPIO_Port'?
+   HAL_GPIO_WritePin(UART7_TXE_GPIO_Port, UART7_TXE_Pin, GPIO_PIN_RESET);
+                     ^~~~~~~~~~~~~~~~~~~
+                     STLINK_TX_GPIO_Port
+../Core/Src/hash.c:34:25: error: 'HASH_DATATYPE_32B' undeclared (first use in this function)
+   hhash.Init.DataType = HASH_DATATYPE_32B;
+                         ^~~~~~~~~~~~~~~~~
+../Core/Src/hash.c:34:25: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/fdcan.c:36:23: error: 'FDCAN_MODE_NORMAL' undeclared (first use in this function); did you mean 'PWR_MODE_NORMAL'?
+   hfdcan1.Init.Mode = FDCAN_MODE_NORMAL;
+                       ^~~~~~~~~~~~~~~~~
+                       PWR_MODE_NORMAL
+../Core/Src/fdcan.c:37:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.AutoRetransmission = DISABLE;
+          ^
+../Core/Src/fdcan.c:38:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.TransmitPause = DISABLE;
+          ^
+../Core/Src/fdcan.c:39:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.ProtocolException = DISABLE;
+          ^
+../Core/Src/fdcan.c:40:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.NominalPrescaler = 1;
+          ^
+../Core/Src/fdcan.c:41:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.NominalSyncJumpWidth = 1;
+          ^
+../Core/Src/fdcan.c:42:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.NominalTimeSeg1 = 2;
+          ^
+../Core/Src/fdcan.c:43:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.NominalTimeSeg2 = 2;
+          ^
+../Core/Src/fdcan.c:44:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.DataPrescaler = 1;
+          ^
+../Core/Src/fdcan.c:45:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.DataSyncJumpWidth = 1;
+          ^
+../Core/Src/fdcan.c:46:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.DataTimeSeg1 = 1;
+          ^
+../Core/Src/fdcan.c:47:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.DataTimeSeg2 = 1;
+          ^
+../Core/Src/fdcan.c:48:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.MessageRAMOffset = 0;
+          ^
+../Core/Src/hash.c:35:7: warning: implicit declaration of function 'HAL_HASH_Init'; did you mean 'MX_HASH_Init'? [-Wimplicit-function-declaration]
+   if (HAL_HASH_Init(&hhash) != HAL_OK)
+       ^~~~~~~~~~~~~
+       MX_HASH_Init
+../Core/Src/fdcan.c:49:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.StdFiltersNbr = 0;
+          ^
+../Core/Src/fdcan.c:50:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.ExtFiltersNbr = 0;
+          ^
+../Core/Src/fdcan.c:51:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.RxFifo0ElmtsNbr = 0;
+          ^
+../Core/Src/fdcan.c:52:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.RxFifo0ElmtSize = FDCAN_DATA_BYTES_8;
+          ^
+../Core/Src/gpio.c:60:42: error: 'UART7_TXE_Pin' undeclared (first use in this function); did you mean 'UART7_IRQn'?
+   HAL_GPIO_WritePin(UART7_TXE_GPIO_Port, UART7_TXE_Pin, GPIO_PIN_RESET);
+                                          ^~~~~~~~~~~~~
+                                          UART7_IRQn
+../Core/Src/iwdg.c:27:1: error: unknown type name 'IWDG_HandleTypeDef'; did you mean 'PCD_HandleTypeDef'?
+ IWDG_HandleTypeDef hiwdg1;
+ ^~~~~~~~~~~~~~~~~~
+ PCD_HandleTypeDef
+../Core/Src/iwdg.c: In function 'MX_IWDG1_Init':
+../Core/Src/iwdg.c:33:9: error: request for member 'Instance' in something not a structure or union
+   hiwdg1.Instance = IWDG1;
+         ^
+../Core/Src/iwdg.c:34:9: error: request for member 'Init' in something not a structure or union
+   hiwdg1.Init.Prescaler = IWDG_PRESCALER_256;
+         ^
+../Core/Src/hash.c: At top level:
+../Core/Src/hash.c:42:23: error: unknown type name 'HASH_HandleTypeDef'; did you mean 'UART_HandleTypeDef'?
+ void HAL_HASH_MspInit(HASH_HandleTypeDef* hashHandle)
+                       ^~~~~~~~~~~~~~~~~~
+                       UART_HandleTypeDef
+../Core/Src/gpio.c:63:21: error: 'USART2_TXE_GPIO_Port' undeclared (first use in this function); did you mean 'UART7_TXE_GPIO_Port'?
+   HAL_GPIO_WritePin(USART2_TXE_GPIO_Port, USART2_TXE_Pin, GPIO_PIN_RESET);
+                     ^~~~~~~~~~~~~~~~~~~~
+                     UART7_TXE_GPIO_Port
+../Core/Src/gpio.c:63:43: error: 'USART2_TXE_Pin' undeclared (first use in this function); did you mean 'UART7_TXE_Pin'?
+   HAL_GPIO_WritePin(USART2_TXE_GPIO_Port, USART2_TXE_Pin, GPIO_PIN_RESET);
+                                           ^~~~~~~~~~~~~~
+                                           UART7_TXE_Pin
+../Core/Src/gpio.c:66:28: error: 'LED_RUN_Pin' undeclared (first use in this function); did you mean 'LD3_Pin'?
+   HAL_GPIO_WritePin(GPIOC, LED_RUN_Pin|LED_CAN1_OK_Pin|LED_CAN2_OK_Pin, GPIO_PIN_RESET);
+                            ^~~~~~~~~~~
+                            LD3_Pin
+../Core/Src/hash.c:89:25: error: unknown type name 'HASH_HandleTypeDef'; did you mean 'UART_HandleTypeDef'?
+ void HAL_HASH_MspDeInit(HASH_HandleTypeDef* hashHandle)
+                         ^~~~~~~~~~~~~~~~~~
+                         UART_HandleTypeDef
+../Core/Src/fdcan.c:52:34: error: 'FDCAN_DATA_BYTES_8' undeclared (first use in this function); did you mean 'FDCAN_NDAT2_ND38'?
+   hfdcan1.Init.RxFifo0ElmtSize = FDCAN_DATA_BYTES_8;
+                                  ^~~~~~~~~~~~~~~~~~
+                                  FDCAN_NDAT2_ND38
+../Core/Src/fdcan.c:53:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.RxFifo1ElmtsNbr = 0;
+          ^
+../Core/Src/fdcan.c:54:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.RxFifo1ElmtSize = FDCAN_DATA_BYTES_8;
+          ^
+../Core/Src/fdcan.c:55:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.RxBuffersNbr = 0;
+          ^
+../Core/Src/fdcan.c:56:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.RxBufferSize = FDCAN_DATA_BYTES_8;
+          ^
+../Core/Src/fdcan.c:57:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.TxEventsNbr = 0;
+          ^
+../Core/Src/fdcan.c:58:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.TxBuffersNbr = 0;
+          ^
+../Core/Src/fdcan.c:59:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.TxFifoQueueElmtsNbr = 0;
+          ^
+../Core/Src/fdcan.c:60:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
+          ^
+make: *** [Core/Src/subdir.mk:126: Core/Src/hash.o] Error 1
+../Core/Src/iwdg.c:34:27: error: 'IWDG_PRESCALER_256' undeclared (first use in this function); did you mean 'UART_PRESCALER_DIV6'?
+   hiwdg1.Init.Prescaler = IWDG_PRESCALER_256;
+                           ^~~~~~~~~~~~~~~~~~
+                           UART_PRESCALER_DIV6
+../Core/Src/iwdg.c:34:27: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/iwdg.c:35:9: error: request for member 'Init' in something not a structure or union
+   hiwdg1.Init.Window = 4095;
+         ^
+../Core/Src/iwdg.c:36:9: error: request for member 'Init' in something not a structure or union
+   hiwdg1.Init.Reload = 4095;
+         ^
+../Core/Src/iwdg.c:37:7: warning: implicit declaration of function 'HAL_IWDG_Init'; did you mean 'HAL_PCD_Init'? [-Wimplicit-function-declaration]
+   if (HAL_IWDG_Init(&hiwdg1) != HAL_OK)
+       ^~~~~~~~~~~~~
+       HAL_PCD_Init
+../Core/Src/gpio.c:66:40: error: 'LED_CAN1_OK_Pin' undeclared (first use in this function); did you mean 'LED_RUN_Pin'?
+   HAL_GPIO_WritePin(GPIOC, LED_RUN_Pin|LED_CAN1_OK_Pin|LED_CAN2_OK_Pin, GPIO_PIN_RESET);
+                                        ^~~~~~~~~~~~~~~
+                                        LED_RUN_Pin
+../Core/Src/gpio.c:66:56: error: 'LED_CAN2_OK_Pin' undeclared (first use in this function); did you mean 'LED_CAN1_OK_Pin'?
+   HAL_GPIO_WritePin(GPIOC, LED_RUN_Pin|LED_CAN1_OK_Pin|LED_CAN2_OK_Pin, GPIO_PIN_RESET);
+                                                        ^~~~~~~~~~~~~~~
+                                                        LED_CAN1_OK_Pin
+make: *** [Core/Src/subdir.mk:130: Core/Src/iwdg.o] Error 1
+../Core/Src/gpio.c:69:28: error: 'LED_RS1_OK_Pin' undeclared (first use in this function); did you mean 'LED_CAN1_OK_Pin'?
+   HAL_GPIO_WritePin(GPIOA, LED_RS1_OK_Pin|LED_RS1_ERR_Pin|LED_RS2_OK_Pin|LED_RS2_ERR_Pin, GPIO_PIN_RESET);
+                            ^~~~~~~~~~~~~~
+                            LED_CAN1_OK_Pin
+../Core/Src/gpio.c:69:43: error: 'LED_RS1_ERR_Pin' undeclared (first use in this function); did you mean 'LED_RS1_OK_Pin'?
+   HAL_GPIO_WritePin(GPIOA, LED_RS1_OK_Pin|LED_RS1_ERR_Pin|LED_RS2_OK_Pin|LED_RS2_ERR_Pin, GPIO_PIN_RESET);
+                                           ^~~~~~~~~~~~~~~
+                                           LED_RS1_OK_Pin
+../Core/Src/gpio.c:69:59: error: 'LED_RS2_OK_Pin' undeclared (first use in this function); did you mean 'LED_RS1_OK_Pin'?
+   HAL_GPIO_WritePin(GPIOA, LED_RS1_OK_Pin|LED_RS1_ERR_Pin|LED_RS2_OK_Pin|LED_RS2_ERR_Pin, GPIO_PIN_RESET);
+                                                           ^~~~~~~~~~~~~~
+                                                           LED_RS1_OK_Pin
+../Core/Src/gpio.c:69:74: error: 'LED_RS2_ERR_Pin' undeclared (first use in this function); did you mean 'LED_RS1_ERR_Pin'?
+   HAL_GPIO_WritePin(GPIOA, LED_RS1_OK_Pin|LED_RS1_ERR_Pin|LED_RS2_OK_Pin|LED_RS2_ERR_Pin, GPIO_PIN_RESET);
+                                                                          ^~~~~~~~~~~~~~~
+                                                                          LED_RS1_ERR_Pin
+../Core/Src/gpio.c:72:28: error: 'CAN2_EN_Pin' undeclared (first use in this function); did you mean 'LED_CAN2_OK_Pin'?
+   HAL_GPIO_WritePin(GPIOE, CAN2_EN_Pin|CAN1_EN_Pin, GPIO_PIN_SET);
+                            ^~~~~~~~~~~
+                            LED_CAN2_OK_Pin
+../Core/Src/gpio.c:72:40: error: 'CAN1_EN_Pin' undeclared (first use in this function); did you mean 'CAN2_EN_Pin'?
+   HAL_GPIO_WritePin(GPIOE, CAN2_EN_Pin|CAN1_EN_Pin, GPIO_PIN_SET);
+                                        ^~~~~~~~~~~
+                                        CAN2_EN_Pin
+../Core/Src/gpio.c:75:25: error: 'S1_1_Pin' undeclared (first use in this function); did you mean 'LD1_Pin'?
+   GPIO_InitStruct.Pin = S1_1_Pin|S1_2_Pin|S1_3_Pin|S1_4_Pin;
+                         ^~~~~~~~
+                         LD1_Pin
+../Core/Src/gpio.c:75:34: error: 'S1_2_Pin' undeclared (first use in this function); did you mean 'S1_1_Pin'?
+   GPIO_InitStruct.Pin = S1_1_Pin|S1_2_Pin|S1_3_Pin|S1_4_Pin;
+                                  ^~~~~~~~
+                                  S1_1_Pin
+../Core/Src/gpio.c:75:43: error: 'S1_3_Pin' undeclared (first use in this function); did you mean 'S1_2_Pin'?
+   GPIO_InitStruct.Pin = S1_1_Pin|S1_2_Pin|S1_3_Pin|S1_4_Pin;
+                                           ^~~~~~~~
+                                           S1_2_Pin
+../Core/Src/gpio.c:75:52: error: 'S1_4_Pin' undeclared (first use in this function); did you mean 'S1_3_Pin'?
+   GPIO_InitStruct.Pin = S1_1_Pin|S1_2_Pin|S1_3_Pin|S1_4_Pin;
+                                                    ^~~~~~~~
+                                                    S1_3_Pin
+../Core/Src/fdcan.c:60:34: error: 'FDCAN_TX_FIFO_OPERATION' undeclared (first use in this function); did you mean 'FLASH_ERROR_OPERATION'?
+   hfdcan1.Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
+                                  ^~~~~~~~~~~~~~~~~~~~~~~
+                                  FLASH_ERROR_OPERATION
+../Core/Src/fdcan.c:61:10: error: request for member 'Init' in something not a structure or union
+   hfdcan1.Init.TxElmtSize = FDCAN_DATA_BYTES_8;
+          ^
+../Core/Src/fdcan.c:73:7: warning: implicit declaration of function 'HAL_FDCAN_Init'; did you mean 'HAL_MDMA_Init'? [-Wimplicit-function-declaration]
+   if (HAL_FDCAN_Init(&hfdcan1) != HAL_OK)
+       ^~~~~~~~~~~~~~
+       HAL_MDMA_Init
+../Core/Src/fdcan.c: In function 'MX_FDCAN2_Init':
+../Core/Src/fdcan.c:83:10: error: request for member 'Instance' in something not a structure or union
+   hfdcan2.Instance = FDCAN2;
+          ^
+../Core/Src/fdcan.c:84:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.FrameFormat = FDCAN_FRAME_CLASSIC;
+          ^
+../Core/Src/gpio.c:81:25: error: 'SD_DETECT_Pin' undeclared (first use in this function)
+   GPIO_InitStruct.Pin = SD_DETECT_Pin;
+                         ^~~~~~~~~~~~~
+../Core/Src/fdcan.c:84:30: error: 'FDCAN_FRAME_CLASSIC' undeclared (first use in this function); did you mean 'FDCAN_HPMS_MSI'?
+   hfdcan2.Init.FrameFormat = FDCAN_FRAME_CLASSIC;
+                              ^~~~~~~~~~~~~~~~~~~
+                              FDCAN_HPMS_MSI
+../Core/Src/fdcan.c:85:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.Mode = FDCAN_MODE_NORMAL;
+          ^
+../Core/Src/gpio.c:84:17: error: 'SD_DETECT_GPIO_Port' undeclared (first use in this function); did you mean 'SPI4_CS_GPIO_Port'?
+   HAL_GPIO_Init(SD_DETECT_GPIO_Port, &GPIO_InitStruct);
+                 ^~~~~~~~~~~~~~~~~~~
+                 SPI4_CS_GPIO_Port
+../Core/Src/gpio.c:87:25: error: 'USB_EN_Pin' undeclared (first use in this function); did you mean 'S1_4_Pin'?
+   GPIO_InitStruct.Pin = USB_EN_Pin;
+                         ^~~~~~~~~~
+                         S1_4_Pin
+../Core/Src/fdcan.c:85:23: error: 'FDCAN_MODE_NORMAL' undeclared (first use in this function); did you mean 'PWR_MODE_NORMAL'?
+   hfdcan2.Init.Mode = FDCAN_MODE_NORMAL;
+                       ^~~~~~~~~~~~~~~~~
+                       PWR_MODE_NORMAL
+../Core/Src/fdcan.c:86:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.AutoRetransmission = DISABLE;
+          ^
+../Core/Src/fdcan.c:87:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.TransmitPause = DISABLE;
+          ^
+../Core/Src/fdcan.c:88:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.ProtocolException = DISABLE;
+          ^
+../Core/Src/fdcan.c:89:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.NominalPrescaler = 1;
+          ^
+../Core/Src/fdcan.c:90:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.NominalSyncJumpWidth = 1;
+          ^
+../Core/Src/fdcan.c:91:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.NominalTimeSeg1 = 2;
+          ^
+../Core/Src/gpio.c:91:17: error: 'USB_EN_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+   HAL_GPIO_Init(USB_EN_GPIO_Port, &GPIO_InitStruct);
+                 ^~~~~~~~~~~~~~~~
+                 B1_GPIO_Port
+../Core/Src/fdcan.c:92:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.NominalTimeSeg2 = 2;
+          ^
+../Core/Src/fdcan.c:93:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.DataPrescaler = 1;
+          ^
+../Core/Src/fdcan.c:94:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.DataSyncJumpWidth = 1;
+          ^
+../Core/Src/fdcan.c:95:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.DataTimeSeg1 = 1;
+          ^
+../Core/Src/gpio.c:94:25: error: 'USB_OC_Pin' undeclared (first use in this function); did you mean 'USB_EN_Pin'?
+   GPIO_InitStruct.Pin = USB_OC_Pin;
+                         ^~~~~~~~~~
+                         USB_EN_Pin
+../Core/Src/fdcan.c:96:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.DataTimeSeg2 = 1;
+          ^
+../Core/Src/fdcan.c:97:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.MessageRAMOffset = 0;
+          ^
+../Core/Src/fdcan.c:98:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.StdFiltersNbr = 0;
+          ^
+../Core/Src/fdcan.c:99:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.ExtFiltersNbr = 0;
+          ^
+../Core/Src/fdcan.c:100:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.RxFifo0ElmtsNbr = 0;
+          ^
+../Core/Src/fdcan.c:101:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.RxFifo0ElmtSize = FDCAN_DATA_BYTES_8;
+          ^
+../Core/Src/gpio.c:97:17: error: 'USB_OC_GPIO_Port' undeclared (first use in this function); did you mean 'USB_EN_GPIO_Port'?
+   HAL_GPIO_Init(USB_OC_GPIO_Port, &GPIO_InitStruct);
+                 ^~~~~~~~~~~~~~~~
+                 USB_EN_GPIO_Port
+../Core/Src/gpio.c:113:25: error: 'INTRN1_Pin' undeclared (first use in this function); did you mean 'S1_1_Pin'?
+   GPIO_InitStruct.Pin = INTRN1_Pin|PME1_Pin;
+                         ^~~~~~~~~~
+                         S1_1_Pin
+../Core/Src/gpio.c:113:36: error: 'PME1_Pin' undeclared (first use in this function); did you mean 'S1_1_Pin'?
+   GPIO_InitStruct.Pin = INTRN1_Pin|PME1_Pin;
+                                    ^~~~~~~~
+                                    S1_1_Pin
+../Core/Src/gpio.c:138:25: error: 'PME2_Pin' undeclared (first use in this function); did you mean 'PME1_Pin'?
+   GPIO_InitStruct.Pin = PME2_Pin|INTRN2_Pin;
+                         ^~~~~~~~
+                         PME1_Pin
+../Core/Src/gpio.c:138:34: error: 'INTRN2_Pin' undeclared (first use in this function); did you mean 'INTRN1_Pin'?
+   GPIO_InitStruct.Pin = PME2_Pin|INTRN2_Pin;
+                                  ^~~~~~~~~~
+                                  INTRN1_Pin
+../Core/Src/gpio.c:144:25: error: 'SW1_Pin' undeclared (first use in this function); did you mean 'S1_1_Pin'?
+   GPIO_InitStruct.Pin = SW1_Pin|SW2_Pin|SW3_Pin|SW4_Pin;
+                         ^~~~~~~
+                         S1_1_Pin
+../Core/Src/gpio.c:144:33: error: 'SW2_Pin' undeclared (first use in this function); did you mean 'SW1_Pin'?
+   GPIO_InitStruct.Pin = SW1_Pin|SW2_Pin|SW3_Pin|SW4_Pin;
+                                 ^~~~~~~
+                                 SW1_Pin
+../Core/Src/gpio.c:144:41: error: 'SW3_Pin' undeclared (first use in this function); did you mean 'SW2_Pin'?
+   GPIO_InitStruct.Pin = SW1_Pin|SW2_Pin|SW3_Pin|SW4_Pin;
+                                         ^~~~~~~
+                                         SW2_Pin
+../Core/Src/gpio.c:144:49: error: 'SW4_Pin' undeclared (first use in this function); did you mean 'SW3_Pin'?
+   GPIO_InitStruct.Pin = SW1_Pin|SW2_Pin|SW3_Pin|SW4_Pin;
+                                                 ^~~~~~~
+                                                 SW3_Pin
+../Core/Src/gpio.c:157:25: error: 'VBUS_IN_Pin' undeclared (first use in this function); did you mean 'USB_EN_Pin'?
+   GPIO_InitStruct.Pin = VBUS_IN_Pin;
+                         ^~~~~~~~~~~
+                         USB_EN_Pin
+../Core/Src/fdcan.c:101:34: error: 'FDCAN_DATA_BYTES_8' undeclared (first use in this function); did you mean 'FDCAN_NDAT2_ND38'?
+   hfdcan2.Init.RxFifo0ElmtSize = FDCAN_DATA_BYTES_8;
+                                  ^~~~~~~~~~~~~~~~~~
+                                  FDCAN_NDAT2_ND38
+../Core/Src/fdcan.c:102:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.RxFifo1ElmtsNbr = 0;
+          ^
+../Core/Src/fdcan.c:103:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.RxFifo1ElmtSize = FDCAN_DATA_BYTES_8;
+          ^
+../Core/Src/fdcan.c:104:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.RxBuffersNbr = 0;
+          ^
+../Core/Src/fdcan.c:105:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.RxBufferSize = FDCAN_DATA_BYTES_8;
+          ^
+../Core/Src/fdcan.c:106:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.TxEventsNbr = 0;
+          ^
+../Core/Src/fdcan.c:107:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.TxBuffersNbr = 0;
+          ^
+../Core/Src/fdcan.c:108:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.TxFifoQueueElmtsNbr = 0;
+          ^
+../Core/Src/fdcan.c:109:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
+          ^
+../Core/Src/gpio.c:160:17: error: 'VBUS_IN_GPIO_Port' undeclared (first use in this function); did you mean 'USB_EN_GPIO_Port'?
+   HAL_GPIO_Init(VBUS_IN_GPIO_Port, &GPIO_InitStruct);
+                 ^~~~~~~~~~~~~~~~~
+                 USB_EN_GPIO_Port
+make: *** [Core/Src/subdir.mk:124: Core/Src/gpio.o] Error 1
+../Core/Src/fdcan.c:109:34: error: 'FDCAN_TX_FIFO_OPERATION' undeclared (first use in this function); did you mean 'FLASH_ERROR_OPERATION'?
+   hfdcan2.Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
+                                  ^~~~~~~~~~~~~~~~~~~~~~~
+                                  FLASH_ERROR_OPERATION
+../Core/Src/fdcan.c:110:10: error: request for member 'Init' in something not a structure or union
+   hfdcan2.Init.TxElmtSize = FDCAN_DATA_BYTES_8;
+          ^
+../Core/Src/fdcan.c: At top level:
+../Core/Src/fdcan.c:131:24: error: unknown type name 'FDCAN_HandleTypeDef'; did you mean 'MDMA_HandleTypeDef'?
+ void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef* fdcanHandle)
+                        ^~~~~~~~~~~~~~~~~~~
+                        MDMA_HandleTypeDef
+../Core/Src/fdcan.c:205:26: error: unknown type name 'FDCAN_HandleTypeDef'; did you mean 'MDMA_HandleTypeDef'?
+ void HAL_FDCAN_MspDeInit(FDCAN_HandleTypeDef* fdcanHandle)
+                          ^~~~~~~~~~~~~~~~~~~
+                          MDMA_HandleTypeDef
+../Core/Src/fdcan.c:129:17: warning: 'HAL_RCC_FDCAN_CLK_ENABLED' defined but not used [-Wunused-variable]
+ static uint32_t HAL_RCC_FDCAN_CLK_ENABLED=0;
+                 ^~~~~~~~~~~~~~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:120: Core/Src/fdcan.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+
+23:59:42 Build Failed. 155 errors, 7 warnings. (took 9s.411ms)
+
