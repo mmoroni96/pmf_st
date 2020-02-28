@@ -523,6 +523,7 @@ FRESULT scrivi(){
 	uint8_t bytesWrote;
 	uint8_t path1[] = "STM32.TXT";
 	//res1 = f_mount(&USERFatFs, (TCHAR const*)USERPath, 0);
+
 	res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
 	res = f_close(&writeFile);
 	res = f_open(&writeFile, &path1, FA_WRITE | FA_OPEN_ALWAYS);
