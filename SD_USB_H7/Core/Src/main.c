@@ -41,6 +41,7 @@
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 FRESULT scrivi();
+FRESULT leggi();
 FRESULT scrivi_speed();
 HAL_SD_CardInfoTypeDef SDCardInfo;
 /* USER CODE END PM */
@@ -76,6 +77,8 @@ ETH_HandleTypeDef heth;
 RTC_HandleTypeDef hrtc;
 
 SD_HandleTypeDef hsd1;
+
+TIM_HandleTypeDef htim17;
 
 UART_HandleTypeDef huart3;
 
@@ -118,6 +121,7 @@ static void MX_ETH_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_SDMMC1_SD_Init(void);
 static void MX_RTC_Init(void);
+static void MX_TIM17_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -161,13 +165,14 @@ int main(void)
   MX_FATFS_Init();
   MX_RTC_Init();
   MX_USB_DEVICE_Init();
+  MX_TIM17_Init();
   /* USER CODE BEGIN 2 */
   //HAL_SD_Init(&hsd1);
   //HAL_SD_GetCardInfo(&hsd1, &SDCardInfo);
   //HAL_SD_Init(&hsd1);
   FRESULT res;
   res=f_mount(&myFatFS, SDPath, 1);
-
+  HAL_TIM_Base_Start_IT(&htim17);
 
 
   //HAL_SD_ConfigWideBusOperation(&hsd1,SDMMC_BUS_WIDE_4B);
@@ -246,9 +251,9 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 1;
-  RCC_OscInitStruct.PLL.PLLN = 24;
+  RCC_OscInitStruct.PLL.PLLN = 32;
   RCC_OscInitStruct.PLL.PLLP = 2;
-  RCC_OscInitStruct.PLL.PLLQ = 1;
+  RCC_OscInitStruct.PLL.PLLQ = 2;
   RCC_OscInitStruct.PLL.PLLR = 2;
   RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_3;
   RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOWIDE;
@@ -265,10 +270,10 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV1;
-  RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_APB1_DIV1;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV1;
-  RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV1;
+  RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV2;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_APB1_DIV2;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2;
+  RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV2;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
   {
@@ -427,6 +432,38 @@ static void MX_SDMMC1_SD_Init(void)
 }
 
 /**
+  * @brief TIM17 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM17_Init(void)
+{
+
+  /* USER CODE BEGIN TIM17_Init 0 */
+
+  /* USER CODE END TIM17_Init 0 */
+
+  /* USER CODE BEGIN TIM17_Init 1 */
+
+  /* USER CODE END TIM17_Init 1 */
+  htim17.Instance = TIM17;
+  htim17.Init.Prescaler = 63999;
+  htim17.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim17.Init.Period = 200;
+  htim17.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim17.Init.RepetitionCounter = 0;
+  htim17.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  if (HAL_TIM_Base_Init(&htim17) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM17_Init 2 */
+
+  /* USER CODE END TIM17_Init 2 */
+
+}
+
+/**
   * @brief USART3 Initialization Function
   * @param None
   * @retval None
@@ -543,6 +580,14 @@ static void MX_GPIO_Init(void)
  }
 
 }*/
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+    if (htim->Instance==TIM17) //check if the interrupt comes from TIM2
+        {
+    	HAL_GPIO_TogglePin(LD2_GPIO_Port,LD2_Pin);
+    	leggi();
+
+        }}
 FRESULT scrivi(){
 	FRESULT res;
 	      /* File  object for USER */
@@ -571,6 +616,22 @@ FRESULT scrivi(){
 
 	return res;
 }
+FRESULT leggi(){
+    	FRESULT res;
+    	FIL readFile;       /* File  object for USER */
+    		   /* File system object for USER logical drive */
+    		//FIL USERFile;     /* File  object for USER */
+    	char USERPath[4];   /* USER logical drive path */
+    	uint8_t bytesWrote;
+    	uint8_t path1[] = "current.txt";
+    	res = f_open(&readFile, &path1, FA_READ);
+    	res = f_read(&readFile,readBuff,1, &br);
+    	if(readBuff[0]=='1'){flag++;}
+    	res = f_close(&readFile);
+
+
+
+    	}
 FRESULT scrivi_speed(){
 	FRESULT res;
 	      /* File  object for USER */

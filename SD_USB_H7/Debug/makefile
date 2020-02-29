@@ -48,8 +48,8 @@ SD_USB_H7.bin \
 all: SD_USB_H7.elf secondary-outputs
 
 # Tool invocations
-SD_USB_H7.elf: $(OBJS) $(USER_OBJS) C:\Users\mmoro\OneDrive\Desktop\SD_USB_H7\STM32H743ZITX_FLASH.ld
-	arm-none-eabi-gcc -o "SD_USB_H7.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\mmoro\OneDrive\Desktop\SD_USB_H7\STM32H743ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SD_USB_H7.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+SD_USB_H7.elf: $(OBJS) $(USER_OBJS) C:\Users\mmoro\OneDrive\Documents\pmf_st\SD_USB_H7\STM32H743ZITX_FLASH.ld
+	arm-none-eabi-gcc -o "SD_USB_H7.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\SD_USB_H7\STM32H743ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SD_USB_H7.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
