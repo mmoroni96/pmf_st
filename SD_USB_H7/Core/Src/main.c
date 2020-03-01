@@ -185,7 +185,8 @@ int main(void)
 
 	  if(HAL_GPIO_ReadPin(USER_Btn_GPIO_Port,USER_Btn_Pin)==GPIO_PIN_SET){
 		  if(i==0){
-			  NVIC_DisableIRQ(OTG_FS_IRQn);
+			  HAL_TIM_Base_Stop_IT(&htim17);
+			  //NVIC_DisableIRQ(OTG_FS_IRQn);
 			  HAL_GPIO_WritePin(LD3_GPIO_Port,LD3_Pin, GPIO_PIN_SET);
 			  if(USBD_Stop(&hUsbDeviceFS)!= USBD_OK) {
 								Error_Handler();
@@ -196,21 +197,21 @@ int main(void)
 			  for(int e=0;e<100000;e++){
 				  scrivi_speed();
 			  }
+
 			  res = f_close(&writeFile);
 			  HAL_GPIO_WritePin(LD3_GPIO_Port,LD3_Pin, GPIO_PIN_RESET);
-		      i=1;
+		      i=0;
 		      HAL_Delay(200);}
-		  else{
+
 
 			  HAL_GPIO_WritePin(LD3_GPIO_Port,LD3_Pin, GPIO_PIN_RESET);
 			  MX_USB_DEVICE_Init();
 			  /*if(USBD_Start(&hUsbDeviceFS)!= USBD_OK) {
 			 			  				    Error_Handler();
 			 			  				  }*/
-			  NVIC_EnableIRQ(OTG_FS_IRQn);
-			  i=0;
-			  HAL_Delay(200);
-		  }
+			  //NVIC_EnableIRQ(OTG_FS_IRQn);
+			  HAL_TIM_Base_Start_IT(&htim17);			  HAL_Delay(200);
+
 
 
 
@@ -449,7 +450,7 @@ static void MX_TIM17_Init(void)
   htim17.Instance = TIM17;
   htim17.Init.Prescaler = 63999;
   htim17.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim17.Init.Period = 200;
+  htim17.Init.Period = 2000;
   htim17.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim17.Init.RepetitionCounter = 0;
   htim17.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
@@ -621,13 +622,15 @@ FRESULT leggi(){
     	FIL readFile;       /* File  object for USER */
     		   /* File system object for USER logical drive */
     		//FIL USERFile;     /* File  object for USER */
-    	char USERPath[4];   /* USER logical drive path */
+    	char USERPath[4];
     	uint8_t bytesWrote;
-    	uint8_t path1[] = "current.txt";
-    	res = f_open(&readFile, &path1, FA_READ);
+    	uint8_t pat[] = "current.txt";
+    	res = f_open(&readFile, &pat, FA_READ);
     	res = f_read(&readFile,readBuff,1, &br);
     	if(readBuff[0]=='1'){flag++;}
     	res = f_close(&readFile);
+
+
 
 
 
