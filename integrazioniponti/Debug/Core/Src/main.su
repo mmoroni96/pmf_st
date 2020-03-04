@@ -19,5 +19,5 @@ main.c:988:16:platform_write_hum	40	static
 main.c:1013:16:platform_read_hum	40	static
 main.c:1025:9:make_giro_offset	24	static
 main.c:1047:6:HAL_TIM_PeriodElapsedCallback	16	static
-main.c:1100:9:get_data	16	static
-main.c:1199:6:Error_Handler	8	static
+main.c:1104:9:get_data	16	static
+main.c:1203:6:Error_Handler	8	static

@@ -249,9 +249,9 @@ int main(void)
   MX_CAN_Init();
   /* USER CODE BEGIN 2 */
   TxHeader.StdId=0x312;
-  TxHeader.ExtId=0x01;
+  TxHeader.ExtId=0x010;
   TxHeader.RTR=CAN_RTR_DATA;
-  TxHeader.IDE=CAN_ID_EXT;
+  TxHeader.IDE=CAN_ID_STD;
   TxHeader.DLC=8;
   TxHeader.TransmitGlobalTime=DISABLE;
 
@@ -546,8 +546,8 @@ static void MX_CAN_Init(void)
   hcan.Init.Prescaler = 2;
   hcan.Init.Mode = CAN_MODE_NORMAL;
   hcan.Init.SyncJumpWidth = CAN_SJW_1TQ;
-  hcan.Init.TimeSeg1 = CAN_BS1_6TQ;
-  hcan.Init.TimeSeg2 = CAN_BS2_1TQ;
+  hcan.Init.TimeSeg1 = CAN_BS1_13TQ;
+  hcan.Init.TimeSeg2 = CAN_BS2_2TQ;
   hcan.Init.TimeTriggeredMode = DISABLE;
   hcan.Init.AutoBusOff = DISABLE;
   hcan.Init.AutoWakeUp = DISABLE;
@@ -1063,7 +1063,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     			Data[0].Responce_Time_millis=TIM2->CNT;
     			timer++;
     			HAL_TIM_Base_Stop(&htim1);
-    			TxHeader.ExtId=ID;
+    			TxHeader.StdId=0x1;
     			TxHeader.DLC=8;
     			TxData0[0]=(int8_t)(timer  & 0x000000FF);
 				TxData0[1]=(int8_t)((timer & 0x0000FF00)>>8);
@@ -1074,7 +1074,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 				TxData0[6]=(int8_t)(Data[0].Gir_y  & 0x00FF);
 				TxData0[7]=(int8_t)((Data[0].Gir_y & 0xFF00 )>> 8);
 				HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);
-    			TxHeader.ExtId=ID|0xF0000000;
+    			TxHeader.StdId=0x2;
 				TxHeader.DLC=8;
 				TxData1[0]=(int8_t)(Data[0].Acc_x & 0x00FF);
 				TxData1[1]=(int8_t)((Data[0].Acc_x & 0xFF00 )>> 8);
@@ -1085,13 +1085,17 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 				TxData1[6]=(int8_t)(Data[0].T_b & 0x00FF);
 				TxData1[7]=(int8_t)((Data[0].T_b & 0xFF00 )>> 8);
 				HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData1,&TxMailbox);
-				TxHeader.ExtId=0x23|0xF0000000;
+				TxHeader.StdId=0x3;
 				TxHeader.DLC=8;
 				TxData0[0]=(int8_t)(Data[0].Pres  & 0x000000FF);
 				TxData0[1]=(int8_t)((Data[0].Pres & 0x0000FF00)>>8);
 				TxData0[2]=(int8_t)((Data[0].Pres & 0x00FF0000)>>16);
 				TxData0[3]=(int8_t)((Data[0].Pres & 0xFF000000)>>24);
-				HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData1,&TxMailbox);
+				TxData0[4]=0x00;
+				TxData0[5]=0x00;
+				TxData0[6]=0x00;
+				TxData0[7]=0x00;
+				HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);
 
 
 

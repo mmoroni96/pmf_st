@@ -32,6 +32,9 @@ default.size.stdout \
 OBJDUMP_LIST += \
 integrazioniponti.list \
 
+OBJCOPY_BIN += \
+integrazioniponti.bin \
+
 
 # All Target
 all: integrazioniponti.elf secondary-outputs
@@ -52,12 +55,17 @@ integrazioniponti.list: $(EXECUTABLES)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+integrazioniponti.bin: $(EXECUTABLES)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "integrazioniponti.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
 	-$(RM) *
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)
 
 .PHONY: all clean dependents
 .SECONDARY:
