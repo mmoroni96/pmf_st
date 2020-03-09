@@ -1,0 +1,6 @@
+user_diskio.c:59:16:USER_CheckStatus	16	static
+user_diskio.c:104:9:USER_initialize	16	static
+user_diskio.c:127:9:USER_status	16	static
+user_diskio.c:144:9:USER_read	32	static
+user_diskio.c:176:9:USER_write	32	static
+user_diskio.c:210:9:USER_ioctl	128	static

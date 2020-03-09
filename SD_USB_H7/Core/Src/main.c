@@ -36,6 +36,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define ADC_CONVERTED_DATA_BUFFER_SIZE   ((uint32_t)  32)   /* Size of array aADCxConvertedData[] */
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -71,6 +72,8 @@ uint8_t Rx_Buff[ETH_RX_DESC_CNT][ETH_MAX_PACKET_SIZE] __attribute__((section(".R
 #endif
 
 ETH_TxPacketConfig TxConfig; 
+ADC_HandleTypeDef hadc3;
+DMA_HandleTypeDef hdma_adc3;
 
 ETH_HandleTypeDef heth;
 
@@ -80,11 +83,22 @@ RTC_HandleTypeDef hrtc;
 
 SD_HandleTypeDef hsd1;
 
+TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim17;
 
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
+/* ADC handle declaration */
+ADC_HandleTypeDef             AdcHandle;
+
+/* ADC channel configuration structure declaration */
+ADC_ChannelConfTypeDef        sConfig;
+
+/* Variable containing ADC conversions data */
+ALIGN_32BYTES (static uint16_t   aADCxConvertedData[ADC_CONVERTED_DATA_BUFFER_SIZE]);
+
+
 HAL_SD_CardInfoTypeDef SDCardInfo;
 FATFS myFatFS;
 FIL myFile;
@@ -119,12 +133,15 @@ uint8_t path1[] = "STM32.TXT";
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
 static void MX_ETH_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_SDMMC1_SD_Init(void);
 static void MX_RTC_Init(void);
 static void MX_TIM17_Init(void);
 static void MX_FDCAN1_Init(void);
+static void MX_TIM3_Init(void);
+static void MX_ADC3_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -162,6 +179,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_ETH_Init();
   MX_USART3_UART_Init();
   MX_SDMMC1_SD_Init();
@@ -170,14 +188,19 @@ int main(void)
   MX_USB_DEVICE_Init();
   MX_TIM17_Init();
   MX_FDCAN1_Init();
+  MX_TIM3_Init();
+  MX_ADC3_Init();
   /* USER CODE BEGIN 2 */
   //HAL_SD_Init(&hsd1);
   //HAL_SD_GetCardInfo(&hsd1, &SDCardInfo);
   //HAL_SD_Init(&hsd1);
   FRESULT res;
+  uint16_t rawValues[3];
   res=f_mount(&myFatFS, SDPath, 1);
   HAL_TIM_Base_Start_IT(&htim17);
-
+  HAL_TIM_Base_Start(&htim3);
+  HAL_ADC_Start_DMA(&hadc3, (uint32_t*)aADCxConvertedData, 1);
+  //HAL_ADC_Start_DMA(&hadc3,(uint32_t*)rawValues, 2);
 
   //HAL_SD_ConfigWideBusOperation(&hsd1,SDMMC_BUS_WIDE_4B);
   /* USER CODE END 2 */
@@ -192,9 +215,9 @@ int main(void)
 			  HAL_TIM_Base_Stop_IT(&htim17);
 			  //NVIC_DisableIRQ(OTG_FS_IRQn);
 			  HAL_GPIO_WritePin(LD3_GPIO_Port,LD3_Pin, GPIO_PIN_SET);
-			  if(USBD_Stop(&hUsbDeviceFS)!= USBD_OK) {
-								Error_Handler();
-							  }
+			  //if(USBD_Stop(&hUsbDeviceFS)!= USBD_OK) {
+		             //				Error_Handler();
+					//		  }
 
 			  res = f_open(&writeFile, &path1, FA_CREATE_ALWAYS);
 			  res = f_close(&writeFile);
@@ -212,7 +235,7 @@ int main(void)
 
 			  HAL_GPIO_WritePin(LD3_GPIO_Port,LD3_Pin, GPIO_PIN_RESET);
 
-			  MX_USB_DEVICE_Init();
+			  //MX_USB_DEVICE_Init();
 			  /*if(USBD_Start(&hUsbDeviceFS)!= USBD_OK) {
 			 			  				    Error_Handler();
 			 			  				  }*/
@@ -293,7 +316,7 @@ void SystemClock_Config(void)
   }
   PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RTC|RCC_PERIPHCLK_USART3
                               |RCC_PERIPHCLK_FDCAN|RCC_PERIPHCLK_SDMMC
-                              |RCC_PERIPHCLK_USB;
+                              |RCC_PERIPHCLK_ADC|RCC_PERIPHCLK_USB;
   PeriphClkInitStruct.PLL2.PLL2M = 1;
   PeriphClkInitStruct.PLL2.PLL2N = 24;
   PeriphClkInitStruct.PLL2.PLL2P = 2;
@@ -306,6 +329,7 @@ void SystemClock_Config(void)
   PeriphClkInitStruct.FdcanClockSelection = RCC_FDCANCLKSOURCE_PLL2;
   PeriphClkInitStruct.Usart234578ClockSelection = RCC_USART234578CLKSOURCE_D2PCLK1;
   PeriphClkInitStruct.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
+  PeriphClkInitStruct.AdcClockSelection = RCC_ADCCLKSOURCE_PLL2;
   PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
   {
@@ -314,6 +338,72 @@ void SystemClock_Config(void)
   /** Enable USB Voltage detector 
   */
   HAL_PWREx_EnableUSBVoltageDetector();
+}
+
+/**
+  * @brief ADC3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_ADC3_Init(void)
+{
+
+  /* USER CODE BEGIN ADC3_Init 0 */
+	hadc3.Instance = ADC3;
+  /* USER CODE END ADC3_Init 0 */
+
+  ADC_ChannelConfTypeDef sConfig = {0};
+
+  /* USER CODE BEGIN ADC3_Init 1 */
+  if (HAL_ADC_DeInit(&AdcHandle) != HAL_OK)
+    {
+      /* ADC de-initialization Error */
+      Error_Handler();
+    }
+  /* USER CODE END ADC3_Init 1 */
+  /** Common config 
+  */
+  hadc3.Instance = ADC3;
+  hadc3.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV4;
+  hadc3.Init.Resolution = ADC_RESOLUTION_16B;
+  hadc3.Init.ScanConvMode = ADC_SCAN_DISABLE;
+  hadc3.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
+  hadc3.Init.LowPowerAutoWait = DISABLE;
+  hadc3.Init.ContinuousConvMode = ENABLE;
+  hadc3.Init.NbrOfConversion = 1;
+  hadc3.Init.DiscontinuousConvMode = DISABLE;
+  hadc3.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+  hadc3.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+  hadc3.Init.ConversionDataManagement = ADC_CONVERSIONDATA_DMA_CIRCULAR;
+  hadc3.Init.Overrun = ADC_OVR_DATA_OVERWRITTEN;
+  hadc3.Init.LeftBitShift = ADC_LEFTBITSHIFT_NONE;
+  hadc3.Init.OversamplingMode = DISABLE;
+  if (HAL_ADC_Init(&hadc3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /** Configure Regular Channel 
+  */
+  sConfig.Channel = ADC_CHANNEL_TEMPSENSOR;
+  sConfig.Rank = ADC_REGULAR_RANK_1;
+  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  sConfig.SingleDiff = ADC_SINGLE_ENDED;
+  sConfig.OffsetNumber = ADC_OFFSET_NONE;
+  sConfig.Offset = 0;
+  if (HAL_ADC_ConfigChannel(&hadc3, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN ADC3_Init 2 */
+  if (HAL_ADC_Start_DMA(&AdcHandle,
+                          (uint32_t *)aADCxConvertedData,
+                          ADC_CONVERTED_DATA_BUFFER_SIZE
+                         ) != HAL_OK)
+    {
+      Error_Handler();
+    }
+  /* USER CODE END ADC3_Init 2 */
+
 }
 
 /**
@@ -507,6 +597,51 @@ static void MX_SDMMC1_SD_Init(void)
 }
 
 /**
+  * @brief TIM3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM3_Init(void)
+{
+
+  /* USER CODE BEGIN TIM3_Init 0 */
+
+  /* USER CODE END TIM3_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM3_Init 1 */
+
+  /* USER CODE END TIM3_Init 1 */
+  htim3.Instance = TIM3;
+  htim3.Init.Prescaler = 63999;
+  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim3.Init.Period = 999;
+  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM3_Init 2 */
+
+  /* USER CODE END TIM3_Init 2 */
+
+}
+
+/**
   * @brief TIM17 Initialization Function
   * @param None
   * @retval None
@@ -583,6 +718,22 @@ static void MX_USART3_UART_Init(void)
   /* USER CODE BEGIN USART3_Init 2 */
 
   /* USER CODE END USART3_Init 2 */
+
+}
+
+/** 
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void) 
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Stream0_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream0_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream0_IRQn);
 
 }
 
@@ -729,6 +880,30 @@ FRESULT scrivi_speed(){
 
 
 	return res;
+}
+static void CPU_CACHE_Enable(void)
+{
+  /* Enable I-Cache */
+  SCB_EnableICache();
+
+  /* Enable D-Cache */
+  SCB_EnableDCache();
+}
+void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef* hadc)
+{
+  /* Invalidate Data Cache to get the updated content of the SRAM on the first half of the ADC converted data buffer: 32 bytes */
+  SCB_InvalidateDCache_by_Addr((uint32_t *) &aADCxConvertedData[0], ADC_CONVERTED_DATA_BUFFER_SIZE);
+}
+
+/**
+  * @brief  Conversion DMA half-transfer callback in non-blocking mode
+  * @param  hadc: ADC handle
+  * @retval None
+  */
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
+{
+   /* Invalidate Data Cache to get the updated content of the SRAM on the second half of the ADC converted data buffer: 32 bytes */
+  SCB_InvalidateDCache_by_Addr((uint32_t *) &aADCxConvertedData[ADC_CONVERTED_DATA_BUFFER_SIZE/2], ADC_CONVERTED_DATA_BUFFER_SIZE);
 }
 /* USER CODE END 4 */
 

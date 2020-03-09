@@ -1,0 +1,4 @@
+app_fatfs.c:69:9:MX_FATFS_Init	8	static
+app_fatfs.c:91:9:MX_FATFS_Process	24	static
+app_fatfs.c:145:7:get_fattime	4	static
+app_fatfs.c:158:16:FS_FileOperations	200	static
