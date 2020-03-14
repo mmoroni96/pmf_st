@@ -28,24 +28,24 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-Nucleo-H743ZI.elf \
+CANDELA_STRUM_OK.elf \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-Nucleo-H743ZI.list \
+CANDELA_STRUM_OK.list \
 
 OBJCOPY_BIN += \
-Nucleo-H743ZI.bin \
+CANDELA_STRUM_OK.bin \
 
 
 # All Target
-all: Nucleo-H743ZI.elf secondary-outputs
+all: CANDELA_STRUM_OK.elf secondary-outputs
 
 # Tool invocations
-Nucleo-H743ZI.elf: $(OBJS) $(USER_OBJS) C:\Users\mmoro\OneDrive\Documents\pmf_st\Nucleo-H743ZI\STM32H743ZITX_FLASH.ld
-	arm-none-eabi-gcc -o "Nucleo-H743ZI.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\Nucleo-H743ZI\STM32H743ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Nucleo-H743ZI.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+CANDELA_STRUM_OK.elf: $(OBJS) $(USER_OBJS) C:\Users\mmoro\OneDrive\Documents\pmf_st\Nucleo-H743ZI\STM32H743ZITX_FLASH.ld
+	arm-none-eabi-gcc -o "CANDELA_STRUM_OK.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\Nucleo-H743ZI\STM32H743ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CANDELA_STRUM_OK.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -54,13 +54,13 @@ default.size.stdout: $(EXECUTABLES)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Nucleo-H743ZI.list: $(EXECUTABLES)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "Nucleo-H743ZI.list"
+CANDELA_STRUM_OK.list: $(EXECUTABLES)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "CANDELA_STRUM_OK.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Nucleo-H743ZI.bin: $(EXECUTABLES)
-	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "Nucleo-H743ZI.bin"
+CANDELA_STRUM_OK.bin: $(EXECUTABLES)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "CANDELA_STRUM_OK.bin"
 	@echo 'Finished building: $@'
 	@echo ' '
 

@@ -1,9 +1,10 @@
 #MicroXplorer Configuration settings - do not modify
 ADC3.Channel-2\#ChannelRegularConversion=ADC_CHANNEL_5
+ADC3.ClockPrescaler=ADC_CLOCK_ASYNC_DIV6
 ADC3.ContinuousConvMode=DISABLE
 ADC3.ConversionDataManagement=ADC_CONVERSIONDATA_DMA_CIRCULAR
 ADC3.ExternalTrigConv=ADC_EXTERNALTRIG_T4_TRGO
-ADC3.IPParameters=Rank-2\#ChannelRegularConversion,Channel-2\#ChannelRegularConversion,SamplingTime-2\#ChannelRegularConversion,OffsetNumber-2\#ChannelRegularConversion,NbrOfConversionFlag,ContinuousConvMode,ConversionDataManagement,Overrun,ExternalTrigConv
+ADC3.IPParameters=Rank-2\#ChannelRegularConversion,Channel-2\#ChannelRegularConversion,SamplingTime-2\#ChannelRegularConversion,OffsetNumber-2\#ChannelRegularConversion,NbrOfConversionFlag,ContinuousConvMode,ConversionDataManagement,Overrun,ExternalTrigConv,ClockPrescaler
 ADC3.NbrOfConversionFlag=1
 ADC3.OffsetNumber-2\#ChannelRegularConversion=ADC_OFFSET_NONE
 ADC3.Overrun=ADC_OVR_DATA_OVERWRITTEN
