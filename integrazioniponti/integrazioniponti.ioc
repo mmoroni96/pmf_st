@@ -1,10 +1,10 @@
 #MicroXplorer Configuration settings - do not modify
 CAN.BS1=CAN_BS1_13TQ
 CAN.BS2=CAN_BS2_2TQ
-CAN.CalculateTimeQuantum=125.0
+CAN.CalculateTimeQuantum=62.5
 CAN.IPParameters=CalculateTimeQuantum,Prescaler,BS1,NART,BS2
 CAN.NART=ENABLE
-CAN.Prescaler=2
+CAN.Prescaler=1
 File.Version=6
 I2C1.I2C_Speed_Mode=I2C_Fast
 I2C1.IPParameters=I2C_Speed_Mode,Timing
@@ -163,7 +163,7 @@ PF1-OSC_OUT.Locked=true
 PF1-OSC_OUT.Mode=HSE-External-Oscillator
 PF1-OSC_OUT.Signal=RCC_OSC_OUT
 PinOutPanel.RotationAngle=0
-ProjectManager.AskForMigrate=true
+ProjectManager.AskForMigrate=false
 ProjectManager.BackupPrevious=false
 ProjectManager.CompilerOptimize=6
 ProjectManager.ComputerToolchain=false

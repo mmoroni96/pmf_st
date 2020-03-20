@@ -1,0 +1,8 @@
+stm32g4xx_ll_pwr.h:497:22:LL_PWR_DisableUCPDDeadBattery	4	static
+stm32g4xx_hal_msp.c:65:6:HAL_MspInit	16	static
+stm32g4xx_hal_msp.c:91:6:HAL_DAC_MspInit	48	static
+stm32g4xx_hal_msp.c:142:6:HAL_DAC_MspDeInit	16	static
+stm32g4xx_hal_msp.c:172:6:HAL_UART_MspInit	48	static
+stm32g4xx_hal_msp.c:208:6:HAL_UART_MspDeInit	16	static
+stm32g4xx_hal_msp.c:237:6:HAL_TIM_Base_MspInit	32	static
+stm32g4xx_hal_msp.c:284:6:HAL_TIM_Base_MspDeInit	16	static

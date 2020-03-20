@@ -1,0 +1,12 @@
+main.c:94:5:main	8	static
+main.c:160:6:SystemClock_Config	168	static
+main.c:213:13:MX_DAC1_Init	72	static
+main.c:272:13:MX_LPUART1_UART_Init	8	static
+main.c:318:13:MX_TIM2_Init	40	static
+main.c:363:13:MX_TIM4_Init	40	static
+main.c:408:13:MX_TIM6_Init	24	static
+main.c:444:13:MX_DMA_Init	16	static
+main.c:463:13:MX_GPIO_Init	48	static
+main.c:506:6:HAL_TIM_PeriodElapsedCallback	16	static
+main.c:518:13:DAC_ChangeWave	32	static
+main.c:613:6:Error_Handler	4	static

@@ -337,6 +337,10 @@ int main(void)
 	* Set Output Data Rate
 	*/
 	iis3dhhc_data_rate_set(&dev_ctx_acc, IIS3DHHC_1kHz1);
+	iis3dhhc_filter_config_set(&dev_ctx_acc,3);//set filtro a 440hz
+	iis3dhhc_dsp_t val;
+	iis3dhhc_filter_config_get(&dev_ctx_acc ,&val);//check_filtro
+
 	/*
 	* Enable temperature compensation
 	*/
@@ -543,7 +547,7 @@ static void MX_CAN_Init(void)
 
   /* USER CODE END CAN_Init 1 */
   hcan.Instance = CAN;
-  hcan.Init.Prescaler = 2;
+  hcan.Init.Prescaler = 1;
   hcan.Init.Mode = CAN_MODE_NORMAL;
   hcan.Init.SyncJumpWidth = CAN_SJW_1TQ;
   hcan.Init.TimeSeg1 = CAN_BS1_13TQ;
@@ -1091,8 +1095,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 				TxData0[1]=(int8_t)((Data[0].Pres & 0x0000FF00)>>8);
 				TxData0[2]=(int8_t)((Data[0].Pres & 0x00FF0000)>>16);
 				TxData0[3]=(int8_t)((Data[0].Pres & 0xFF000000)>>24);
-				TxData0[4]=0x00;
-				TxData0[5]=0x00;
+				TxData0[4]=(int8_t)(Data[0].Hum  & 0x000000FF);
+			    TxData0[5]=(int8_t)((Data[0].Hum & 0x0000FF00)>>8);
 				TxData0[6]=0x00;
 				TxData0[7]=0x00;
 				HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);
