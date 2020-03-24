@@ -40,7 +40,14 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define NO_ERR 0x00      //NESSUN ERRORE
+#define ACC_ERR 0x01	 //ERRORE MODULO ACCELLEROMETRO
+#define GYR_ERR 0x02	 //ERRORE MODULO GIROSCOPIO
+#define PRE_ERR 0x04     //ERRORE MODULO PRESSIONE
+#define HUM_ERR 0x08	 //ERRORE MODULO UMIDITA'
+#define FIR_P 0x00000000 //MASCHERA PER PRIMO PACCHETTO
+#define SEC_P 0x00000100 //MASCHERA PER SECONDO PACCHETTO
+#define THI_P 0x00000300 //MASCHERA PER TERZO PACCHETTO
 #define CS_up_GPIO_Port GPIOB
 #define CS_ACC		cs_1_Pin
 #define CS_GIR		cs_2_Pin
@@ -74,7 +81,7 @@ typedef struct{
 		int16_t y;
 
 	}Giro_Off;
-l2g2is_off_t ciccio;
+l2g2is_off_t setOffset;
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -96,6 +103,7 @@ TIM_HandleTypeDef htim3;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
+uint8_t Err=0;
 //ACCELEROMETRO
 static axis3bit16_t data_raw_acceleration;
 //static axis1bit16_t data_raw_temperature;
@@ -135,7 +143,10 @@ struct{
 	uint16_t Hum;
 	uint16_t Responce_Time_millis;
     }Data[2];
-uint32_t ID=0;
+uint8_t ID=0; //ID BOARD
+uint8_t IDF=0;//ID Fake per schedulare invio pacchetti nel tempo
+uint8_t flagStartData=0;//serve ad abilitare la trasmissione dei dati non importanti come la pressione e l'umidità
+						//che saranno letti solo all'inizio e alla fine
 uint8_t a=0;
 uint8_t read[2];
 uint32_t timer;
@@ -277,12 +288,14 @@ int main(void)
 
 
 
-  if(HAL_GPIO_ReadPin(GPIOB,I0_Pin)){ID=ID+1;}
-  if(HAL_GPIO_ReadPin(GPIOB,I1_Pin)){ID=ID+2;}
-  if(HAL_GPIO_ReadPin(GPIOB,I2_Pin)){ID=ID+4;}
-  if(HAL_GPIO_ReadPin(GPIOB,I3_Pin)){ID=ID+8;}
-  if(HAL_GPIO_ReadPin(GPIOA,I4_Pin)){ID=ID+16;}
-  htim1.Init.Period = 2000+ID*198/3;
+  if(HAL_GPIO_ReadPin(GPIOB,I0_Pin)){ID=ID|0x01;}
+  if(HAL_GPIO_ReadPin(GPIOB,I1_Pin)){ID=ID|0x02;}
+  if(HAL_GPIO_ReadPin(GPIOB,I2_Pin)){ID=ID|0x04;}
+  if(HAL_GPIO_ReadPin(GPIOB,I3_Pin)){ID=ID|0x08;}
+  if(HAL_GPIO_ReadPin(GPIOA,I4_Pin)){ID=ID|0x10;}
+  if(ID>9)IDF=ID-10;
+  if(ID>19)IDF=ID-20;
+  htim1.Init.Period = 1500+IDF*350;
 
 
   HAL_GPIO_WritePin(GPIOB, cs_1_Pin, GPIO_PIN_SET);
@@ -320,8 +333,10 @@ int main(void)
 	whoamI = 0;
 	iis3dhhc_device_id_get(&dev_ctx_acc, &whoamI);
 	//IIS3DHHC_ID
-	if ( whoamI != IIS3DHHC_ID)
-	while(1); /*manage here device not found */
+	if ( whoamI != IIS3DHHC_ID){// CONTROLLO SE E' POSSIBILE LA COMUNICAZIONE CON IL SENSORE
+		Err=Err|ACC_ERR;
+	}
+
 	/*
 	*  Restore default configuration
 	*/
@@ -370,9 +385,7 @@ int main(void)
 	/* Check device ID */
 	l2g2is_dev_id_get(&dev_ctx_gir, &whoamI);
 	if ( whoamI != L2G2IS_ID ){
-	while(1){
-	  // manage here device not found
-		  }
+		Err=Err|GYR_ERR;
 	}
 
 	/* Restore default configuration */
@@ -393,10 +406,10 @@ int main(void)
 	//l2g2is_gy_filter_lp_bandwidth_set(&dev_ctx, L2G2IS_LPF_BW_160Hz);
 	//l2g2is_gy_filter_hp_bandwidth_set(&dev_ctx, L2G2IS_HPF_BYPASS);
 
-	ciccio.offx = 0x00;
-	ciccio.offy = 0x00;
+	setOffset.offx = 0x00;
+	setOffset.offy = 0x00;
 
-	l2g2is_angular_rate_offset_set(&dev_ctx_gir, ciccio);
+	l2g2is_angular_rate_offset_set(&dev_ctx_gir, setOffset);
 
 
 
@@ -409,11 +422,11 @@ int main(void)
 
 	//Data.Responce_Time_millis=make_giro_offset(&dev_ctx_gir,&giro); OFFSET NON FUNZIONANTE
 	//BAROMETRO
-
-    //do{
-	//lps22hb_device_id_get(&dev_ctx_bar, &whoamI);
-    //}while(whoamI != LPS22HB_ID);
-	/* Restore default configuration */
+	whoamI=0;
+	lps22hb_device_id_get(&dev_ctx_bar,&whoamI);
+    if(whoamI != LPS22HB_ID){
+    	Err=Err|PRE_ERR;
+    	}
 	lps22hb_reset_set(&dev_ctx_bar, PROPERTY_ENABLE);
 	do {
 	lps22hb_reset_get(&dev_ctx_bar, &rst_bar);
@@ -437,10 +450,9 @@ int main(void)
 	/* Check device ID */
 	whoamI = 0;
 	hts221_device_id_get(&dev_ctx_hum, &whoamI);
-	if ( whoamI != HTS221_ID )
-	  while(1); /*manage here device not found */
-
-	/* Read humidity calibration coefficient */
+	if ( whoamI != HTS221_ID ){
+		Err=Err|HUM_ERR;
+	}
 	axis1bit16_t coeff;
 	lin_t lin_hum;
 	hts221_hum_adc_point_0_get(&dev_ctx_hum, coeff.u8bit);
@@ -559,7 +571,7 @@ static void MX_CAN_Init(void)
   hcan.Init.AutoWakeUp = DISABLE;
   hcan.Init.AutoRetransmission = ENABLE;
   hcan.Init.ReceiveFifoLocked = DISABLE;
-  hcan.Init.TransmitFifoPriority = DISABLE;
+  hcan.Init.TransmitFifoPriority = ENABLE;
   if (HAL_CAN_Init(&hcan) != HAL_OK)
   {
     Error_Handler();
@@ -639,7 +651,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_HIGH;
   hspi1.Init.CLKPhase = SPI_PHASE_2EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -675,7 +687,7 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 15;
+  htim1.Init.Prescaler = 31;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim1.Init.Period = 2000;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -1065,47 +1077,50 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
             }
     if (htim->Instance==TIM1) //check if the interrupt comes from TIM2
                 {
-
-    			Data[0].Responce_Time_millis=TIM2->CNT;
     			timer++;
-    			HAL_TIM_Base_Stop(&htim1);
-    			TxHeader.StdId=0x1;
-    			TxHeader.DLC=8;
-    			TxData0[0]=(int8_t)(timer  & 0x000000FF);
-				TxData0[1]=(int8_t)((timer & 0x0000FF00)>>8);
-				TxData0[2]=(int8_t)((timer & 0x00FF0000)>>16);
-				TxData0[3]=(int8_t)((timer & 0xFF000000)>>24);
-				TxData0[4]=(int8_t)(Data[0].Gir_x & 0x00FF);
-				TxData0[5]=(int8_t)((Data[0].Gir_x & 0xFF00 )>> 8);
-				TxData0[6]=(int8_t)(Data[0].Gir_y  & 0x00FF);
-				TxData0[7]=(int8_t)((Data[0].Gir_y & 0xFF00 )>> 8);
-				HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);
-    			TxHeader.StdId=0x2;
-				TxHeader.DLC=8;
-				TxData1[0]=(int8_t)(Data[0].Acc_x & 0x00FF);
-				TxData1[1]=(int8_t)((Data[0].Acc_x & 0xFF00 )>> 8);
-				TxData1[2]=(int8_t)(Data[0].Acc_y & 0x00FF);
-				TxData1[3]=(int8_t)((Data[0].Acc_y & 0xFF00 )>> 8);
-				TxData1[4]=(int8_t)(Data[0].Acc_z & 0x00FF);
-				TxData1[5]=(int8_t)((Data[0].Acc_z & 0xFF00 )>> 8);
-				TxData1[6]=(int8_t)(Data[0].T_b & 0x00FF);
-				TxData1[7]=(int8_t)((Data[0].T_b & 0xFF00 )>> 8);
-				HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData1,&TxMailbox);
-				TxHeader.StdId=0x3;
-				TxHeader.DLC=8;
-				TxData0[0]=(int8_t)(Data[0].Pres  & 0x000000FF);
-				TxData0[1]=(int8_t)((Data[0].Pres & 0x0000FF00)>>8);
-				TxData0[2]=(int8_t)((Data[0].Pres & 0x00FF0000)>>16);
-				TxData0[3]=(int8_t)((Data[0].Pres & 0xFF000000)>>24);
-				TxData0[4]=(int8_t)(Data[0].Hum  & 0x000000FF);
-			    TxData0[5]=(int8_t)((Data[0].Hum & 0x0000FF00)>>8);
-				TxData0[6]=0x00;
-				TxData0[7]=0x00;
-				HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);
+    			//Data[0].Responce_Time_millis=TIM2->CNT;
+    			//if(flagStartData==1){
+					HAL_TIM_Base_Stop(&htim1);
+					HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);
+					TxHeader.StdId=(ID)|FIR_P;
+					TxHeader.DLC=8;
+					TxData0[0]=(int8_t)(timer  & 0x000000FF);
+					TxData0[1]=(int8_t)((timer & 0x0000FF00)>>8);
+					TxData0[2]=(int8_t)((timer & 0x00FF0000)>>16);
+					TxData0[3]=(int8_t)((timer & 0xFF000000)>>24);
+					TxData0[4]=(int8_t)(Data[0].Gir_x & 0x00FF);
+					TxData0[5]=(int8_t)((Data[0].Gir_x & 0xFF00 )>> 8);
+					TxData0[6]=(int8_t)(Data[0].Gir_y  & 0x00FF);
+					TxData0[7]=(int8_t)((Data[0].Gir_y & 0xFF00 )>> 8);
+					HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);
+					TxHeader.StdId=(ID)|SEC_P;
+					TxHeader.DLC=8;
+					TxData1[0]=(int8_t)(Data[0].Acc_x & 0x00FF);
+					TxData1[1]=(int8_t)((Data[0].Acc_x & 0xFF00 )>> 8);
+					TxData1[2]=(int8_t)(Data[0].Acc_y & 0x00FF);
+					TxData1[3]=(int8_t)((Data[0].Acc_y & 0xFF00 )>> 8);
+					TxData1[4]=(int8_t)(Data[0].Acc_z & 0x00FF);
+					TxData1[5]=(int8_t)((Data[0].Acc_z & 0xFF00 )>> 8);
+					TxData1[6]=(int8_t)(Data[0].T_b & 0x00FF);
+					TxData1[7]=(int8_t)((Data[0].T_b & 0xFF00 )>> 8);
+					HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData1,&TxMailbox);
+    			//}
+    			//else{
+					TxHeader.StdId=(ID)|THI_P;
+					TxHeader.DLC=8;
+					TxData0[0]=(int8_t)(Data[0].Pres  & 0x000000FF);
+					TxData0[1]=(int8_t)((Data[0].Pres & 0x0000FF00)>>8);
+					TxData0[2]=(int8_t)((Data[0].Pres & 0x00FF0000)>>16);
+					TxData0[3]=(int8_t)((Data[0].Pres & 0xFF000000)>>24);
+					TxData0[4]=(int8_t)(Data[0].Hum  & 0x000000FF);
+					TxData0[5]=(int8_t)((Data[0].Hum & 0x0000FF00)>>8);
+					TxData0[6]=Err;
+					TxData0[7]=0x00;
+					HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);
+					flagStartData=1;
+    			//}
+				}
 
-
-
-                }
 }
 uint8_t get_data(){
 		TIM2->CNT=0;
@@ -1113,16 +1128,12 @@ uint8_t get_data(){
 
 
 
-		//BAROMETRO
 
-			dev_ctx_bar.write_reg = platform_write_bar;
-			dev_ctx_bar.read_reg = platform_read_bar;
-			dev_ctx_bar.handle = &hi2c1;
-			iis3dhhc_status_get(&dev_ctx_acc, &reg_acc.status);
 
+        	  iis3dhhc_status_get(&dev_ctx_acc, &reg_acc.status);
 		  	  if (reg_acc.status.zyxda)
 		  	  {
-		  		/* Read magnetic field data */
+
 		  		memset(data_raw_acceleration.u8bit, 0x00, 3*sizeof(int16_t));
 		  		iis3dhhc_acceleration_raw_get(&dev_ctx_acc, data_raw_acceleration.u8bit);
 		  		Data[0].Acc_x=data_raw_acceleration.i16bit[0];
@@ -1161,6 +1172,11 @@ uint8_t get_data(){
 		  	    Data[0].T_g=data_raw_temperature.i16bit+25*1/0.0625;
 		  	  }
 
+		  		//BAROMETRO
+
+				dev_ctx_bar.write_reg = platform_write_bar;
+				dev_ctx_bar.read_reg = platform_read_bar;
+				dev_ctx_bar.handle = &hi2c1;
 
 
 		  		// Read output only if new value is available
@@ -1193,7 +1209,7 @@ uint8_t get_data(){
 		  		//if (humidity_perc > 100) humidity_perc = 100;
 		  		}
 
-		  	//Data.Responce_Time_millis=Data.Responce_Time_millis=TIM2->CNT;
+		  	Data[0].Responce_Time_millis=TIM2->CNT;
 
 
 
