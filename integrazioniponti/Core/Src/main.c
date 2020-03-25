@@ -40,6 +40,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define T_VALUE 5        //NUMERO DI VOLTE CHE VIENE PROVATA LA COMUNICAZIONE CON I SENSORI
 #define NO_ERR 0x00      //NESSUN ERRORE
 #define ACC_ERR 0x01	 //ERRORE MODULO ACCELLEROMETRO
 #define GYR_ERR 0x02	 //ERRORE MODULO GIROSCOPIO
@@ -48,10 +49,14 @@
 #define FIR_P 0x00000000 //MASCHERA PER PRIMO PACCHETTO
 #define SEC_P 0x00000100 //MASCHERA PER SECONDO PACCHETTO
 #define THI_P 0x00000300 //MASCHERA PER TERZO PACCHETTO
+#define STD_MODE 1		 //MODALITA' STANDARD
+#define STR_MODE 0       //MODALITA' AVVIO E FINE
+
 #define CS_up_GPIO_Port GPIOB
 #define CS_ACC		cs_1_Pin
 #define CS_GIR		cs_2_Pin
 #define TX_BUF_DIM      1000
+#define START_SAMPLE 2
 //ACCELEROMETRO
 typedef union{
   int16_t i16bit[3];
@@ -99,10 +104,10 @@ SPI_HandleTypeDef hspi1;
 TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim3;
-
-UART_HandleTypeDef huart1;
+TIM_HandleTypeDef htim16;
 
 /* USER CODE BEGIN PV */
+uint8_t timeStart;
 uint8_t Err=0;
 //ACCELEROMETRO
 static axis3bit16_t data_raw_acceleration;
@@ -127,6 +132,7 @@ static axis1bit16_t data_raw_temperature;
 
 //HUMIDITY
 static axis1bit16_t data_raw_humidity;
+//CONTROLL BUS
 
 
 //static uint8_t tx_buffer[TX_BUF_DIM];
@@ -145,15 +151,14 @@ struct{
     }Data[2];
 uint8_t ID=0; //ID BOARD
 uint8_t IDF=0;//ID Fake per schedulare invio pacchetti nel tempo
-uint8_t flagStartData=0;//serve ad abilitare la trasmissione dei dati non importanti come la pressione e l'umidità
-						//che saranno letti solo all'inizio e alla fine
+uint8_t flagStartData=0;//serve ad abilitare la trasmissione dei dati non importanti come la pressione e l'umidità che saranno letti solo all'inizio e alla fine
+uint8_t flagStartAcc=0;//permette di leggere prima i dati e poi inviarli
 uint8_t a=0;
 uint8_t read[2];
 uint32_t timer;
 //CAN
 CAN_TxHeaderTypeDef TxHeader;
 uint8_t TxData0[8];
-uint8_t TxData1[8];
 uint32_t TxMailbox;
 CAN_FilterTypeDef sFilterConfig;
 //ACCELEROMETRO
@@ -175,11 +180,11 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_SPI1_Init(void);
-static void MX_USART1_UART_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_TIM1_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_CAN_Init(void);
+static void MX_TIM16_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -253,206 +258,172 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C1_Init();
   MX_SPI1_Init();
-  MX_USART1_UART_Init();
   MX_TIM2_Init();
   MX_TIM1_Init();
   MX_TIM3_Init();
   MX_CAN_Init();
+  MX_TIM16_Init();
   /* USER CODE BEGIN 2 */
-  TxHeader.StdId=0x312;
-  TxHeader.ExtId=0x010;
-  TxHeader.RTR=CAN_RTR_DATA;
-  TxHeader.IDE=CAN_ID_STD;
-  TxHeader.DLC=8;
-  TxHeader.TransmitGlobalTime=DISABLE;
+	TxHeader.StdId=0x312;
+	TxHeader.ExtId=0x010;
+	TxHeader.RTR=CAN_RTR_DATA;
+	TxHeader.IDE=CAN_ID_STD;
+	TxHeader.DLC=8;
+	TxHeader.TransmitGlobalTime=DISABLE;
 
+	//SETTAGGIO FILTRI E INIZIALIZZAZIONE CAN
+	sFilterConfig.FilterFIFOAssignment=CAN_FILTER_FIFO0;
+	sFilterConfig.FilterIdHigh=0x313<<5;
+	sFilterConfig.FilterIdLow=0;
+	sFilterConfig.FilterMaskIdHigh=0;
+	sFilterConfig.FilterMaskIdLow=0;
+	sFilterConfig.FilterScale=CAN_FILTERSCALE_32BIT;
+	sFilterConfig.FilterActivation=ENABLE;
+	HAL_CAN_ConfigFilter(&hcan,&sFilterConfig);
+	HAL_CAN_Start(&hcan);
 
-  sFilterConfig.FilterFIFOAssignment=CAN_FILTER_FIFO0;
-  sFilterConfig.FilterIdHigh=0x313<<5;
-  sFilterConfig.FilterIdLow=0;
-  sFilterConfig.FilterMaskIdHigh=0;
-  sFilterConfig.FilterMaskIdLow=0;
-  sFilterConfig.FilterScale=CAN_FILTERSCALE_32BIT;
-  sFilterConfig.FilterActivation=ENABLE;
+	HAL_Delay(100);
 
-  HAL_CAN_ConfigFilter(&hcan,&sFilterConfig);
+	//RICONOSCIMENTO ID TRAMITE PONTICELLO
+	if(HAL_GPIO_ReadPin(GPIOB,I0_Pin)){ID=ID|0x01;}
+	if(HAL_GPIO_ReadPin(GPIOB,I1_Pin)){ID=ID|0x02;}
+	if(HAL_GPIO_ReadPin(GPIOB,I2_Pin)){ID=ID|0x04;}
+	if(HAL_GPIO_ReadPin(GPIOB,I3_Pin)){ID=ID|0x08;}
+	if(HAL_GPIO_ReadPin(GPIOA,I4_Pin)){ID=ID|0x10;}
+	//OGNI ID VIENE TRASFORMATO IN UN RANGE DA 0 A 9 E SERVIRA' PER TEMPORIZARE L'INVIO
+	if(ID>9)IDF=ID-10;
+	if(ID>19)IDF=ID-20;
+	htim1.Init.Period = 1200+IDF*350;
 
-  HAL_CAN_Start(&hcan);
-  HAL_Delay(500);
+	//TRASMISSIONE SPI DISABILITATA
+	HAL_GPIO_WritePin(GPIOB, cs_1_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOB, cs_2_Pin, GPIO_PIN_SET);
+	HAL_Delay(1);
 
-
-
-
-
-
-
-
-
-  if(HAL_GPIO_ReadPin(GPIOB,I0_Pin)){ID=ID|0x01;}
-  if(HAL_GPIO_ReadPin(GPIOB,I1_Pin)){ID=ID|0x02;}
-  if(HAL_GPIO_ReadPin(GPIOB,I2_Pin)){ID=ID|0x04;}
-  if(HAL_GPIO_ReadPin(GPIOB,I3_Pin)){ID=ID|0x08;}
-  if(HAL_GPIO_ReadPin(GPIOA,I4_Pin)){ID=ID|0x10;}
-  if(ID>9)IDF=ID-10;
-  if(ID>19)IDF=ID-20;
-  htim1.Init.Period = 1500+IDF*350;
-
-
-  HAL_GPIO_WritePin(GPIOB, cs_1_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(GPIOB, cs_2_Pin, GPIO_PIN_SET);
-  HAL_Delay(1);
-
-
-
-
-
-
-
+	//DEFINIZIONE DEI DEVICE
 	//ACCELEROMETRO
 
-		dev_ctx_acc.write_reg = platform_write;
-		dev_ctx_acc.read_reg = platform_read;
-		dev_ctx_acc.handle = &hspi1;
+	dev_ctx_acc.write_reg = platform_write;
+	dev_ctx_acc.read_reg = platform_read;
+	dev_ctx_acc.handle = &hspi1;
 	//GIROSCOPIO
 
-		dev_ctx_gir.write_reg = platform_write_gir;
-		dev_ctx_gir.read_reg = platform_read_gir;
-		dev_ctx_gir.handle = &hspi1;
+	dev_ctx_gir.write_reg = platform_write_gir;
+	dev_ctx_gir.read_reg = platform_read_gir;
+	dev_ctx_gir.handle = &hspi1;
 	//UMIDITA'
 
-		dev_ctx_hum.write_reg = platform_write_hum;
-		dev_ctx_hum.read_reg = platform_read_hum;
-		dev_ctx_hum.handle = &hi2c1;
+	dev_ctx_hum.write_reg = platform_write_hum;
+	dev_ctx_hum.read_reg = platform_read_hum;
+	dev_ctx_hum.handle = &hi2c1;
 	//BAROMETRO
 
-		dev_ctx_bar.write_reg = platform_write_bar;
-		dev_ctx_bar.read_reg = platform_read_bar;
-		dev_ctx_bar.handle = &hi2c1;
+	dev_ctx_bar.write_reg = platform_write_bar;
+	dev_ctx_bar.read_reg = platform_read_bar;
+	dev_ctx_bar.handle = &hi2c1;
 
-
+	//INIZIALIZZAZIONE ACCELEROMETRO E VERIFICA DELLA CONNESSIONE AL BUS
 	whoamI = 0;
+	timeStart=STR_MODE;//ATTIVO START PACCHETTI PRESSIONE E UMIDITA'
 	iis3dhhc_device_id_get(&dev_ctx_acc, &whoamI);
-	//IIS3DHHC_ID
-	if ( whoamI != IIS3DHHC_ID){// CONTROLLO SE E' POSSIBILE LA COMUNICAZIONE CON IL SENSORE
-		Err=Err|ACC_ERR;
+	while(timeStart>T_VALUE){// CONTROLLO SE E' POSSIBILE LA COMUNICAZIONE CON IL SENSORE
+		if ( whoamI != IIS3DHHC_ID){
+			break;
+		}
 	}
-
-	/*
-	*  Restore default configuration
-	*/
-	iis3dhhc_reset_set(&dev_ctx_acc, PROPERTY_ENABLE);
+    if(timeStart>T_VALUE){
+    	Err=Err|ACC_ERR;
+    }
+	iis3dhhc_reset_set(&dev_ctx_acc, PROPERTY_ENABLE);//RIPRISTINO SETTAGGI DEFAULT
 	do {
 	  iis3dhhc_reset_get(&dev_ctx_acc, &rst);
 	} while (rst);
-	/*
-	*  Enable Block Data Update
-	*/
-	iis3dhhc_block_data_update_set(&dev_ctx_acc, PROPERTY_ENABLE);
-	/*
-	* Set Output Data Rate
-	*/
-	iis3dhhc_data_rate_set(&dev_ctx_acc, IIS3DHHC_1kHz1);
-	iis3dhhc_filter_config_set(&dev_ctx_acc,3);//set filtro a 440hz
-	iis3dhhc_dsp_t val;
-	iis3dhhc_filter_config_get(&dev_ctx_acc ,&val);//check_filtro
-
-	/*
-	* Enable temperature compensation
-	*/
-	iis3dhhc_offset_temp_comp_set(&dev_ctx_acc, PROPERTY_ENABLE);
-	uint8_t speed= 0x01;
-
+	iis3dhhc_block_data_update_set(&dev_ctx_acc, PROPERTY_ENABLE);//ABLITAZIONE DATAUPDATE
+	iis3dhhc_data_rate_set(&dev_ctx_acc, IIS3DHHC_1kHz1);//SETTAGGIO FREQUENZA DI CAMPIONAMENTO
+	iis3dhhc_filter_config_set(&dev_ctx_acc,3);//SETTAGGIO FILTRO FFR A 235HZ
+	iis3dhhc_offset_temp_comp_set(&dev_ctx_acc, PROPERTY_ENABLE);//ABLITIAZIONE COMPENSAZIONE TEMPERATURA
+	/*uint8_t speed= 0x01;
 	uint8_t add=0x24|0x80;
 	HAL_GPIO_WritePin(CS_up_GPIO_Port, CS_ACC, GPIO_PIN_RESET);
 	HAL_SPI_Transmit(&hspi1, &add, 1, 10);
 	if(HAL_SPI_Receive(&hspi1, &read[0], 1, 10)==HAL_OK)a=1;
 	HAL_GPIO_WritePin(CS_up_GPIO_Port, CS_ACC, GPIO_PIN_SET);
-
 	add=0x24;
 	HAL_GPIO_WritePin(CS_up_GPIO_Port, CS_ACC, GPIO_PIN_RESET);
 	HAL_SPI_Transmit(&hspi1, &add, 1, 10);
 	HAL_SPI_Transmit(&hspi1, &speed, 1, 10);
 	HAL_GPIO_WritePin(CS_up_GPIO_Port, CS_ACC, GPIO_PIN_SET);
-
 	add=0x24|0x80;
 	HAL_GPIO_WritePin(CS_up_GPIO_Port, CS_ACC, GPIO_PIN_RESET);
 	HAL_SPI_Transmit(&hspi1, &add, 1, 10);
 	if(HAL_SPI_Receive(&hspi1, &read[1], 1, 10)==HAL_OK)a=1;
-	HAL_GPIO_WritePin(CS_up_GPIO_Port, CS_ACC, GPIO_PIN_SET);
-	//GIROSCOPIO
+	HAL_GPIO_WritePin(CS_up_GPIO_Port, CS_ACC, GPIO_PIN_SET);*/
 
 
-	/* Check device ID */
+
+	//INIZIALIZZAZIONE GIROSCOPIO E VERIFICA DELLA CONNESSIONE AL BUS
+	timeStart=0;
 	l2g2is_dev_id_get(&dev_ctx_gir, &whoamI);
-	if ( whoamI != L2G2IS_ID ){
-		Err=Err|GYR_ERR;
+	while(timeStart>T_VALUE){
+		if ( whoamI == L2G2IS_ID ){// CONTROLLO SE E' POSSIBILE LA COMUNICAZIONE CON IL SENSORE
+			break;
+		}
 	}
-
-	/* Restore default configuration */
-	l2g2is_dev_reset_set(&dev_ctx_gir, PROPERTY_ENABLE);
+	if(timeStart>T_VALUE){
+	    Err=Err|GYR_ERR;
+	}
+	l2g2is_dev_reset_set(&dev_ctx_gir, PROPERTY_ENABLE);//RIPRISTINO SETTAGGI DEFAULT
 	do {
 	  l2g2is_dev_reset_get(&dev_ctx_gir, &rst);
 	} while (rst);
-
-
-	/* Set Orientation */
-	//l2g2is_gy_orient_set(&dev_ctx, l2g2is_gy_orient);
-
-	/* Set full scale */
-	l2g2is_gy_full_scale_set(&dev_ctx_gir, L2G2IS_200dps);
-
-	/* Configure filtering chain - See datasheet for filtering chain details */
-	/* Gyroscope filtering chain */
-	//l2g2is_gy_filter_lp_bandwidth_set(&dev_ctx, L2G2IS_LPF_BW_160Hz);
-	//l2g2is_gy_filter_hp_bandwidth_set(&dev_ctx, L2G2IS_HPF_BYPASS);
-
-	setOffset.offx = 0x00;
-	setOffset.offy = 0x00;
-
-	l2g2is_angular_rate_offset_set(&dev_ctx_gir, setOffset);
+	l2g2is_gy_full_scale_set(&dev_ctx_gir, L2G2IS_200dps);//SETTAGGIO SCALA DI MISURA -200DPS +200DPS
+    //l2g2is_gy_filter_lp_bandwidth_set(&dev_ctx, L2G2IS_LPF_BW_160Hz);//SETTAGGIO FILTRO PASSA BASSO
+	//l2g2is_gy_filter_hp_bandwidth_set(&dev_ctx, L2G2IS_HPF_BYPASS);//SETTAGGIO FILTRO PASSA ALTO
+	setOffset.offx = 0x00;//SETTAGGIO OFFSET ASSE X
+	setOffset.offy = 0x00;//SETTAGGIO OFFSET ASSE Y
+	l2g2is_angular_rate_offset_set(&dev_ctx_gir, setOffset);//SETTAGGIO OFFSET ANGULAR RATE
+	l2g2is_gy_data_rate_set(&dev_ctx_gir, L2G2IS_GY_9k33Hz);//SETTAGGIO FREQUENZA DI CAMPIONAMENTO DEL SENSORE
+    //Data.Responce_Time_millis=make_giro_offset(&dev_ctx_gir,&giro); OFFSET NON FUNZIONANTE
 
 
 
-
-	/* Set Output Data Rate / Power mode */
-	l2g2is_gy_data_rate_set(&dev_ctx_gir, L2G2IS_GY_9k33Hz);
-	Giro_Off giro;
-	giro.x=0;
-	giro.y=0;
-
-	//Data.Responce_Time_millis=make_giro_offset(&dev_ctx_gir,&giro); OFFSET NON FUNZIONANTE
-	//BAROMETRO
+	//INIZIALIZZAZIONE BAROMETRO E VERIFICA DELLA CONNESSIONE AL BUS
 	whoamI=0;
+	timeStart=0;
 	lps22hb_device_id_get(&dev_ctx_bar,&whoamI);
-    if(whoamI != LPS22HB_ID){
-    	Err=Err|PRE_ERR;
+    while(timeStart>T_VALUE){
+    		if ( whoamI == LPS22HB_ID ){// CONTROLLO SE E' POSSIBILE LA COMUNICAZIONE CON IL SENSORE
+    			break;
+    		}
     	}
-	lps22hb_reset_set(&dev_ctx_bar, PROPERTY_ENABLE);
+    	if(timeStart>T_VALUE){
+    	    Err=Err|PRE_ERR;
+    	}
+	lps22hb_reset_set(&dev_ctx_bar, PROPERTY_ENABLE);//RIPRISTINO SETTAGGI DEFAULT
 	do {
 	lps22hb_reset_get(&dev_ctx_bar, &rst_bar);
 	} while (rst_bar);
-
-	/* Enable Block Data Update */
-	//lps22hb_block_data_update_set(&dev_ctx, PROPERTY_ENABLE);
-
-	/* Can be enabled low pass filter on output */
-	lps22hb_low_pass_filter_mode_set(&dev_ctx_bar, LPS22HB_LPF_ODR_DIV_2);
-
-	/* Can be set Data-ready signal on INT_DRDY pin */
-	//lps22hb_drdy_on_int_set(&dev_ctx, PROPERTY_ENABLE);
-
-	/* Set Output Data Rate */
-	lps22hb_data_rate_set(&dev_ctx_bar, LPS22HB_ODR_10_Hz);
-
-	//HUMIDITY
+	//lps22hb_block_data_update_set(&dev_ctx, PROPERTY_ENABLE);//ABLITAZIONE DATAUPDATE
+	lps22hb_low_pass_filter_mode_set(&dev_ctx_bar, LPS22HB_LPF_ODR_DIV_2);//SETTAGGIO LOW PASS FILTER
+	//lps22hb_drdy_on_int_set(&dev_ctx, PROPERTY_ENABLE);//INTERRUPT FOR DATA READY INT_DRDY
+	lps22hb_data_rate_set(&dev_ctx_bar, LPS22HB_ODR_10_Hz);//SETTAGGIO FREQUENZA DI CAMPIONAMENTO DEL SENSORE
 
 
-	/* Check device ID */
+
+
+	//INIZIALIZZAZIONE SENSORE DI UMIDITA' E VERIFICA DELLA CONNESSIONE AL BUS
 	whoamI = 0;
+	timeStart=0;
 	hts221_device_id_get(&dev_ctx_hum, &whoamI);
-	if ( whoamI != HTS221_ID ){
+	while(timeStart>T_VALUE){
+			if ( whoamI == HTS221_ID ){// CONTROLLO SE E' POSSIBILE LA COMUNICAZIONE CON IL SENSORE
+				break;
+			}
+		}
+	if(timeStart>T_VALUE){
 		Err=Err|HUM_ERR;
 	}
+	//CALIBRAZIONE SENSORE UMIDITA'
 	axis1bit16_t coeff;
 	lin_t lin_hum;
 	hts221_hum_adc_point_0_get(&dev_ctx_hum, coeff.u8bit);
@@ -475,14 +446,16 @@ int main(void)
 	hts221_temp_deg_point_1_get(&dev_ctx_hum, coeff.u8bit);
 	lin_temp.y1 = (float)coeff.u8bit[0];
 
-	/* Enable Block Data Update */
-	hts221_block_data_update_set(&dev_ctx_hum, PROPERTY_ENABLE);
-	/* Set Output Data Rate */
-	hts221_data_rate_set(&dev_ctx_hum, HTS221_ODR_1Hz);
-	/* Device power on */
-	hts221_power_on_set(&dev_ctx_hum, PROPERTY_ENABLE);
+	hts221_block_data_update_set(&dev_ctx_hum, PROPERTY_ENABLE);//ABLITAZIONE DATAUPDATE
+	hts221_data_rate_set(&dev_ctx_hum, HTS221_ODR_1Hz);//SETTAGGIO DATARATE
+	hts221_power_on_set(&dev_ctx_hum, PROPERTY_ENABLE);//ACCENSIONE INVIO DATI DISPOSITIVO
+
+
+
+
 	//HAL_TIM_Base_Start_IT(&htim2);
-	HAL_TIM_Base_Start_IT(&htim3);
+	HAL_TIM_Base_Start_IT(&htim3);//AVVIO DEL TIMER 3 E CONSEGUENTE AVVIO DEL PROGRAMMA
+	HAL_TIM_Base_Start_IT(&htim16);//AVVIO DEL TIMER 16 PER INVIO DATI PRESSIONE E UMIDITA'
 	int i=0;
   /* USER CODE END 2 */
 
@@ -518,7 +491,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL4;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL2;
   RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV1;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -532,12 +505,11 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
   {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_I2C1;
-  PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK1;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_I2C1;
   PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
@@ -561,7 +533,7 @@ static void MX_CAN_Init(void)
 
   /* USER CODE END CAN_Init 1 */
   hcan.Instance = CAN;
-  hcan.Init.Prescaler = 2;
+  hcan.Init.Prescaler = 1;
   hcan.Init.Mode = CAN_MODE_NORMAL;
   hcan.Init.SyncJumpWidth = CAN_SJW_1TQ;
   hcan.Init.TimeSeg1 = CAN_BS1_13TQ;
@@ -651,7 +623,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_HIGH;
   hspi1.Init.CLKPhase = SPI_PHASE_2EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -687,7 +659,7 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 31;
+  htim1.Init.Prescaler = 15;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim1.Init.Period = 2000;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -733,7 +705,7 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 31;
+  htim2.Init.Prescaler = 15;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim2.Init.Period = 65000;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -780,7 +752,7 @@ static void MX_TIM3_Init(void)
   htim3.Instance = TIM3;
   htim3.Init.Prescaler = 15999;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 4;
+  htim3.Init.Period = 5;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
@@ -805,37 +777,34 @@ static void MX_TIM3_Init(void)
 }
 
 /**
-  * @brief USART1 Initialization Function
+  * @brief TIM16 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_USART1_UART_Init(void)
+static void MX_TIM16_Init(void)
 {
 
-  /* USER CODE BEGIN USART1_Init 0 */
+  /* USER CODE BEGIN TIM16_Init 0 */
 
-  /* USER CODE END USART1_Init 0 */
+  /* USER CODE END TIM16_Init 0 */
 
-  /* USER CODE BEGIN USART1_Init 1 */
+  /* USER CODE BEGIN TIM16_Init 1 */
 
-  /* USER CODE END USART1_Init 1 */
-  huart1.Instance = USART1;
-  huart1.Init.BaudRate = 38400;
-  huart1.Init.WordLength = UART_WORDLENGTH_8B;
-  huart1.Init.StopBits = UART_STOPBITS_1;
-  huart1.Init.Parity = UART_PARITY_NONE;
-  huart1.Init.Mode = UART_MODE_TX_RX;
-  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
-  huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-  huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-  if (HAL_UART_Init(&huart1) != HAL_OK)
+  /* USER CODE END TIM16_Init 1 */
+  htim16.Instance = TIM16;
+  htim16.Init.Prescaler = 14999;
+  htim16.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim16.Init.Period = 10;
+  htim16.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim16.Init.RepetitionCounter = 0;
+  htim16.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim16) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN USART1_Init 2 */
+  /* USER CODE BEGIN TIM16_Init 2 */
 
-  /* USER CODE END USART1_Init 2 */
+  /* USER CODE END TIM16_Init 2 */
 
 }
 
@@ -849,7 +818,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOF_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
@@ -883,6 +851,14 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(D5_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PA9 PA10 */
+  GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_10;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF1_USART1;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : I4_Pin */
   GPIO_InitStruct.Pin = I4_Pin;
@@ -1064,9 +1040,10 @@ return 0;}
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-    if (htim->Instance==TIM2) //check if the interrupt comes from TIM2
+    if (htim->Instance==TIM16) //check if the interrupt comes from TIM2
         {
-
+    	HAL_TIM_Base_Stop_IT(&htim16);
+    	flagStartData=STD_MODE;
         }
     if (htim->Instance==TIM3) //check if the interrupt comes from TIM2
             {
@@ -1076,140 +1053,131 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     		get_data();
             }
     if (htim->Instance==TIM1) //check if the interrupt comes from TIM2
-                {
-    			timer++;
-    			//Data[0].Responce_Time_millis=TIM2->CNT;
-    			//if(flagStartData==1){
+            {
+    		timer++;//TIMER INVIO PACCHETTI TICKER
+    		//Data[0].Responce_Time_millis=TIM2->CNT;
+    		switch (flagStartData){
+    			case STD_MODE:{
 					HAL_TIM_Base_Stop(&htim1);
-					HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);
 					TxHeader.StdId=(ID)|FIR_P;
-					TxHeader.DLC=8;
 					TxData0[0]=(int8_t)(timer  & 0x000000FF);
 					TxData0[1]=(int8_t)((timer & 0x0000FF00)>>8);
 					TxData0[2]=(int8_t)((timer & 0x00FF0000)>>16);
-					TxData0[3]=(int8_t)((timer & 0xFF000000)>>24);
-					TxData0[4]=(int8_t)(Data[0].Gir_x & 0x00FF);
-					TxData0[5]=(int8_t)((Data[0].Gir_x & 0xFF00 )>> 8);
-					TxData0[6]=(int8_t)(Data[0].Gir_y  & 0x00FF);
-					TxData0[7]=(int8_t)((Data[0].Gir_y & 0xFF00 )>> 8);
-					HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);
+					TxData0[3]=(int8_t)(Data[0].Gir_x & 0x00FF);
+					TxData0[4]=(int8_t)((Data[0].Gir_x & 0xFF00 )>> 8);
+					TxData0[5]=(int8_t)(Data[0].Gir_y  & 0x00FF);
+					TxData0[6]=(int8_t)((Data[0].Gir_y & 0xFF00 )>> 8);
+					TxData0[7]=Err;
+					HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);//INVIO PRIMO MESSAGGIO
 					TxHeader.StdId=(ID)|SEC_P;
-					TxHeader.DLC=8;
-					TxData1[0]=(int8_t)(Data[0].Acc_x & 0x00FF);
-					TxData1[1]=(int8_t)((Data[0].Acc_x & 0xFF00 )>> 8);
-					TxData1[2]=(int8_t)(Data[0].Acc_y & 0x00FF);
-					TxData1[3]=(int8_t)((Data[0].Acc_y & 0xFF00 )>> 8);
-					TxData1[4]=(int8_t)(Data[0].Acc_z & 0x00FF);
-					TxData1[5]=(int8_t)((Data[0].Acc_z & 0xFF00 )>> 8);
-					TxData1[6]=(int8_t)(Data[0].T_b & 0x00FF);
-					TxData1[7]=(int8_t)((Data[0].T_b & 0xFF00 )>> 8);
-					HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData1,&TxMailbox);
-    			//}
-    			//else{
+
+					TxData0[0]=(int8_t)(Data[0].Acc_x & 0x00FF);
+					TxData0[1]=(int8_t)((Data[0].Acc_x & 0xFF00 )>> 8);
+					TxData0[2]=(int8_t)(Data[0].Acc_y & 0x00FF);
+					TxData0[3]=(int8_t)((Data[0].Acc_y & 0xFF00 )>> 8);
+					TxData0[4]=(int8_t)(Data[0].Acc_z & 0x00FF);
+					TxData0[5]=(int8_t)((Data[0].Acc_z & 0xFF00 )>> 8);
+					TxData0[6]=(int8_t)(Data[0].T_b & 0x00FF);
+					TxData0[7]=(int8_t)((Data[0].T_b & 0xFF00 )>> 8);
+					HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);//IONVIO SECONDO MESSAGGIO
+					break;
+    			}
+    			case STR_MODE:{
 					TxHeader.StdId=(ID)|THI_P;
-					TxHeader.DLC=8;
 					TxData0[0]=(int8_t)(Data[0].Pres  & 0x000000FF);
 					TxData0[1]=(int8_t)((Data[0].Pres & 0x0000FF00)>>8);
 					TxData0[2]=(int8_t)((Data[0].Pres & 0x00FF0000)>>16);
 					TxData0[3]=(int8_t)((Data[0].Pres & 0xFF000000)>>24);
 					TxData0[4]=(int8_t)(Data[0].Hum  & 0x000000FF);
 					TxData0[5]=(int8_t)((Data[0].Hum & 0x0000FF00)>>8);
-					TxData0[6]=Err;
+					TxData0[6]=0x00;
 					TxData0[7]=0x00;
-					HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);
-					flagStartData=1;
-    			//}
-				}
+					HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);//INVIO TERZO MESSAGGIO SOLO INIZIO E FINE
+					break;
+    			}
+    			default:break;
+    			}
+     }
+
 
 }
 uint8_t get_data(){
-		TIM2->CNT=0;
+	TIM2->CNT=0;
+	//DECIDE CHE LETTURE ANDARE A FARE E PERMETTER DI LEGGERE I DATI NON ESSENZIALI SOLO ALL'INIZIO E ALLA FINE
+	switch (flagStartData){
+    	case STD_MODE:{
+    		//ACCELLERETION FROM ACCELEROMETER
+			iis3dhhc_status_get(&dev_ctx_acc, &reg_acc.status);
+			if (reg_acc.status.zyxda){
+				memset(data_raw_acceleration.u8bit, 0x00, 3*sizeof(int16_t));
+				iis3dhhc_acceleration_raw_get(&dev_ctx_acc, data_raw_acceleration.u8bit);
+				Data[0].Acc_x=data_raw_acceleration.i16bit[0];
+				Data[0].Acc_y=data_raw_acceleration.i16bit[1];
+				Data[0].Acc_z=data_raw_acceleration.i16bit[2];
+				//memset(data_raw_temperature.u8bit, 0x00, sizeof(int16_t));
+				//iis3dhhc_temperature_raw_get(&dev_ctx_acc, data_raw_temperature.u8bit);
+				//data_raw_temperature.i16bit = data_raw_temperature.i16bit >> 4;
+				//Data[0].T_a=data_raw_temperature.i16bit+25*16;
+			}
+			//ANGULAR RATE FROM GYROSCOPE
+			l2g2is_dev_status_get(&dev_ctx_gir, &reg_gir);
+			if ( reg_gir.xyda ){
+				memset(data_raw_angular_rate.u8bit, 0x00, 2 * sizeof(int16_t));
+				l2g2is_angular_rate_raw_get(&dev_ctx_gir, data_raw_angular_rate.u8bit);
+				Data[0].Gir_x=data_raw_angular_rate.i16bit[0];
+				Data[0].Gir_y=data_raw_angular_rate.i16bit[1];
+				//memset(data_raw_temperature.u8bit, 0x00, sizeof(int16_t));
+				//l2g2is_temperature_raw_get(&dev_ctx_gir, data_raw_temperature.u8bit);
+				//data_raw_temperature.i16bit = data_raw_temperature.i16bit >> 4;
+				//Data[0].T_g=data_raw_temperature.i16bit+25*1/0.0625;
+			}
+			//TEMPERATURE OF PRESSURE SENSOR
+			lps22hb_press_data_ready_get(&dev_ctx_bar, &reg_bar);
+			if (reg_bar){
+				memset(data_raw_temperature.u8bit, 0x00, sizeof(int16_t));
+				lps22hb_temperature_raw_get(&dev_ctx_bar, data_raw_temperature.u8bit);
+				Data[0].T_b=data_raw_temperature.i16bit;
+			}
+			break;
+    	}
+    	case STR_MODE:{
+			//BAROMETRO
+
+			//dev_ctx_bar.write_reg = platform_write_bar;
+			//dev_ctx_bar.read_reg = platform_read_bar;
+			//dev_ctx_bar.handle = &hi2c1;
 
 
+			// Read output only if new value is available
+			lps22hb_press_data_ready_get(&dev_ctx_bar, &reg_bar);
+			if (reg_bar){
+				memset(data_raw_pressure.u8bit, 0x00, sizeof(int32_t));
+				lps22hb_pressure_raw_get(&dev_ctx_bar, data_raw_pressure.u8bit);
+				Data[0].Pres=data_raw_pressure.i32bit;
+				//pressure_hPa = lps22hb_from_lsb_to_hpa(data_raw_pressure.i32bit);
+				memset(data_raw_temperature.u8bit, 0x00, sizeof(int16_t));
+				lps22hb_temperature_raw_get(&dev_ctx_bar, data_raw_temperature.u8bit);
+				Data[0].T_b=data_raw_temperature.i16bit;
+				//temperature_degC = lps22hb_from_lsb_to_degc(data_raw_temperature.i16bit);
+			}
 
-
-
-
-        	  iis3dhhc_status_get(&dev_ctx_acc, &reg_acc.status);
-		  	  if (reg_acc.status.zyxda)
-		  	  {
-
-		  		memset(data_raw_acceleration.u8bit, 0x00, 3*sizeof(int16_t));
-		  		iis3dhhc_acceleration_raw_get(&dev_ctx_acc, data_raw_acceleration.u8bit);
-		  		Data[0].Acc_x=data_raw_acceleration.i16bit[0];
-		  		Data[0].Acc_y=data_raw_acceleration.i16bit[1];
-		  		Data[0].Acc_z=data_raw_acceleration.i16bit[2];
-
-
-		  		memset(data_raw_temperature.u8bit, 0x00, sizeof(int16_t));
-		  		iis3dhhc_temperature_raw_get(&dev_ctx_acc, data_raw_temperature.u8bit);
-		  		data_raw_temperature.i16bit = data_raw_temperature.i16bit >> 4;
-		  		Data[0].T_a=data_raw_temperature.i16bit+25*16;
-		  		//temperature_degC = iis3dhhc_from_lsb_to_celsius(data_raw_temperature.i16bit);
-		  		/*acceleration_mg[0] = iis3dhhc_from_lsb_to_mg( data_raw_acceleration.i16bit[0]);
-		  		acceleration_mg[1] = iis3dhhc_from_lsb_to_mg( data_raw_acceleration.i16bit[1]);
-		  		acceleration_mg[2] = iis3dhhc_from_lsb_to_mg( data_raw_acceleration.i16bit[2]);*/
-		  		//acceleration_mg[3] = sqrt(acceleration_mg[0]*acceleration_mg[0] + acceleration_mg[1]*acceleration_mg[1] + acceleration_mg[2]*acceleration_mg[2]);
-		  	  }
-
-
-		  	  l2g2is_dev_status_get(&dev_ctx_gir, &reg_gir);
-
-		  	  if ( reg_gir.xyda )
-		  	  {
-		  		/* Read imu data */
-		  		memset(data_raw_angular_rate.u8bit, 0x00, 2 * sizeof(int16_t));
-
-		  		l2g2is_angular_rate_raw_get(&dev_ctx_gir, data_raw_angular_rate.u8bit);
-		  		/*angular_rate_mdps[0] = l2g2is_from_fs200dps_to_mdps(data_raw_angular_rate.i16bit[0]);
-		  		angular_rate_mdps[1] = l2g2is_from_fs200dps_to_mdps(data_raw_angular_rate.i16bit[1]);*/
-		  		Data[0].Gir_x=data_raw_angular_rate.i16bit[0];
-		  		Data[0].Gir_y=data_raw_angular_rate.i16bit[1];
-
-		  		memset(data_raw_temperature.u8bit, 0x00, sizeof(int16_t));
-		  		l2g2is_temperature_raw_get(&dev_ctx_gir, data_raw_temperature.u8bit);
-		  		data_raw_temperature.i16bit = data_raw_temperature.i16bit >> 4;
-		  	    Data[0].T_g=data_raw_temperature.i16bit+25*1/0.0625;
-		  	  }
-
-		  		//BAROMETRO
-
-				dev_ctx_bar.write_reg = platform_write_bar;
-				dev_ctx_bar.read_reg = platform_read_bar;
-				dev_ctx_bar.handle = &hi2c1;
-
-
-		  		// Read output only if new value is available
-		  		lps22hb_press_data_ready_get(&dev_ctx_bar, &reg_bar);
-		  		if (reg_bar)
-		  		{
-		  		memset(data_raw_pressure.u8bit, 0x00, sizeof(int32_t));
-		  		lps22hb_pressure_raw_get(&dev_ctx_bar, data_raw_pressure.u8bit);
-		  		Data[0].Pres=data_raw_pressure.i32bit;
-		  		//pressure_hPa = lps22hb_from_lsb_to_hpa(data_raw_pressure.i32bit);
-
-		  		memset(data_raw_temperature.u8bit, 0x00, sizeof(int16_t));
-		  		lps22hb_temperature_raw_get(&dev_ctx_bar, data_raw_temperature.u8bit);
-		  		Data[0].T_b=data_raw_temperature.i16bit;
-		  		//temperature_degC = lps22hb_from_lsb_to_degc(data_raw_temperature.i16bit);
-		  		}
-
-		  			//HUMIDITY
-
-		  	hts221_status_get(&dev_ctx_hum, &reg_hum.status_reg);
-
-		  	if (reg_hum.status_reg.h_da)
-		  		{
-		  		// Read humidity data
-		  		memset(data_raw_humidity.u8bit, 0x00, sizeof(int16_t));
-		  		hts221_humidity_raw_get(&dev_ctx_hum, data_raw_humidity.u8bit);
-		  		//humidity_perc = linear_interpolation(&lin_hum, data_raw_humidity.i16bit);
-		  	    Data[0].Hum= data_raw_humidity.i16bit;
-		  		//if (humidity_perc < 0) humidity_perc = 0;
-		  		//if (humidity_perc > 100) humidity_perc = 100;
-		  		}
-
-		  	Data[0].Responce_Time_millis=TIM2->CNT;
+				//HUMIDITY
+			hts221_status_get(&dev_ctx_hum, &reg_hum.status_reg);
+			if (reg_hum.status_reg.h_da)
+				{
+				// Read humidity data
+				memset(data_raw_humidity.u8bit, 0x00, sizeof(int16_t));
+				hts221_humidity_raw_get(&dev_ctx_hum, data_raw_humidity.u8bit);
+				//humidity_perc = linear_interpolation(&lin_hum, data_raw_humidity.i16bit);
+				Data[0].Hum= data_raw_humidity.i16bit;
+				//if (humidity_perc < 0) humidity_perc = 0;
+				//if (humidity_perc > 100) humidity_perc = 100;
+				}
+			break;
+    	}
+    	default:break;
+	}
+	Data[0].Responce_Time_millis=TIM2->CNT;
 
 
 
