@@ -8,6 +8,10 @@
 		<item key="caseSensitive" value="false"/>
 		<item key="searchFlags" value="227191"/>
 		<list key="previousPatterns">
+			<item value="write_reg"/>
+			<item value="stmdev_ctx_t"/>
+			<item value="stmdev_write_ptr"/>
+			<item value="read_reg"/>
 			<item value="defineFF_FS_EXFAT"/>
 			<item value="get_ldnumber"/>
 			<item value="ffconfh"/>

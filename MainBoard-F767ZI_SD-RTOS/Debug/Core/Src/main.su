@@ -1,0 +1,16 @@
+main.c:148:5:main	72	static
+main.c:247:6:SystemClock_Config	232	static
+main.c:308:13:MX_NVIC_Init	8	static
+main.c:320:13:MX_CAN1_Init	8	static
+main.c:357:13:MX_SDMMC1_SD_Init	8	static
+main.c:389:13:MX_USART3_UART_Init	8	static
+main.c:424:13:MX_USB_OTG_FS_PCD_Init	8	static
+main.c:457:13:MX_DMA_Init	16	static
+main.c:478:13:MX_GPIO_Init	56	static
+main.c:566:6:HAL_CAN_RxFifo0MsgPendingCallback	16	static
+main.c:580:6:Get_Data	4	static
+main.c:614:6:CAN_Config	8	static
+main.c:639:6:StartDefaultTask	16	static
+main.c:658:6:StartTask02	16	static
+main.c:702:6:HAL_TIM_PeriodElapsedCallback	16	static
+main.c:719:6:Error_Handler	8	static

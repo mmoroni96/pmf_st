@@ -1,0 +1,10 @@
+16:36:21 **** Incremental Build of configuration Debug for project MainBoard-F767ZI_SD-Tesd ****
+make -j12 all 
+arm-none-eabi-size   MainBoard-F767ZI_SD-Tesd.elf 
+   text	   data	    bss	    dec	    hex	filename
+  29488	     20	  11532	  41040	   a050	MainBoard-F767ZI_SD-Tesd.elf
+Finished building: default.size.stdout
+ 
+
+16:36:23 Build Finished. 0 errors, 0 warnings. (took 1s.565ms)
+

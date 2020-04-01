@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value=""/>
+		<item key="selection" value="extern"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="extern"/>
+			<item value="iis3dhhc_read_reg"/>
+			<item value="stmdev_ctx_t"/>
+			<item value="handle"/>
+			<item value="stmdev_write_ptr"/>
+			<item value="ctx"/>
+			<item value="stmdev_read_ptr"/>
 			<item value="BSP_SD_DMA_Rx_IRQHandler"/>
 			<item value="FF_FS_EXFAT"/>
 			<item value="get_ldnumber"/>
