@@ -48,8 +48,8 @@ MainBoard-F767ZI_SD-RTOS.bin \
 all: MainBoard-F767ZI_SD-RTOS.elf secondary-outputs
 
 # Tool invocations
-MainBoard-F767ZI_SD-RTOS.elf: $(OBJS) $(USER_OBJS) C:\Users\mmoro\Desktop\MainBoard-F767ZI_SD-RTOS\STM32F767ZITX_FLASH.ld
-	arm-none-eabi-gcc -o "MainBoard-F767ZI_SD-RTOS.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\mmoro\Desktop\MainBoard-F767ZI_SD-RTOS\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MainBoard-F767ZI_SD-RTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+MainBoard-F767ZI_SD-RTOS.elf: $(OBJS) $(USER_OBJS) C:\Users\mmoro\OneDrive\ -\ Politecnico\ di\ Milano\Documents\pmf_st\MainBoard-F767ZI_SD-RTOS\STM32F767ZITX_FLASH.ld
+	arm-none-eabi-gcc -o "MainBoard-F767ZI_SD-RTOS.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\mmoro\OneDrive - Politecnico di Milano\Documents\pmf_st\MainBoard-F767ZI_SD-RTOS\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MainBoard-F767ZI_SD-RTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

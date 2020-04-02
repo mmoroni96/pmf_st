@@ -39,11 +39,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  17 .debug_line   0001c06c  00000000  00000000  0007acf6  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    0010e995  00000000  00000000  00096d62  2**0
+ 18 .debug_str    0010e95c  00000000  00000000  00096d62  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  001a56f7  2**0
+ 19 .comment      0000007b  00000000  00000000  001a56be  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00008274  00000000  00000000  001a5774  2**2
+ 20 .debug_frame  00008274  00000000  00000000  001a573c  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -436,10 +436,10 @@ int main(void)
   /* Initialize interrupts */
   MX_NVIC_Init();
  800059e:	f000 f8b7 	bl	8000710 <MX_NVIC_Init>
-  res = f_open(&SDFile, &path[0], FA_CREATE_ALWAYS);
   res = f_close(&SDFile);
   res = f_open(&SDFile, &path[0], FA_OPEN_APPEND | FA_WRITE);*/
-
+  //USB start
+  //MX_USB_DEVICE_Init();
   // CAN Initialization
   CAN_Config();
  80005a2:	f000 fbe3 	bl	8000d6c <CAN_Config>
@@ -2998,45 +2998,99 @@ void SystemInit(void)
  80014ac:	e000ed00 	.word	0xe000ed00
 
 080014b0 <Reset_Handler>:
+
+    .section  .text.Reset_Handler
+  .weak  Reset_Handler
+  .type  Reset_Handler, %function
+Reset_Handler:  
+  ldr   sp, =_estack      /* set stack pointer */
  80014b0:	f8df d034 	ldr.w	sp, [pc, #52]	; 80014e8 <LoopFillZerobss+0x14>
+
+/* Copy the data segment initializers from flash to SRAM */  
+  movs  r1, #0
  80014b4:	2100      	movs	r1, #0
+  b  LoopCopyDataInit
  80014b6:	e003      	b.n	80014c0 <LoopCopyDataInit>
 
 080014b8 <CopyDataInit>:
+
+CopyDataInit:
+  ldr  r3, =_sidata
  80014b8:	4b0c      	ldr	r3, [pc, #48]	; (80014ec <LoopFillZerobss+0x18>)
+  ldr  r3, [r3, r1]
  80014ba:	585b      	ldr	r3, [r3, r1]
+  str  r3, [r0, r1]
  80014bc:	5043      	str	r3, [r0, r1]
+  adds  r1, r1, #4
  80014be:	3104      	adds	r1, #4
 
 080014c0 <LoopCopyDataInit>:
+    
+LoopCopyDataInit:
+  ldr  r0, =_sdata
  80014c0:	480b      	ldr	r0, [pc, #44]	; (80014f0 <LoopFillZerobss+0x1c>)
+  ldr  r3, =_edata
  80014c2:	4b0c      	ldr	r3, [pc, #48]	; (80014f4 <LoopFillZerobss+0x20>)
+  adds  r2, r0, r1
  80014c4:	1842      	adds	r2, r0, r1
+  cmp  r2, r3
  80014c6:	429a      	cmp	r2, r3
+  bcc  CopyDataInit
  80014c8:	d3f6      	bcc.n	80014b8 <CopyDataInit>
+  ldr  r2, =_sbss
  80014ca:	4a0b      	ldr	r2, [pc, #44]	; (80014f8 <LoopFillZerobss+0x24>)
+  b  LoopFillZerobss
  80014cc:	e002      	b.n	80014d4 <LoopFillZerobss>
 
 080014ce <FillZerobss>:
+/* Zero fill the bss segment. */  
+FillZerobss:
+  movs  r3, #0
  80014ce:	2300      	movs	r3, #0
+  str  r3, [r2], #4
  80014d0:	f842 3b04 	str.w	r3, [r2], #4
 
 080014d4 <LoopFillZerobss>:
+    
+LoopFillZerobss:
+  ldr  r3, = _ebss
  80014d4:	4b09      	ldr	r3, [pc, #36]	; (80014fc <LoopFillZerobss+0x28>)
+  cmp  r2, r3
  80014d6:	429a      	cmp	r2, r3
+  bcc  FillZerobss
  80014d8:	d3f9      	bcc.n	80014ce <FillZerobss>
+
+/* Call the clock system initialization function.*/
+  bl  SystemInit   
  80014da:	f7ff ffd3 	bl	8001484 <SystemInit>
+/* Call static constructors */
+    bl __libc_init_array
  80014de:	f00d fe85 	bl	800f1ec <__libc_init_array>
+/* Call the application's entry point.*/
+  bl  main
  80014e2:	f7ff f847 	bl	8000574 <main>
+  bx  lr    
  80014e6:	4770      	bx	lr
+  ldr   sp, =_estack      /* set stack pointer */
  80014e8:	20080000 	.word	0x20080000
+  ldr  r3, =_sidata
  80014ec:	0800f758 	.word	0x0800f758
+  ldr  r0, =_sdata
  80014f0:	20000000 	.word	0x20000000
+  ldr  r3, =_edata
  80014f4:	20000020 	.word	0x20000020
+  ldr  r2, =_sbss
  80014f8:	20000020 	.word	0x20000020
+  ldr  r3, = _ebss
  80014fc:	20008c20 	.word	0x20008c20
 
 08001500 <ADC_IRQHandler>:
+ * @retval None       
+*/
+    .section  .text.Default_Handler,"ax",%progbits
+Default_Handler:
+Infinite_Loop:
+  b  Infinite_Loop
  8001500:	e7fe      	b.n	8001500 <ADC_IRQHandler>
 
 08001502 <HAL_Init>:
