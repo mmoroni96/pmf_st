@@ -104,6 +104,12 @@ char 					path[] = "DATA_LOG.BIN";
 FRESULT 				res;
 UINT 					writeBuff;
 
+//USB
+extern USBD_HandleTypeDef hUsbDeviceFS;
+//extern USBD_StorageTypeDef USBD_Storage_Interface_fops_FS;
+extern USBD_ClassTypeDef  USBD_MSC;
+extern USBD_DescriptorsTypeDef FS_Desc;
+HAL_SD_CardInfoTypeDef SDCardInfo;
 // Data Variables
 buffer_typedef 			buffer[32];		// Received data buffer
 buffer_typedef 			SD_buffer[32];	// Writing buffer
@@ -169,7 +175,8 @@ int main(void)
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
-
+  //NVIC_DisableIRQ(OTG_FS_IRQn);
+  //USBD_Stop(&hUsbDeviceFS);
   // SD Card Initialization
   /*res = f_mount(&SDFatFs, SDPath, 1);
   res = f_open(&SDFile, &path[0], FA_CREATE_ALWAYS);
@@ -446,6 +453,9 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(USB_PowerSwitchOn_GPIO_Port, USB_PowerSwitchOn_Pin, GPIO_PIN_RESET);
 
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
+
   /*Configure GPIO pin : USER_Btn_Pin */
   GPIO_InitStruct.Pin = USER_Btn_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
@@ -503,6 +513,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(USB_OverCurrent_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PA9 */
+  GPIO_InitStruct.Pin = GPIO_PIN_9;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : RMII_TX_EN_Pin RMII_TXD0_Pin */
   GPIO_InitStruct.Pin = RMII_TX_EN_Pin|RMII_TXD0_Pin;
@@ -604,10 +621,11 @@ void StartDefaultTask(void const * argument)
 	// Mount filesystem only one time
 	if(flag == 0){
 		res = f_mount(&SDFatFs, SDPath, 1);
-		res = f_open(&SDFile, &path[0], FA_CREATE_ALWAYS);
-		res = f_close(&SDFile);
-		res = f_open(&SDFile, &path[0], FA_OPEN_APPEND | FA_WRITE);
+		  res = f_open(&SDFile, &path[0], FA_CREATE_ALWAYS);
+		  res = f_close(&SDFile);
+		  res = f_open(&SDFile, &path[0], FA_OPEN_APPEND | FA_WRITE);
 		flag = 1;
+		NVIC_DisableIRQ(OTG_FS_IRQn);
 		// Start 5mS timer to trigger the data request
 		HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
 		//HAL_TIM_Base_Start_IT(&htim14);
@@ -619,6 +637,8 @@ void StartDefaultTask(void const * argument)
 		HAL_CAN_DeactivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
 		//HAL_TIM_Base_Stop_IT(&htim14);
 		res = f_close(&SDFile);
+		MX_USB_DEVICE_Init();
+		NVIC_EnableIRQ(OTG_FS_IRQn);
 		HAL_GPIO_WritePin(GPIOB, LD2_Pin, GPIO_PIN_SET);
 	}
 	else{

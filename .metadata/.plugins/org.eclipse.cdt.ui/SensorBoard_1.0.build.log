@@ -1,4 +1,4 @@
-20:13:40 **** Incremental Build of configuration Debug for project SensorBoard_1.0 ****
+21:15:06 **** Incremental Build of configuration Debug for project SensorBoard_1.0 ****
 make -j12 all 
 arm-none-eabi-size   SensorBoard_1.0.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size   SensorBoard_1.0.elf
 Finished building: default.size.stdout
  
 
-20:13:41 Build Finished. 0 errors, 0 warnings. (took 1s.120ms)
+21:15:07 Build Finished. 0 errors, 0 warnings. (took 1s.147ms)
 
