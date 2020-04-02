@@ -86,13 +86,13 @@ UART_HandleTypeDef huart3;
 PCD_HandleTypeDef hpcd_USB_OTG_FS;
 
 osThreadId defaultTaskHandle;
-osThreadId SD_TaskHandle;
 /* USER CODE BEGIN PV */
 // CAN Variables
 CAN_RxHeaderTypeDef 	RxHeader;
 CAN_TxHeaderTypeDef 	TxHeader;
 uint8_t					RxData[8];
 uint8_t 				TxData[8];
+uint32_t				TxMailbox;
 CAN_FilterTypeDef 		sFilterConfig;
 
 // SD Card Variables
@@ -106,17 +106,11 @@ FRESULT 				res;
 UINT 					writeBuff;
 
 // Data Variables
-buffer_typedef 			buffer[32];
-uint8_t 				ind = 0;
-
-uint8_t flag = 0;
-uint32_t Count = 0;
-uint32_t Micros = 0;
-uint32_t MicrosP = 0;
-uint32_t inc = 0;
-uint32_t Data[4*N];
-
-
+buffer_typedef 			buffer[32];		// Received data buffer
+buffer_typedef 			SD_buffer[32];	// Writing buffer
+uint8_t 				ind = 0;		// Data index
+uint8_t 				flag = 0;
+uint8_t					wf = 0;			// Write flag
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -128,7 +122,6 @@ static void MX_USB_OTG_FS_PCD_Init(void);
 static void MX_CAN1_Init(void);
 static void MX_SDMMC1_SD_Init(void);
 void StartDefaultTask(void const * argument);
-void StartTask02(void const * argument);
 
 static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
@@ -185,7 +178,8 @@ int main(void)
   res = f_open(&SDFile, &path[0], FA_CREATE_ALWAYS);
   res = f_close(&SDFile);
   res = f_open(&SDFile, &path[0], FA_OPEN_APPEND | FA_WRITE);*/
-
+  //USB start
+  MX_USB_DEVICE_Init();
   // CAN Initialization
   CAN_Config();
   HAL_CAN_Start(&hcan1);
@@ -216,10 +210,6 @@ int main(void)
   /* definition and creation of defaultTask */
   osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 256);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
-
-  /* definition and creation of SD_Task */
-  osThreadDef(SD_Task, StartTask02, osPriorityHigh, 0, 256);
-  SD_TaskHandle = osThreadCreate(osThread(SD_Task), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -308,7 +298,7 @@ void SystemClock_Config(void)
 static void MX_NVIC_Init(void)
 {
   /* CAN1_RX0_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 7, 0);
+  HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 6, 0);
   HAL_NVIC_EnableIRQ(CAN1_RX0_IRQn);
 }
 
@@ -462,10 +452,10 @@ static void MX_DMA_Init(void)
 
   /* DMA interrupt init */
   /* DMA2_Stream3_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA2_Stream3_IRQn, 5, 0);
+  HAL_NVIC_SetPriority(DMA2_Stream3_IRQn, 7, 0);
   HAL_NVIC_EnableIRQ(DMA2_Stream3_IRQn);
   /* DMA2_Stream6_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA2_Stream6_IRQn, 5, 0);
+  HAL_NVIC_SetPriority(DMA2_Stream6_IRQn, 7, 0);
   HAL_NVIC_EnableIRQ(DMA2_Stream6_IRQn);
 
 }
@@ -568,10 +558,18 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan){
 	HAL_GPIO_WritePin(GPIOB, LD2_Pin, GPIO_PIN_SET);
 	if(HAL_CAN_GetRxMessage(&hcan1,CAN_RX_FIFO0,&RxHeader,RxData) == HAL_OK){
 		Get_Data();
-		//ind++;
 	}
+	// Test if the buffer is full
 	if(ind >= 32){
-		HAL_CAN_DeactivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
+		// Move the acquired data to the writing buffer
+		for(uint8_t i=0;i<32;i++){
+			SD_buffer[i] = buffer[i];
+			wf = 1;
+		}
+		ind = 0;
+		// Stop the data request to write the buffer to the memory
+		//HAL_TIM_Base_Stop_IT(&htim14);
+		//HAL_CAN_DeactivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
 	}
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(GPIOB, LD2_Pin, GPIO_PIN_RESET);
@@ -639,56 +637,41 @@ void CAN_Config(void){
 void StartDefaultTask(void const * argument)
 {
   /* USER CODE BEGIN 5 */
-  /* Infinite loop */
-  for(;;)
-  {
-
-    osDelay(1);
-  }
-  /* USER CODE END 5 */ 
-}
-
-/* USER CODE BEGIN Header_StartTask02 */
-/**
-* @brief Function implementing the SD_Task thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_StartTask02 */
-void StartTask02(void const * argument)
-{
-  /* USER CODE BEGIN StartTask02 */
+	// Mount filesystem only one time
 	if(flag == 0){
 		res = f_mount(&SDFatFs, SDPath, 1);
 		res = f_open(&SDFile, &path[0], FA_CREATE_ALWAYS);
 		res = f_close(&SDFile);
 		res = f_open(&SDFile, &path[0], FA_OPEN_APPEND | FA_WRITE);
 		flag = 1;
+		// Start 5mS timer to trigger the data request
 		HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
+		//HAL_TIM_Base_Start_IT(&htim14);
 	}
-
   /* Infinite loop */
   for(;;)
   {
-	  if(HAL_GPIO_ReadPin(USER_Btn_GPIO_Port, USER_Btn_Pin) == GPIO_PIN_SET){
-			HAL_CAN_DeactivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
-			res = f_close(&SDFile);
-			HAL_GPIO_WritePin(GPIOB, LD2_Pin, GPIO_PIN_SET);
-		}
-		else{
+	if(HAL_GPIO_ReadPin(USER_Btn_GPIO_Port, USER_Btn_Pin) == GPIO_PIN_SET){
+		HAL_CAN_DeactivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
+		//HAL_TIM_Base_Stop_IT(&htim14);
+		res = f_close(&SDFile);
+		HAL_GPIO_WritePin(GPIOB, LD2_Pin, GPIO_PIN_SET);
+	}
+	else{
+		// Test if the data is ready to be written
+		if(wf != 0){
 			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_SET);
 			HAL_GPIO_WritePin(GPIOB, LD1_Pin, GPIO_PIN_SET);
-			if(ind == 32){
-				res = f_write(&SDFile, buffer, sizeof(buffer), &writeBuff);
-				ind = 0;
-				HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
-			}
+			// Write the buffer to the memory
+			res = f_write(&SDFile, SD_buffer, sizeof(SD_buffer), &writeBuff);
+			wf = 0;
 			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOB, LD1_Pin, GPIO_PIN_RESET);
 		}
+	}
     //osDelay(1);
   }
-  /* USER CODE END StartTask02 */
+  /* USER CODE END 5 */ 
 }
 
  /**
@@ -708,7 +691,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
-
+  if (htim->Instance == TIM14) {
+	  // Send a Data request
+	  TxData[0] = 0x01;
+	  if(HAL_CAN_AddTxMessage(&hcan1,&TxHeader,TxData,&TxMailbox) == HAL_OK){
+		  // Listen can bus interrupt
+		  HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
+	  }
+  }
   /* USER CODE END Callback 1 */
 }
 

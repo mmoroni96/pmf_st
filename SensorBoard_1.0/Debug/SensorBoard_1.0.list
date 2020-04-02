@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  16 .debug_macro  00016bcc  00000000  00000000  0003c850  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   0000dc89  00000000  00000000  0005341c  2**0
+ 17 .debug_line   0000dd79  00000000  00000000  0005341c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    0007dcd1  00000000  00000000  000610a5  2**0
+ 18 .debug_str    0007dc94  00000000  00000000  00061195  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  000ded76  2**0
+ 19 .comment      0000007b  00000000  00000000  000dee29  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00005740  00000000  00000000  000dedf4  2**2
+ 20 .debug_frame  00005740  00000000  00000000  000deea4  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -2153,6 +2153,12 @@ Disassembly of section .text:
  8001122:	46c0      	nop			; (mov r8, r8)
 
 08001124 <hts221_read_reg>:
+  * @retval       interface status (MANDATORY: return 0 -> no Error)
+  *
+  */
+int32_t hts221_read_reg(stmdev_ctx_t* ctx, uint8_t reg, uint8_t* data,
+                        uint16_t len)
+{
  8001124:	b5f0      	push	{r4, r5, r6, r7, lr}
  8001126:	b087      	sub	sp, #28
  8001128:	af00      	add	r7, sp, #0
@@ -2168,6 +2174,8 @@ Disassembly of section .text:
  800113c:	197b      	adds	r3, r7, r5
  800113e:	1c0a      	adds	r2, r1, #0
  8001140:	801a      	strh	r2, [r3, #0]
+  int32_t ret;
+  ret = ctx->read_reg(ctx->handle, reg, data, len);
  8001142:	68fb      	ldr	r3, [r7, #12]
  8001144:	685c      	ldr	r4, [r3, #4]
  8001146:	68fb      	ldr	r3, [r7, #12]
@@ -2181,13 +2189,21 @@ Disassembly of section .text:
  8001156:	47a0      	blx	r4
  8001158:	0003      	movs	r3, r0
  800115a:	617b      	str	r3, [r7, #20]
+  return ret;
  800115c:	697b      	ldr	r3, [r7, #20]
+}
  800115e:	0018      	movs	r0, r3
  8001160:	46bd      	mov	sp, r7
  8001162:	b007      	add	sp, #28
  8001164:	bdf0      	pop	{r4, r5, r6, r7, pc}
 
 08001166 <hts221_write_reg>:
+  * @retval       interface status (MANDATORY: return 0 -> no Error)
+  *
+  */
+int32_t hts221_write_reg(stmdev_ctx_t* ctx, uint8_t reg, uint8_t* data,
+                         uint16_t len)
+{
  8001166:	b5f0      	push	{r4, r5, r6, r7, lr}
  8001168:	b087      	sub	sp, #28
  800116a:	af00      	add	r7, sp, #0
@@ -2203,6 +2219,8 @@ Disassembly of section .text:
  800117e:	197b      	adds	r3, r7, r5
  8001180:	1c0a      	adds	r2, r1, #0
  8001182:	801a      	strh	r2, [r3, #0]
+  int32_t ret;
+  ret = ctx->write_reg(ctx->handle, reg, data, len);
  8001184:	68fb      	ldr	r3, [r7, #12]
  8001186:	681c      	ldr	r4, [r3, #0]
  8001188:	68fb      	ldr	r3, [r7, #12]
@@ -2216,13 +2234,21 @@ Disassembly of section .text:
  8001198:	47a0      	blx	r4
  800119a:	0003      	movs	r3, r0
  800119c:	617b      	str	r3, [r7, #20]
+  return ret;
  800119e:	697b      	ldr	r3, [r7, #20]
+}
  80011a0:	0018      	movs	r0, r3
  80011a2:	46bd      	mov	sp, r7
  80011a4:	b007      	add	sp, #28
  80011a6:	bdf0      	pop	{r4, r5, r6, r7, pc}
 
 080011a8 <hts221_data_rate_set>:
+  * @param  val     change the values of odr in reg CTRL_REG1
+  * @retval         interface status (MANDATORY: return 0 -> no Error)
+  *
+  */
+int32_t hts221_data_rate_set(stmdev_ctx_t *ctx, hts221_odr_t val)
+{
  80011a8:	b590      	push	{r4, r7, lr}
  80011aa:	b085      	sub	sp, #20
  80011ac:	af00      	add	r7, sp, #0
@@ -2230,6 +2256,10 @@ Disassembly of section .text:
  80011b0:	000a      	movs	r2, r1
  80011b2:	1cfb      	adds	r3, r7, #3
  80011b4:	701a      	strb	r2, [r3, #0]
+  hts221_ctrl_reg1_t reg;
+  int32_t ret;
+
+  ret = hts221_read_reg(ctx, HTS221_CTRL_REG1, (uint8_t*) &reg, 1);
  80011b6:	2308      	movs	r3, #8
  80011b8:	18fa      	adds	r2, r7, r3
  80011ba:	6878      	ldr	r0, [r7, #4]
@@ -2238,9 +2268,12 @@ Disassembly of section .text:
  80011c0:	f7ff ffb0 	bl	8001124 <hts221_read_reg>
  80011c4:	0003      	movs	r3, r0
  80011c6:	60fb      	str	r3, [r7, #12]
+
+  if(ret == 0){
  80011c8:	68fb      	ldr	r3, [r7, #12]
  80011ca:	2b00      	cmp	r3, #0
  80011cc:	d118      	bne.n	8001200 <hts221_data_rate_set+0x58>
+    reg.odr = (uint8_t)val;
  80011ce:	1cfb      	adds	r3, r7, #3
  80011d0:	781b      	ldrb	r3, [r3, #0]
  80011d2:	2203      	movs	r2, #3
@@ -2258,6 +2291,7 @@ Disassembly of section .text:
  80011ea:	1c02      	adds	r2, r0, #0
  80011ec:	430a      	orrs	r2, r1
  80011ee:	701a      	strb	r2, [r3, #0]
+    ret = hts221_write_reg(ctx, HTS221_CTRL_REG1, (uint8_t*) &reg, 1);
  80011f0:	193a      	adds	r2, r7, r4
  80011f2:	6878      	ldr	r0, [r7, #4]
  80011f4:	2301      	movs	r3, #1
@@ -2265,13 +2299,23 @@ Disassembly of section .text:
  80011f8:	f7ff ffb5 	bl	8001166 <hts221_write_reg>
  80011fc:	0003      	movs	r3, r0
  80011fe:	60fb      	str	r3, [r7, #12]
+  }
+
+  return ret;
  8001200:	68fb      	ldr	r3, [r7, #12]
+}
  8001202:	0018      	movs	r0, r3
  8001204:	46bd      	mov	sp, r7
  8001206:	b005      	add	sp, #20
  8001208:	bd90      	pop	{r4, r7, pc}
 
 0800120a <hts221_block_data_update_set>:
+  * @param  val     change the values of bdu in reg CTRL_REG1
+  * @retval         interface status (MANDATORY: return 0 -> no Error)
+  *
+  */
+int32_t hts221_block_data_update_set(stmdev_ctx_t *ctx, uint8_t val)
+{
  800120a:	b590      	push	{r4, r7, lr}
  800120c:	b085      	sub	sp, #20
  800120e:	af00      	add	r7, sp, #0
@@ -2279,6 +2323,10 @@ Disassembly of section .text:
  8001212:	000a      	movs	r2, r1
  8001214:	1cfb      	adds	r3, r7, #3
  8001216:	701a      	strb	r2, [r3, #0]
+  hts221_ctrl_reg1_t reg;
+  int32_t ret;
+
+  ret = hts221_read_reg(ctx, HTS221_CTRL_REG1, (uint8_t*) &reg, 1);
  8001218:	2308      	movs	r3, #8
  800121a:	18fa      	adds	r2, r7, r3
  800121c:	6878      	ldr	r0, [r7, #4]
@@ -2287,9 +2335,12 @@ Disassembly of section .text:
  8001222:	f7ff ff7f 	bl	8001124 <hts221_read_reg>
  8001226:	0003      	movs	r3, r0
  8001228:	60fb      	str	r3, [r7, #12]
+
+  if(ret == 0){
  800122a:	68fb      	ldr	r3, [r7, #12]
  800122c:	2b00      	cmp	r3, #0
  800122e:	d118      	bne.n	8001262 <hts221_block_data_update_set+0x58>
+    reg.bdu = val;
  8001230:	1cfb      	adds	r3, r7, #3
  8001232:	781b      	ldrb	r3, [r3, #0]
  8001234:	2201      	movs	r2, #1
@@ -2307,6 +2358,7 @@ Disassembly of section .text:
  800124c:	1c02      	adds	r2, r0, #0
  800124e:	430a      	orrs	r2, r1
  8001250:	701a      	strb	r2, [r3, #0]
+    ret = hts221_write_reg(ctx, HTS221_CTRL_REG1, (uint8_t*) &reg, 1);
  8001252:	193a      	adds	r2, r7, r4
  8001254:	6878      	ldr	r0, [r7, #4]
  8001256:	2301      	movs	r3, #1
@@ -2314,18 +2366,30 @@ Disassembly of section .text:
  800125a:	f7ff ff84 	bl	8001166 <hts221_write_reg>
  800125e:	0003      	movs	r3, r0
  8001260:	60fb      	str	r3, [r7, #12]
+  }
+
+  return ret;
  8001262:	68fb      	ldr	r3, [r7, #12]
+}
  8001264:	0018      	movs	r0, r3
  8001266:	46bd      	mov	sp, r7
  8001268:	b005      	add	sp, #20
  800126a:	bd90      	pop	{r4, r7, pc}
 
 0800126c <hts221_humidity_raw_get>:
+  * @param  buff    buffer that stores data read
+  * @retval         interface status (MANDATORY: return 0 -> no Error)
+  *
+  */
+int32_t hts221_humidity_raw_get(stmdev_ctx_t *ctx, uint8_t *buff)
+{
  800126c:	b580      	push	{r7, lr}
  800126e:	b084      	sub	sp, #16
  8001270:	af00      	add	r7, sp, #0
  8001272:	6078      	str	r0, [r7, #4]
  8001274:	6039      	str	r1, [r7, #0]
+  int32_t ret;
+  ret = hts221_read_reg(ctx, HTS221_HUMIDITY_OUT_L, buff, 2);
  8001276:	683a      	ldr	r2, [r7, #0]
  8001278:	6878      	ldr	r0, [r7, #4]
  800127a:	2302      	movs	r3, #2
@@ -2333,18 +2397,28 @@ Disassembly of section .text:
  800127e:	f7ff ff51 	bl	8001124 <hts221_read_reg>
  8001282:	0003      	movs	r3, r0
  8001284:	60fb      	str	r3, [r7, #12]
+  return ret;
  8001286:	68fb      	ldr	r3, [r7, #12]
+}
  8001288:	0018      	movs	r0, r3
  800128a:	46bd      	mov	sp, r7
  800128c:	b004      	add	sp, #16
  800128e:	bd80      	pop	{r7, pc}
 
 08001290 <hts221_device_id_get>:
+  * @param  buff    buffer that stores data read
+  * @retval         interface status (MANDATORY: return 0 -> no Error)
+  *
+  */
+int32_t hts221_device_id_get(stmdev_ctx_t *ctx, uint8_t *buff)
+{
  8001290:	b580      	push	{r7, lr}
  8001292:	b084      	sub	sp, #16
  8001294:	af00      	add	r7, sp, #0
  8001296:	6078      	str	r0, [r7, #4]
  8001298:	6039      	str	r1, [r7, #0]
+  int32_t ret;
+  ret = hts221_read_reg(ctx, HTS221_WHO_AM_I, buff, 1);
  800129a:	683a      	ldr	r2, [r7, #0]
  800129c:	6878      	ldr	r0, [r7, #4]
  800129e:	2301      	movs	r3, #1
@@ -2352,13 +2426,21 @@ Disassembly of section .text:
  80012a2:	f7ff ff3f 	bl	8001124 <hts221_read_reg>
  80012a6:	0003      	movs	r3, r0
  80012a8:	60fb      	str	r3, [r7, #12]
+  return ret;
  80012aa:	68fb      	ldr	r3, [r7, #12]
+}
  80012ac:	0018      	movs	r0, r3
  80012ae:	46bd      	mov	sp, r7
  80012b0:	b004      	add	sp, #16
  80012b2:	bd80      	pop	{r7, pc}
 
 080012b4 <hts221_power_on_set>:
+  * @param  val     change the values of pd in reg CTRL_REG1
+  * @retval         interface status (MANDATORY: return 0 -> no Error)
+  *
+  */
+int32_t hts221_power_on_set(stmdev_ctx_t *ctx, uint8_t val)
+{
  80012b4:	b590      	push	{r4, r7, lr}
  80012b6:	b085      	sub	sp, #20
  80012b8:	af00      	add	r7, sp, #0
@@ -2366,6 +2448,10 @@ Disassembly of section .text:
  80012bc:	000a      	movs	r2, r1
  80012be:	1cfb      	adds	r3, r7, #3
  80012c0:	701a      	strb	r2, [r3, #0]
+  hts221_ctrl_reg1_t reg;
+  int32_t ret;
+
+  ret = hts221_read_reg(ctx, HTS221_CTRL_REG1, (uint8_t*) &reg, 1);
  80012c2:	2308      	movs	r3, #8
  80012c4:	18fa      	adds	r2, r7, r3
  80012c6:	6878      	ldr	r0, [r7, #4]
@@ -2374,9 +2460,12 @@ Disassembly of section .text:
  80012cc:	f7ff ff2a 	bl	8001124 <hts221_read_reg>
  80012d0:	0003      	movs	r3, r0
  80012d2:	60fb      	str	r3, [r7, #12]
+
+  if(ret == 0){
  80012d4:	68fb      	ldr	r3, [r7, #12]
  80012d6:	2b00      	cmp	r3, #0
  80012d8:	d116      	bne.n	8001308 <hts221_power_on_set+0x54>
+    reg.pd = val;
  80012da:	1cfb      	adds	r3, r7, #3
  80012dc:	781b      	ldrb	r3, [r3, #0]
  80012de:	2201      	movs	r2, #1
@@ -2392,6 +2481,7 @@ Disassembly of section .text:
  80012f2:	1c02      	adds	r2, r0, #0
  80012f4:	430a      	orrs	r2, r1
  80012f6:	701a      	strb	r2, [r3, #0]
+    ret = hts221_write_reg(ctx, HTS221_CTRL_REG1, (uint8_t*) &reg, 1);
  80012f8:	193a      	adds	r2, r7, r4
  80012fa:	6878      	ldr	r0, [r7, #4]
  80012fc:	2301      	movs	r3, #1
@@ -2399,18 +2489,29 @@ Disassembly of section .text:
  8001300:	f7ff ff31 	bl	8001166 <hts221_write_reg>
  8001304:	0003      	movs	r3, r0
  8001306:	60fb      	str	r3, [r7, #12]
+  }
+  return ret;
  8001308:	68fb      	ldr	r3, [r7, #12]
+}
  800130a:	0018      	movs	r0, r3
  800130c:	46bd      	mov	sp, r7
  800130e:	b005      	add	sp, #20
  8001310:	bd90      	pop	{r4, r7, pc}
 
 08001312 <hts221_status_get>:
+  * @param  val     Registers STATUS_REG
+  * @retval         interface status (MANDATORY: return 0 -> no Error)
+  *
+  */
+int32_t hts221_status_get(stmdev_ctx_t *ctx, hts221_status_reg_t *val)
+{
  8001312:	b580      	push	{r7, lr}
  8001314:	b084      	sub	sp, #16
  8001316:	af00      	add	r7, sp, #0
  8001318:	6078      	str	r0, [r7, #4]
  800131a:	6039      	str	r1, [r7, #0]
+  int32_t ret;
+  ret = hts221_read_reg(ctx, HTS221_STATUS_REG, (uint8_t*) val, 1);
  800131c:	683a      	ldr	r2, [r7, #0]
  800131e:	6878      	ldr	r0, [r7, #4]
  8001320:	2301      	movs	r3, #1
@@ -2418,18 +2519,29 @@ Disassembly of section .text:
  8001324:	f7ff fefe 	bl	8001124 <hts221_read_reg>
  8001328:	0003      	movs	r3, r0
  800132a:	60fb      	str	r3, [r7, #12]
+  return ret;
  800132c:	68fb      	ldr	r3, [r7, #12]
+}
  800132e:	0018      	movs	r0, r3
  8001330:	46bd      	mov	sp, r7
  8001332:	b004      	add	sp, #16
  8001334:	bd80      	pop	{r7, pc}
 
 08001336 <hts221_hum_rh_point_0_get>:
+  * @param  buff    buffer that stores data read
+  * @retval         interface status (MANDATORY: return 0 -> no Error)
+  *
+  */
+int32_t hts221_hum_rh_point_0_get(stmdev_ctx_t *ctx, uint8_t *buff)
+{
  8001336:	b580      	push	{r7, lr}
  8001338:	b084      	sub	sp, #16
  800133a:	af00      	add	r7, sp, #0
  800133c:	6078      	str	r0, [r7, #4]
  800133e:	6039      	str	r1, [r7, #0]
+  int32_t ret;
+
+  ret = hts221_read_reg(ctx, HTS221_H0_RH_X2, buff, 1);
  8001340:	683a      	ldr	r2, [r7, #0]
  8001342:	6878      	ldr	r0, [r7, #4]
  8001344:	2301      	movs	r3, #1
@@ -2437,24 +2549,37 @@ Disassembly of section .text:
  8001348:	f7ff feec 	bl	8001124 <hts221_read_reg>
  800134c:	0003      	movs	r3, r0
  800134e:	60fb      	str	r3, [r7, #12]
+  *buff = (uint8_t)(((uint16_t)(*buff) >> 1) & 0x7FFFu);
  8001350:	683b      	ldr	r3, [r7, #0]
  8001352:	781b      	ldrb	r3, [r3, #0]
  8001354:	085b      	lsrs	r3, r3, #1
  8001356:	b2da      	uxtb	r2, r3
  8001358:	683b      	ldr	r3, [r7, #0]
  800135a:	701a      	strb	r2, [r3, #0]
+
+  return ret;
  800135c:	68fb      	ldr	r3, [r7, #12]
+}
  800135e:	0018      	movs	r0, r3
  8001360:	46bd      	mov	sp, r7
  8001362:	b004      	add	sp, #16
  8001364:	bd80      	pop	{r7, pc}
 
 08001366 <hts221_hum_rh_point_1_get>:
+  * @param  buff    buffer that stores data read
+  * @retval         interface status (MANDATORY: return 0 -> no Error)
+  *
+  */
+int32_t hts221_hum_rh_point_1_get(stmdev_ctx_t *ctx, uint8_t *buff)
+{
  8001366:	b580      	push	{r7, lr}
  8001368:	b084      	sub	sp, #16
  800136a:	af00      	add	r7, sp, #0
  800136c:	6078      	str	r0, [r7, #4]
  800136e:	6039      	str	r1, [r7, #0]
+  int32_t ret;
+
+  ret = hts221_read_reg(ctx, HTS221_H1_RH_X2, buff, 1);
  8001370:	683a      	ldr	r2, [r7, #0]
  8001372:	6878      	ldr	r0, [r7, #4]
  8001374:	2301      	movs	r3, #1
@@ -2462,24 +2587,36 @@ Disassembly of section .text:
  8001378:	f7ff fed4 	bl	8001124 <hts221_read_reg>
  800137c:	0003      	movs	r3, r0
  800137e:	60fb      	str	r3, [r7, #12]
+  *buff = (uint8_t)(((uint16_t)(*buff) >> 1) & 0x7FFFu);
  8001380:	683b      	ldr	r3, [r7, #0]
  8001382:	781b      	ldrb	r3, [r3, #0]
  8001384:	085b      	lsrs	r3, r3, #1
  8001386:	b2da      	uxtb	r2, r3
  8001388:	683b      	ldr	r3, [r7, #0]
  800138a:	701a      	strb	r2, [r3, #0]
+
+  return ret;
  800138c:	68fb      	ldr	r3, [r7, #12]
+}
  800138e:	0018      	movs	r0, r3
  8001390:	46bd      	mov	sp, r7
  8001392:	b004      	add	sp, #16
  8001394:	bd80      	pop	{r7, pc}
 
 08001396 <hts221_hum_adc_point_0_get>:
+  * @param  buff    buffer that stores data read
+  * @retval         interface status (MANDATORY: return 0 -> no Error)
+  *
+  */
+int32_t hts221_hum_adc_point_0_get(stmdev_ctx_t *ctx, uint8_t *buff)
+{
  8001396:	b580      	push	{r7, lr}
  8001398:	b084      	sub	sp, #16
  800139a:	af00      	add	r7, sp, #0
  800139c:	6078      	str	r0, [r7, #4]
  800139e:	6039      	str	r1, [r7, #0]
+  int32_t ret;
+  ret = hts221_read_reg(ctx, HTS221_H0_T0_OUT_L, buff, 2);
  80013a0:	683a      	ldr	r2, [r7, #0]
  80013a2:	6878      	ldr	r0, [r7, #4]
  80013a4:	2302      	movs	r3, #2
@@ -2487,18 +2624,28 @@ Disassembly of section .text:
  80013a8:	f7ff febc 	bl	8001124 <hts221_read_reg>
  80013ac:	0003      	movs	r3, r0
  80013ae:	60fb      	str	r3, [r7, #12]
+  return ret;
  80013b0:	68fb      	ldr	r3, [r7, #12]
+}
  80013b2:	0018      	movs	r0, r3
  80013b4:	46bd      	mov	sp, r7
  80013b6:	b004      	add	sp, #16
  80013b8:	bd80      	pop	{r7, pc}
 
 080013ba <hts221_hum_adc_point_1_get>:
+  * @param  buff    buffer that stores data read
+  * @retval         interface status (MANDATORY: return 0 -> no Error)
+  *
+  */
+int32_t hts221_hum_adc_point_1_get(stmdev_ctx_t *ctx, uint8_t *buff)
+{
  80013ba:	b580      	push	{r7, lr}
  80013bc:	b084      	sub	sp, #16
  80013be:	af00      	add	r7, sp, #0
  80013c0:	6078      	str	r0, [r7, #4]
  80013c2:	6039      	str	r1, [r7, #0]
+  int32_t ret;
+  ret = hts221_read_reg(ctx, HTS221_H1_T0_OUT_L, buff, 2);
  80013c4:	683a      	ldr	r2, [r7, #0]
  80013c6:	6878      	ldr	r0, [r7, #4]
  80013c8:	2302      	movs	r3, #2
@@ -2506,13 +2653,21 @@ Disassembly of section .text:
  80013cc:	f7ff feaa 	bl	8001124 <hts221_read_reg>
  80013d0:	0003      	movs	r3, r0
  80013d2:	60fb      	str	r3, [r7, #12]
+  return ret;
  80013d4:	68fb      	ldr	r3, [r7, #12]
+}
  80013d6:	0018      	movs	r0, r3
  80013d8:	46bd      	mov	sp, r7
  80013da:	b004      	add	sp, #16
  80013dc:	bd80      	pop	{r7, pc}
 
 080013de <iis3dhhc_read_reg>:
+  * @retval          interface status (MANDATORY: return 0 -> no Error)
+  *
+  */
+int32_t iis3dhhc_read_reg(stmdev_ctx_t* ctx, uint8_t reg, uint8_t* data,
+                         uint16_t len)
+{
  80013de:	b5f0      	push	{r4, r5, r6, r7, lr}
  80013e0:	b087      	sub	sp, #28
  80013e2:	af00      	add	r7, sp, #0
@@ -2528,6 +2683,8 @@ Disassembly of section .text:
  80013f6:	197b      	adds	r3, r7, r5
  80013f8:	1c0a      	adds	r2, r1, #0
  80013fa:	801a      	strh	r2, [r3, #0]
+  int32_t ret;
+  ret = ctx->read_reg(ctx->handle, reg, data, len);
  80013fc:	68fb      	ldr	r3, [r7, #12]
  80013fe:	685c      	ldr	r4, [r3, #4]
  8001400:	68fb      	ldr	r3, [r7, #12]
@@ -2541,13 +2698,21 @@ Disassembly of section .text:
  8001410:	47a0      	blx	r4
  8001412:	0003      	movs	r3, r0
  8001414:	617b      	str	r3, [r7, #20]
+  return ret;
  8001416:	697b      	ldr	r3, [r7, #20]
+}
  8001418:	0018      	movs	r0, r3
  800141a:	46bd      	mov	sp, r7
  800141c:	b007      	add	sp, #28
  800141e:	bdf0      	pop	{r4, r5, r6, r7, pc}
 
 08001420 <iis3dhhc_write_reg>:
+  * @retval          interface status (MANDATORY: return 0 -> no Error)
+  *
+  */
+int32_t iis3dhhc_write_reg(stmdev_ctx_t* ctx, uint8_t reg, uint8_t* data,
+                          uint16_t len)
+{
  8001420:	b5f0      	push	{r4, r5, r6, r7, lr}
  8001422:	b087      	sub	sp, #28
  8001424:	af00      	add	r7, sp, #0
@@ -2563,6 +2728,8 @@ Disassembly of section .text:
  8001438:	197b      	adds	r3, r7, r5
  800143a:	1c0a      	adds	r2, r1, #0
  800143c:	801a      	strh	r2, [r3, #0]
+  int32_t ret;
+  ret = ctx->write_reg(ctx->handle, reg, data, len);
  800143e:	68fb      	ldr	r3, [r7, #12]
  8001440:	681c      	ldr	r4, [r3, #0]
  8001442:	68fb      	ldr	r3, [r7, #12]
@@ -2576,13 +2743,21 @@ Disassembly of section .text:
  8001452:	47a0      	blx	r4
  8001454:	0003      	movs	r3, r0
  8001456:	617b      	str	r3, [r7, #20]
+  return ret;
  8001458:	697b      	ldr	r3, [r7, #20]
+}
  800145a:	0018      	movs	r0, r3
  800145c:	46bd      	mov	sp, r7
  800145e:	b007      	add	sp, #28
  8001460:	bdf0      	pop	{r4, r5, r6, r7, pc}
 
 08001462 <iis3dhhc_block_data_update_set>:
+  * @param  val    Change the values of bdu in reg CTRL_REG1.
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t iis3dhhc_block_data_update_set(stmdev_ctx_t *ctx, uint8_t val)
+{
  8001462:	b590      	push	{r4, r7, lr}
  8001464:	b085      	sub	sp, #20
  8001466:	af00      	add	r7, sp, #0
@@ -2590,6 +2765,10 @@ Disassembly of section .text:
  800146a:	000a      	movs	r2, r1
  800146c:	1cfb      	adds	r3, r7, #3
  800146e:	701a      	strb	r2, [r3, #0]
+  iis3dhhc_ctrl_reg1_t ctrl_reg1;
+  int32_t ret;
+
+  ret = iis3dhhc_read_reg(ctx, IIS3DHHC_CTRL_REG1, (uint8_t*)&ctrl_reg1, 1);
  8001470:	2308      	movs	r3, #8
  8001472:	18fa      	adds	r2, r7, r3
  8001474:	6878      	ldr	r0, [r7, #4]
@@ -2598,9 +2777,11 @@ Disassembly of section .text:
  800147a:	f7ff ffb0 	bl	80013de <iis3dhhc_read_reg>
  800147e:	0003      	movs	r3, r0
  8001480:	60fb      	str	r3, [r7, #12]
+  if(ret == 0){
  8001482:	68fb      	ldr	r3, [r7, #12]
  8001484:	2b00      	cmp	r3, #0
  8001486:	d118      	bne.n	80014ba <iis3dhhc_block_data_update_set+0x58>
+    ctrl_reg1.bdu = val;
  8001488:	1cfb      	adds	r3, r7, #3
  800148a:	781b      	ldrb	r3, [r3, #0]
  800148c:	2201      	movs	r2, #1
@@ -2618,6 +2799,7 @@ Disassembly of section .text:
  80014a4:	1c02      	adds	r2, r0, #0
  80014a6:	430a      	orrs	r2, r1
  80014a8:	701a      	strb	r2, [r3, #0]
+    ret = iis3dhhc_write_reg(ctx, IIS3DHHC_CTRL_REG1, (uint8_t*)&ctrl_reg1, 1);
  80014aa:	193a      	adds	r2, r7, r4
  80014ac:	6878      	ldr	r0, [r7, #4]
  80014ae:	2301      	movs	r3, #1
@@ -2625,13 +2807,23 @@ Disassembly of section .text:
  80014b2:	f7ff ffb5 	bl	8001420 <iis3dhhc_write_reg>
  80014b6:	0003      	movs	r3, r0
  80014b8:	60fb      	str	r3, [r7, #12]
+  }
+
+  return ret;
  80014ba:	68fb      	ldr	r3, [r7, #12]
+}
  80014bc:	0018      	movs	r0, r3
  80014be:	46bd      	mov	sp, r7
  80014c0:	b005      	add	sp, #20
  80014c2:	bd90      	pop	{r4, r7, pc}
 
 080014c4 <iis3dhhc_data_rate_set>:
+  * @param  val    Change the values of norm_mod_en in reg CTRL_REG1
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t iis3dhhc_data_rate_set(stmdev_ctx_t *ctx, iis3dhhc_norm_mod_en_t val)
+{
  80014c4:	b590      	push	{r4, r7, lr}
  80014c6:	b085      	sub	sp, #20
  80014c8:	af00      	add	r7, sp, #0
@@ -2639,6 +2831,10 @@ Disassembly of section .text:
  80014cc:	000a      	movs	r2, r1
  80014ce:	1cfb      	adds	r3, r7, #3
  80014d0:	701a      	strb	r2, [r3, #0]
+  iis3dhhc_ctrl_reg1_t ctrl_reg1;
+  int32_t ret;
+
+  ret = iis3dhhc_read_reg(ctx, IIS3DHHC_CTRL_REG1, (uint8_t*)&ctrl_reg1, 1);
  80014d2:	2308      	movs	r3, #8
  80014d4:	18fa      	adds	r2, r7, r3
  80014d6:	6878      	ldr	r0, [r7, #4]
@@ -2647,9 +2843,11 @@ Disassembly of section .text:
  80014dc:	f7ff ff7f 	bl	80013de <iis3dhhc_read_reg>
  80014e0:	0003      	movs	r3, r0
  80014e2:	60fb      	str	r3, [r7, #12]
+  if(ret == 0){
  80014e4:	68fb      	ldr	r3, [r7, #12]
  80014e6:	2b00      	cmp	r3, #0
  80014e8:	d116      	bne.n	8001518 <iis3dhhc_data_rate_set+0x54>
+    ctrl_reg1.norm_mod_en = (uint8_t)val;
  80014ea:	1cfb      	adds	r3, r7, #3
  80014ec:	781b      	ldrb	r3, [r3, #0]
  80014ee:	2201      	movs	r2, #1
@@ -2665,6 +2863,7 @@ Disassembly of section .text:
  8001502:	1c02      	adds	r2, r0, #0
  8001504:	430a      	orrs	r2, r1
  8001506:	701a      	strb	r2, [r3, #0]
+    ret = iis3dhhc_write_reg(ctx, IIS3DHHC_CTRL_REG1, (uint8_t*)&ctrl_reg1, 1);
  8001508:	193a      	adds	r2, r7, r4
  800150a:	6878      	ldr	r0, [r7, #4]
  800150c:	2301      	movs	r3, #1
@@ -2672,13 +2871,23 @@ Disassembly of section .text:
  8001510:	f7ff ff86 	bl	8001420 <iis3dhhc_write_reg>
  8001514:	0003      	movs	r3, r0
  8001516:	60fb      	str	r3, [r7, #12]
+  }
+
+  return ret;
  8001518:	68fb      	ldr	r3, [r7, #12]
+}
  800151a:	0018      	movs	r0, r3
  800151c:	46bd      	mov	sp, r7
  800151e:	b005      	add	sp, #20
  8001520:	bd90      	pop	{r4, r7, pc}
 
 08001522 <iis3dhhc_offset_temp_comp_set>:
+  * @param  val    Change the values of off_tcomp_en in reg CTRL_REG4
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t iis3dhhc_offset_temp_comp_set(stmdev_ctx_t *ctx, uint8_t val)
+{
  8001522:	b590      	push	{r4, r7, lr}
  8001524:	b085      	sub	sp, #20
  8001526:	af00      	add	r7, sp, #0
@@ -2686,6 +2895,10 @@ Disassembly of section .text:
  800152a:	000a      	movs	r2, r1
  800152c:	1cfb      	adds	r3, r7, #3
  800152e:	701a      	strb	r2, [r3, #0]
+  iis3dhhc_ctrl_reg4_t ctrl_reg4;
+  int32_t ret;
+
+  ret = iis3dhhc_read_reg(ctx, IIS3DHHC_CTRL_REG4, (uint8_t*)&ctrl_reg4, 1);
  8001530:	2308      	movs	r3, #8
  8001532:	18fa      	adds	r2, r7, r3
  8001534:	6878      	ldr	r0, [r7, #4]
@@ -2694,9 +2907,11 @@ Disassembly of section .text:
  800153a:	f7ff ff50 	bl	80013de <iis3dhhc_read_reg>
  800153e:	0003      	movs	r3, r0
  8001540:	60fb      	str	r3, [r7, #12]
+  if(ret == 0){
  8001542:	68fb      	ldr	r3, [r7, #12]
  8001544:	2b00      	cmp	r3, #0
  8001546:	d118      	bne.n	800157a <iis3dhhc_offset_temp_comp_set+0x58>
+    ctrl_reg4.off_tcomp_en = val;
  8001548:	1cfb      	adds	r3, r7, #3
  800154a:	781b      	ldrb	r3, [r3, #0]
  800154c:	2201      	movs	r2, #1
@@ -2714,6 +2929,7 @@ Disassembly of section .text:
  8001564:	1c02      	adds	r2, r0, #0
  8001566:	430a      	orrs	r2, r1
  8001568:	701a      	strb	r2, [r3, #0]
+    ret = iis3dhhc_write_reg(ctx, IIS3DHHC_CTRL_REG4, (uint8_t*)&ctrl_reg4, 1);
  800156a:	193a      	adds	r2, r7, r4
  800156c:	6878      	ldr	r0, [r7, #4]
  800156e:	2301      	movs	r3, #1
@@ -2721,18 +2937,30 @@ Disassembly of section .text:
  8001572:	f7ff ff55 	bl	8001420 <iis3dhhc_write_reg>
  8001576:	0003      	movs	r3, r0
  8001578:	60fb      	str	r3, [r7, #12]
+  }
+
+  return ret;
  800157a:	68fb      	ldr	r3, [r7, #12]
+}
  800157c:	0018      	movs	r0, r3
  800157e:	46bd      	mov	sp, r7
  8001580:	b005      	add	sp, #20
  8001582:	bd90      	pop	{r4, r7, pc}
 
 08001584 <iis3dhhc_acceleration_raw_get>:
+  * @param  buff   Buffer that stores data read
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t iis3dhhc_acceleration_raw_get(stmdev_ctx_t *ctx, uint8_t *buff)
+{
  8001584:	b580      	push	{r7, lr}
  8001586:	b084      	sub	sp, #16
  8001588:	af00      	add	r7, sp, #0
  800158a:	6078      	str	r0, [r7, #4]
  800158c:	6039      	str	r1, [r7, #0]
+  int32_t ret;
+  ret = iis3dhhc_read_reg(ctx, IIS3DHHC_OUT_X_L_XL, buff, 6);
  800158e:	683a      	ldr	r2, [r7, #0]
  8001590:	6878      	ldr	r0, [r7, #4]
  8001592:	2306      	movs	r3, #6
@@ -2740,18 +2968,29 @@ Disassembly of section .text:
  8001596:	f7ff ff22 	bl	80013de <iis3dhhc_read_reg>
  800159a:	0003      	movs	r3, r0
  800159c:	60fb      	str	r3, [r7, #12]
+  return ret;
  800159e:	68fb      	ldr	r3, [r7, #12]
+}
  80015a0:	0018      	movs	r0, r3
  80015a2:	46bd      	mov	sp, r7
  80015a4:	b004      	add	sp, #16
  80015a6:	bd80      	pop	{r7, pc}
 
 080015a8 <iis3dhhc_device_id_get>:
+  * @param  buff   Buffer that stores data read
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t iis3dhhc_device_id_get(stmdev_ctx_t *ctx, uint8_t *buff)
+{
  80015a8:	b580      	push	{r7, lr}
  80015aa:	b084      	sub	sp, #16
  80015ac:	af00      	add	r7, sp, #0
  80015ae:	6078      	str	r0, [r7, #4]
  80015b0:	6039      	str	r1, [r7, #0]
+  int32_t ret;
+  //ret = iis3dhhc_read_reg(ctx, 0x00U, buff, 1);
+  ret = iis3dhhc_read_reg(ctx, IIS3DHHC_WHO_AM_I, buff, 1);
  80015b2:	683a      	ldr	r2, [r7, #0]
  80015b4:	6878      	ldr	r0, [r7, #4]
  80015b6:	2301      	movs	r3, #1
@@ -2759,13 +2998,21 @@ Disassembly of section .text:
  80015ba:	f7ff ff10 	bl	80013de <iis3dhhc_read_reg>
  80015be:	0003      	movs	r3, r0
  80015c0:	60fb      	str	r3, [r7, #12]
+  return ret;
  80015c2:	68fb      	ldr	r3, [r7, #12]
+}
  80015c4:	0018      	movs	r0, r3
  80015c6:	46bd      	mov	sp, r7
  80015c8:	b004      	add	sp, #16
  80015ca:	bd80      	pop	{r7, pc}
 
 080015cc <iis3dhhc_reset_set>:
+  * @param  val    Change the values of sw_reset in reg CTRL_REG1.
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t iis3dhhc_reset_set(stmdev_ctx_t *ctx, uint8_t val)
+{
  80015cc:	b590      	push	{r4, r7, lr}
  80015ce:	b085      	sub	sp, #20
  80015d0:	af00      	add	r7, sp, #0
@@ -2773,6 +3020,10 @@ Disassembly of section .text:
  80015d4:	000a      	movs	r2, r1
  80015d6:	1cfb      	adds	r3, r7, #3
  80015d8:	701a      	strb	r2, [r3, #0]
+  iis3dhhc_ctrl_reg1_t ctrl_reg1;
+  int32_t ret;
+
+  ret = iis3dhhc_read_reg(ctx, IIS3DHHC_CTRL_REG1, (uint8_t*)&ctrl_reg1, 1);
  80015da:	2308      	movs	r3, #8
  80015dc:	18fa      	adds	r2, r7, r3
  80015de:	6878      	ldr	r0, [r7, #4]
@@ -2781,9 +3032,11 @@ Disassembly of section .text:
  80015e4:	f7ff fefb 	bl	80013de <iis3dhhc_read_reg>
  80015e8:	0003      	movs	r3, r0
  80015ea:	60fb      	str	r3, [r7, #12]
+  if(ret == 0){
  80015ec:	68fb      	ldr	r3, [r7, #12]
  80015ee:	2b00      	cmp	r3, #0
  80015f0:	d118      	bne.n	8001624 <iis3dhhc_reset_set+0x58>
+    ctrl_reg1.sw_reset = val;
  80015f2:	1cfb      	adds	r3, r7, #3
  80015f4:	781b      	ldrb	r3, [r3, #0]
  80015f6:	2201      	movs	r2, #1
@@ -2801,6 +3054,7 @@ Disassembly of section .text:
  800160e:	1c02      	adds	r2, r0, #0
  8001610:	430a      	orrs	r2, r1
  8001612:	701a      	strb	r2, [r3, #0]
+    ret = iis3dhhc_write_reg(ctx, IIS3DHHC_CTRL_REG1, (uint8_t*)&ctrl_reg1, 1);
  8001614:	193a      	adds	r2, r7, r4
  8001616:	6878      	ldr	r0, [r7, #4]
  8001618:	2301      	movs	r3, #1
@@ -2808,18 +3062,32 @@ Disassembly of section .text:
  800161c:	f7ff ff00 	bl	8001420 <iis3dhhc_write_reg>
  8001620:	0003      	movs	r3, r0
  8001622:	60fb      	str	r3, [r7, #12]
+  }
+
+  return ret;
  8001624:	68fb      	ldr	r3, [r7, #12]
+}
  8001626:	0018      	movs	r0, r3
  8001628:	46bd      	mov	sp, r7
  800162a:	b005      	add	sp, #20
  800162c:	bd90      	pop	{r4, r7, pc}
 
 0800162e <iis3dhhc_reset_get>:
+  * @param  val    Get the values of sw_reset in reg CTRL_REG1.(ptr)
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t iis3dhhc_reset_get(stmdev_ctx_t *ctx, uint8_t *val)
+{
  800162e:	b590      	push	{r4, r7, lr}
  8001630:	b085      	sub	sp, #20
  8001632:	af00      	add	r7, sp, #0
  8001634:	6078      	str	r0, [r7, #4]
  8001636:	6039      	str	r1, [r7, #0]
+  iis3dhhc_ctrl_reg1_t ctrl_reg1;
+  int32_t ret;
+
+  ret = iis3dhhc_read_reg(ctx, IIS3DHHC_CTRL_REG1, (uint8_t*)&ctrl_reg1, 1);
  8001638:	2408      	movs	r4, #8
  800163a:	193a      	adds	r2, r7, r4
  800163c:	6878      	ldr	r0, [r7, #4]
@@ -2828,6 +3096,7 @@ Disassembly of section .text:
  8001642:	f7ff fecc 	bl	80013de <iis3dhhc_read_reg>
  8001646:	0003      	movs	r3, r0
  8001648:	60fb      	str	r3, [r7, #12]
+  *val = ctrl_reg1.sw_reset;
  800164a:	193b      	adds	r3, r7, r4
  800164c:	781b      	ldrb	r3, [r3, #0]
  800164e:	075b      	lsls	r3, r3, #29
@@ -2836,13 +3105,22 @@ Disassembly of section .text:
  8001654:	001a      	movs	r2, r3
  8001656:	683b      	ldr	r3, [r7, #0]
  8001658:	701a      	strb	r2, [r3, #0]
+
+  return ret;
  800165a:	68fb      	ldr	r3, [r7, #12]
+}
  800165c:	0018      	movs	r0, r3
  800165e:	46bd      	mov	sp, r7
  8001660:	b005      	add	sp, #20
  8001662:	bd90      	pop	{r4, r7, pc}
 
 08001664 <iis3dhhc_filter_config_set>:
+  * @param  val    Change the values of dsp in reg CTRL_REG4
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t iis3dhhc_filter_config_set(stmdev_ctx_t *ctx, iis3dhhc_dsp_t val)
+{
  8001664:	b590      	push	{r4, r7, lr}
  8001666:	b085      	sub	sp, #20
  8001668:	af00      	add	r7, sp, #0
@@ -2850,6 +3128,10 @@ Disassembly of section .text:
  800166c:	000a      	movs	r2, r1
  800166e:	1cfb      	adds	r3, r7, #3
  8001670:	701a      	strb	r2, [r3, #0]
+  iis3dhhc_ctrl_reg4_t ctrl_reg4;
+  int32_t ret;
+
+  ret = iis3dhhc_read_reg(ctx, IIS3DHHC_CTRL_REG4, (uint8_t*)&ctrl_reg4, 1);
  8001672:	2308      	movs	r3, #8
  8001674:	18fa      	adds	r2, r7, r3
  8001676:	6878      	ldr	r0, [r7, #4]
@@ -2858,9 +3140,11 @@ Disassembly of section .text:
  800167c:	f7ff feaf 	bl	80013de <iis3dhhc_read_reg>
  8001680:	0003      	movs	r3, r0
  8001682:	60fb      	str	r3, [r7, #12]
+  if(ret == 0){
  8001684:	68fb      	ldr	r3, [r7, #12]
  8001686:	2b00      	cmp	r3, #0
  8001688:	d116      	bne.n	80016b8 <iis3dhhc_filter_config_set+0x54>
+    ctrl_reg4.dsp = (uint8_t)val;
  800168a:	1cfb      	adds	r3, r7, #3
  800168c:	781b      	ldrb	r3, [r3, #0]
  800168e:	2203      	movs	r2, #3
@@ -2876,6 +3160,7 @@ Disassembly of section .text:
  80016a2:	1c02      	adds	r2, r0, #0
  80016a4:	430a      	orrs	r2, r1
  80016a6:	701a      	strb	r2, [r3, #0]
+    ret = iis3dhhc_write_reg(ctx, IIS3DHHC_CTRL_REG4, (uint8_t*)&ctrl_reg4, 1);
  80016a8:	193a      	adds	r2, r7, r4
  80016aa:	6878      	ldr	r0, [r7, #4]
  80016ac:	2301      	movs	r3, #1
@@ -2883,18 +3168,30 @@ Disassembly of section .text:
  80016b0:	f7ff feb6 	bl	8001420 <iis3dhhc_write_reg>
  80016b4:	0003      	movs	r3, r0
  80016b6:	60fb      	str	r3, [r7, #12]
+  }
+
+  return ret;
  80016b8:	68fb      	ldr	r3, [r7, #12]
+}
  80016ba:	0018      	movs	r0, r3
  80016bc:	46bd      	mov	sp, r7
  80016be:	b005      	add	sp, #20
  80016c0:	bd90      	pop	{r4, r7, pc}
 
 080016c2 <iis3dhhc_status_get>:
+  * @param  val    Get registers STATUS.(ptr)
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t iis3dhhc_status_get(stmdev_ctx_t *ctx, iis3dhhc_status_t *val)
+{
  80016c2:	b580      	push	{r7, lr}
  80016c4:	b084      	sub	sp, #16
  80016c6:	af00      	add	r7, sp, #0
  80016c8:	6078      	str	r0, [r7, #4]
  80016ca:	6039      	str	r1, [r7, #0]
+  int32_t ret;
+  ret = iis3dhhc_read_reg(ctx, IIS3DHHC_STATUS, (uint8_t*) val, 1);
  80016cc:	683a      	ldr	r2, [r7, #0]
  80016ce:	6878      	ldr	r0, [r7, #4]
  80016d0:	2301      	movs	r3, #1
@@ -2902,13 +3199,21 @@ Disassembly of section .text:
  80016d4:	f7ff fe83 	bl	80013de <iis3dhhc_read_reg>
  80016d8:	0003      	movs	r3, r0
  80016da:	60fb      	str	r3, [r7, #12]
+  return ret;
  80016dc:	68fb      	ldr	r3, [r7, #12]
+}
  80016de:	0018      	movs	r0, r3
  80016e0:	46bd      	mov	sp, r7
  80016e2:	b004      	add	sp, #16
  80016e4:	bd80      	pop	{r7, pc}
 
 080016e6 <l2g2is_read_reg>:
+  * @retval       interface status (MANDATORY: return 0 -> no Error)
+  *
+  */
+int32_t l2g2is_read_reg(stmdev_ctx_t* ctx, uint8_t reg, uint8_t* data,
+                          uint16_t len)
+{
  80016e6:	b5f0      	push	{r4, r5, r6, r7, lr}
  80016e8:	b087      	sub	sp, #28
  80016ea:	af00      	add	r7, sp, #0
@@ -2924,6 +3229,8 @@ Disassembly of section .text:
  80016fe:	197b      	adds	r3, r7, r5
  8001700:	1c0a      	adds	r2, r1, #0
  8001702:	801a      	strh	r2, [r3, #0]
+  int32_t ret;
+  ret = ctx->read_reg(ctx->handle, reg, data, len);
  8001704:	68fb      	ldr	r3, [r7, #12]
  8001706:	685c      	ldr	r4, [r3, #4]
  8001708:	68fb      	ldr	r3, [r7, #12]
@@ -2937,13 +3244,21 @@ Disassembly of section .text:
  8001718:	47a0      	blx	r4
  800171a:	0003      	movs	r3, r0
  800171c:	617b      	str	r3, [r7, #20]
+  return ret;
  800171e:	697b      	ldr	r3, [r7, #20]
+}
  8001720:	0018      	movs	r0, r3
  8001722:	46bd      	mov	sp, r7
  8001724:	b007      	add	sp, #28
  8001726:	bdf0      	pop	{r4, r5, r6, r7, pc}
 
 08001728 <l2g2is_write_reg>:
+  * @retval       interface status (MANDATORY: return 0 -> no Error)
+  *
+  */
+int32_t l2g2is_write_reg(stmdev_ctx_t* ctx, uint8_t reg, uint8_t* data,
+                           uint16_t len)
+{
  8001728:	b5f0      	push	{r4, r5, r6, r7, lr}
  800172a:	b087      	sub	sp, #28
  800172c:	af00      	add	r7, sp, #0
@@ -2959,6 +3274,8 @@ Disassembly of section .text:
  8001740:	197b      	adds	r3, r7, r5
  8001742:	1c0a      	adds	r2, r1, #0
  8001744:	801a      	strh	r2, [r3, #0]
+  int32_t ret;
+  ret = ctx->write_reg(ctx->handle, reg, data, len);
  8001746:	68fb      	ldr	r3, [r7, #12]
  8001748:	681c      	ldr	r4, [r3, #0]
  800174a:	68fb      	ldr	r3, [r7, #12]
@@ -2972,13 +3289,21 @@ Disassembly of section .text:
  800175a:	47a0      	blx	r4
  800175c:	0003      	movs	r3, r0
  800175e:	617b      	str	r3, [r7, #20]
+  return ret;
  8001760:	697b      	ldr	r3, [r7, #20]
+}
  8001762:	0018      	movs	r0, r3
  8001764:	46bd      	mov	sp, r7
  8001766:	b007      	add	sp, #28
  8001768:	bdf0      	pop	{r4, r5, r6, r7, pc}
 
 0800176a <l2g2is_gy_data_rate_set>:
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t l2g2is_gy_data_rate_set(stmdev_ctx_t *ctx,
+                                  l2g2is_gy_data_rate_t val)
+{
  800176a:	b590      	push	{r4, r7, lr}
  800176c:	b085      	sub	sp, #20
  800176e:	af00      	add	r7, sp, #0
@@ -2986,6 +3311,10 @@ Disassembly of section .text:
  8001772:	000a      	movs	r2, r1
  8001774:	1cfb      	adds	r3, r7, #3
  8001776:	701a      	strb	r2, [r3, #0]
+  l2g2is_ctrl_reg1_t ctrl_reg1;
+  int32_t ret;
+
+  ret = l2g2is_read_reg(ctx, L2G2IS_CTRL_REG1, (uint8_t*)&ctrl_reg1, 1);
  8001778:	2308      	movs	r3, #8
  800177a:	18fa      	adds	r2, r7, r3
  800177c:	6878      	ldr	r0, [r7, #4]
@@ -2994,9 +3323,11 @@ Disassembly of section .text:
  8001782:	f7ff ffb0 	bl	80016e6 <l2g2is_read_reg>
  8001786:	0003      	movs	r3, r0
  8001788:	60fb      	str	r3, [r7, #12]
+  if(ret == 0){
  800178a:	68fb      	ldr	r3, [r7, #12]
  800178c:	2b00      	cmp	r3, #0
  800178e:	d118      	bne.n	80017c2 <l2g2is_gy_data_rate_set+0x58>
+    ctrl_reg1.pw = (uint8_t)val;
  8001790:	1cfb      	adds	r3, r7, #3
  8001792:	781b      	ldrb	r3, [r3, #0]
  8001794:	2203      	movs	r2, #3
@@ -3014,6 +3345,7 @@ Disassembly of section .text:
  80017ac:	1c02      	adds	r2, r0, #0
  80017ae:	430a      	orrs	r2, r1
  80017b0:	701a      	strb	r2, [r3, #0]
+    ret = l2g2is_write_reg(ctx, L2G2IS_CTRL_REG1,
  80017b2:	193a      	adds	r2, r7, r4
  80017b4:	6878      	ldr	r0, [r7, #4]
  80017b6:	2301      	movs	r3, #1
@@ -3021,19 +3353,34 @@ Disassembly of section .text:
  80017ba:	f7ff ffb5 	bl	8001728 <l2g2is_write_reg>
  80017be:	0003      	movs	r3, r0
  80017c0:	60fb      	str	r3, [r7, #12]
+                             (uint8_t*)&ctrl_reg1, 1);
+  }
+  return ret;
  80017c2:	68fb      	ldr	r3, [r7, #12]
+}
  80017c4:	0018      	movs	r0, r3
  80017c6:	46bd      	mov	sp, r7
  80017c8:	b005      	add	sp, #20
  80017ca:	bd90      	pop	{r4, r7, pc}
 
 080017cc <l2g2is_angular_rate_offset_set>:
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t l2g2is_angular_rate_offset_set(stmdev_ctx_t *ctx,
+                                         l2g2is_off_t val)
+{
  80017cc:	b580      	push	{r7, lr}
  80017ce:	b086      	sub	sp, #24
  80017d0:	af00      	add	r7, sp, #0
  80017d2:	6078      	str	r0, [r7, #4]
  80017d4:	003b      	movs	r3, r7
  80017d6:	8019      	strh	r1, [r3, #0]
+  l2g2is_off_x_t off_x;
+  l2g2is_off_y_t off_y;
+  int32_t ret;
+
+  ret = l2g2is_read_reg(ctx, L2G2IS_OFF_X, (uint8_t*)&off_x, 1);
  80017d8:	2310      	movs	r3, #16
  80017da:	18fa      	adds	r2, r7, r3
  80017dc:	6878      	ldr	r0, [r7, #4]
@@ -3042,9 +3389,11 @@ Disassembly of section .text:
  80017e2:	f7ff ff80 	bl	80016e6 <l2g2is_read_reg>
  80017e6:	0003      	movs	r3, r0
  80017e8:	617b      	str	r3, [r7, #20]
+  if(ret == 0) {
  80017ea:	697b      	ldr	r3, [r7, #20]
  80017ec:	2b00      	cmp	r3, #0
  80017ee:	d110      	bne.n	8001812 <l2g2is_angular_rate_offset_set+0x46>
+    off_x.offx  = val.offx;
  80017f0:	003b      	movs	r3, r7
  80017f2:	781b      	ldrb	r3, [r3, #0]
  80017f4:	065b      	lsls	r3, r3, #25
@@ -3054,6 +3403,7 @@ Disassembly of section .text:
  80017fc:	2110      	movs	r1, #16
  80017fe:	187b      	adds	r3, r7, r1
  8001800:	701a      	strb	r2, [r3, #0]
+    ret = l2g2is_write_reg(ctx, L2G2IS_OFF_X, (uint8_t*)&off_x, 1);
  8001802:	187a      	adds	r2, r7, r1
  8001804:	6878      	ldr	r0, [r7, #4]
  8001806:	2301      	movs	r3, #1
@@ -3061,9 +3411,12 @@ Disassembly of section .text:
  800180a:	f7ff ff8d 	bl	8001728 <l2g2is_write_reg>
  800180e:	0003      	movs	r3, r0
  8001810:	617b      	str	r3, [r7, #20]
+  }
+  if(ret == 0) {
  8001812:	697b      	ldr	r3, [r7, #20]
  8001814:	2b00      	cmp	r3, #0
  8001816:	d108      	bne.n	800182a <l2g2is_angular_rate_offset_set+0x5e>
+    ret = l2g2is_read_reg(ctx, L2G2IS_OFF_Y, (uint8_t*)&off_y, 1);
  8001818:	230c      	movs	r3, #12
  800181a:	18fa      	adds	r2, r7, r3
  800181c:	6878      	ldr	r0, [r7, #4]
@@ -3072,9 +3425,12 @@ Disassembly of section .text:
  8001822:	f7ff ff60 	bl	80016e6 <l2g2is_read_reg>
  8001826:	0003      	movs	r3, r0
  8001828:	617b      	str	r3, [r7, #20]
+  }
+  if(ret == 0) {
  800182a:	697b      	ldr	r3, [r7, #20]
  800182c:	2b00      	cmp	r3, #0
  800182e:	d110      	bne.n	8001852 <l2g2is_angular_rate_offset_set+0x86>
+    off_y.offy  = val.offy;
  8001830:	003b      	movs	r3, r7
  8001832:	785b      	ldrb	r3, [r3, #1]
  8001834:	065b      	lsls	r3, r3, #25
@@ -3084,6 +3440,7 @@ Disassembly of section .text:
  800183c:	210c      	movs	r1, #12
  800183e:	187b      	adds	r3, r7, r1
  8001840:	701a      	strb	r2, [r3, #0]
+    ret = l2g2is_write_reg(ctx, L2G2IS_OFF_Y, (uint8_t*)&off_y, 1);
  8001842:	187a      	adds	r2, r7, r1
  8001844:	6878      	ldr	r0, [r7, #4]
  8001846:	2301      	movs	r3, #1
@@ -3091,13 +3448,23 @@ Disassembly of section .text:
  800184a:	f7ff ff6d 	bl	8001728 <l2g2is_write_reg>
  800184e:	0003      	movs	r3, r0
  8001850:	617b      	str	r3, [r7, #20]
+  }
+
+  return ret;
  8001852:	697b      	ldr	r3, [r7, #20]
+}
  8001854:	0018      	movs	r0, r3
  8001856:	46bd      	mov	sp, r7
  8001858:	b006      	add	sp, #24
  800185a:	bd80      	pop	{r7, pc}
 
 0800185c <l2g2is_gy_full_scale_set>:
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t l2g2is_gy_full_scale_set(stmdev_ctx_t *ctx,
+                                   l2g2is_gy_fs_t val)
+{
  800185c:	b590      	push	{r4, r7, lr}
  800185e:	b085      	sub	sp, #20
  8001860:	af00      	add	r7, sp, #0
@@ -3105,6 +3472,10 @@ Disassembly of section .text:
  8001864:	000a      	movs	r2, r1
  8001866:	1cfb      	adds	r3, r7, #3
  8001868:	701a      	strb	r2, [r3, #0]
+  l2g2is_ctrl_reg4_t ctrl_reg4;
+  int32_t ret;
+
+  ret = l2g2is_read_reg(ctx, L2G2IS_CTRL_REG4,
  800186a:	2308      	movs	r3, #8
  800186c:	18fa      	adds	r2, r7, r3
  800186e:	6878      	ldr	r0, [r7, #4]
@@ -3113,9 +3484,12 @@ Disassembly of section .text:
  8001874:	f7ff ff37 	bl	80016e6 <l2g2is_read_reg>
  8001878:	0003      	movs	r3, r0
  800187a:	60fb      	str	r3, [r7, #12]
+                          (uint8_t*)&ctrl_reg4, 1);
+  if(ret == 0){
  800187c:	68fb      	ldr	r3, [r7, #12]
  800187e:	2b00      	cmp	r3, #0
  8001880:	d118      	bne.n	80018b4 <l2g2is_gy_full_scale_set+0x58>
+    ctrl_reg4.fs = (uint8_t)val;
  8001882:	1cfb      	adds	r3, r7, #3
  8001884:	781b      	ldrb	r3, [r3, #0]
  8001886:	2201      	movs	r2, #1
@@ -3133,6 +3507,7 @@ Disassembly of section .text:
  800189e:	1c02      	adds	r2, r0, #0
  80018a0:	430a      	orrs	r2, r1
  80018a2:	701a      	strb	r2, [r3, #0]
+    ret = l2g2is_write_reg(ctx, L2G2IS_CTRL_REG4,
  80018a4:	193a      	adds	r2, r7, r4
  80018a6:	6878      	ldr	r0, [r7, #4]
  80018a8:	2301      	movs	r3, #1
@@ -3140,18 +3515,30 @@ Disassembly of section .text:
  80018ac:	f7ff ff3c 	bl	8001728 <l2g2is_write_reg>
  80018b0:	0003      	movs	r3, r0
  80018b2:	60fb      	str	r3, [r7, #12]
+                             (uint8_t*)&ctrl_reg4, 1);
+  }
+  return ret;
  80018b4:	68fb      	ldr	r3, [r7, #12]
+}
  80018b6:	0018      	movs	r0, r3
  80018b8:	46bd      	mov	sp, r7
  80018ba:	b005      	add	sp, #20
  80018bc:	bd90      	pop	{r4, r7, pc}
 
 080018be <l2g2is_angular_rate_raw_get>:
+  * @param  buff   Buffer that stores the data read.(ptr)
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t l2g2is_angular_rate_raw_get(stmdev_ctx_t *ctx, uint8_t *buff)
+{
  80018be:	b580      	push	{r7, lr}
  80018c0:	b084      	sub	sp, #16
  80018c2:	af00      	add	r7, sp, #0
  80018c4:	6078      	str	r0, [r7, #4]
  80018c6:	6039      	str	r1, [r7, #0]
+  int32_t ret;
+  ret = l2g2is_read_reg(ctx, L2G2IS_OUT_X_L, buff, 4);
  80018c8:	683a      	ldr	r2, [r7, #0]
  80018ca:	6878      	ldr	r0, [r7, #4]
  80018cc:	2304      	movs	r3, #4
@@ -3159,18 +3546,28 @@ Disassembly of section .text:
  80018d0:	f7ff ff09 	bl	80016e6 <l2g2is_read_reg>
  80018d4:	0003      	movs	r3, r0
  80018d6:	60fb      	str	r3, [r7, #12]
+  return ret;
  80018d8:	68fb      	ldr	r3, [r7, #12]
+}
  80018da:	0018      	movs	r0, r3
  80018dc:	46bd      	mov	sp, r7
  80018de:	b004      	add	sp, #16
  80018e0:	bd80      	pop	{r7, pc}
 
 080018e2 <l2g2is_dev_id_get>:
+  * @param  buff   Buffer that stores the data read.(ptr)
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t l2g2is_dev_id_get(stmdev_ctx_t *ctx, uint8_t *buff)
+{
  80018e2:	b580      	push	{r7, lr}
  80018e4:	b084      	sub	sp, #16
  80018e6:	af00      	add	r7, sp, #0
  80018e8:	6078      	str	r0, [r7, #4]
  80018ea:	6039      	str	r1, [r7, #0]
+  int32_t ret;
+  ret = l2g2is_read_reg(ctx, L2G2IS_WHO_AM_I, buff, 1);
  80018ec:	683a      	ldr	r2, [r7, #0]
  80018ee:	6878      	ldr	r0, [r7, #4]
  80018f0:	2301      	movs	r3, #1
@@ -3178,18 +3575,30 @@ Disassembly of section .text:
  80018f4:	f7ff fef7 	bl	80016e6 <l2g2is_read_reg>
  80018f8:	0003      	movs	r3, r0
  80018fa:	60fb      	str	r3, [r7, #12]
+  return ret;
  80018fc:	68fb      	ldr	r3, [r7, #12]
+}
  80018fe:	0018      	movs	r0, r3
  8001900:	46bd      	mov	sp, r7
  8001902:	b004      	add	sp, #16
  8001904:	bd80      	pop	{r7, pc}
 
 08001906 <l2g2is_dev_status_get>:
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t l2g2is_dev_status_get(stmdev_ctx_t *ctx,
+                                l2g2is_dev_status_t *val)
+{
  8001906:	b590      	push	{r4, r7, lr}
  8001908:	b085      	sub	sp, #20
  800190a:	af00      	add	r7, sp, #0
  800190c:	6078      	str	r0, [r7, #4]
  800190e:	6039      	str	r1, [r7, #0]
+  l2g2is_status_reg_t status_reg;
+  int32_t ret;
+
+  ret = l2g2is_read_reg(ctx, L2G2IS_STATUS_REG,
  8001910:	2408      	movs	r4, #8
  8001912:	193a      	adds	r2, r7, r4
  8001914:	6878      	ldr	r0, [r7, #4]
@@ -3198,6 +3607,8 @@ Disassembly of section .text:
  800191a:	f7ff fee4 	bl	80016e6 <l2g2is_read_reg>
  800191e:	0003      	movs	r3, r0
  8001920:	60fb      	str	r3, [r7, #12]
+                          (uint8_t*)&status_reg, 1);
+  val->xyda = status_reg.xyda;
  8001922:	193b      	adds	r3, r7, r4
  8001924:	781b      	ldrb	r3, [r3, #0]
  8001926:	071b      	lsls	r3, r3, #28
@@ -3214,13 +3625,22 @@ Disassembly of section .text:
  800193c:	1c02      	adds	r2, r0, #0
  800193e:	430a      	orrs	r2, r1
  8001940:	701a      	strb	r2, [r3, #0]
+
+  return ret;
  8001942:	68fb      	ldr	r3, [r7, #12]
+}
  8001944:	0018      	movs	r0, r3
  8001946:	46bd      	mov	sp, r7
  8001948:	b005      	add	sp, #20
  800194a:	bd90      	pop	{r4, r7, pc}
 
 0800194c <l2g2is_dev_reset_set>:
+  * @param  val    Change the values of sw_rst in reg CTRL_REG2.
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t l2g2is_dev_reset_set(stmdev_ctx_t *ctx, uint8_t val)
+{
  800194c:	b590      	push	{r4, r7, lr}
  800194e:	b085      	sub	sp, #20
  8001950:	af00      	add	r7, sp, #0
@@ -3228,6 +3648,10 @@ Disassembly of section .text:
  8001954:	000a      	movs	r2, r1
  8001956:	1cfb      	adds	r3, r7, #3
  8001958:	701a      	strb	r2, [r3, #0]
+  l2g2is_ctrl_reg2_t ctrl_reg2;
+  int32_t ret;
+
+  ret = l2g2is_read_reg(ctx, L2G2IS_CTRL_REG2, (uint8_t*)&ctrl_reg2, 1);
  800195a:	2308      	movs	r3, #8
  800195c:	18fa      	adds	r2, r7, r3
  800195e:	6878      	ldr	r0, [r7, #4]
@@ -3236,9 +3660,11 @@ Disassembly of section .text:
  8001964:	f7ff febf 	bl	80016e6 <l2g2is_read_reg>
  8001968:	0003      	movs	r3, r0
  800196a:	60fb      	str	r3, [r7, #12]
+  if(ret == 0){
  800196c:	68fb      	ldr	r3, [r7, #12]
  800196e:	2b00      	cmp	r3, #0
  8001970:	d118      	bne.n	80019a4 <l2g2is_dev_reset_set+0x58>
+    ctrl_reg2.sw_rst = (uint8_t)val;
  8001972:	1cfb      	adds	r3, r7, #3
  8001974:	781b      	ldrb	r3, [r3, #0]
  8001976:	2201      	movs	r2, #1
@@ -3256,6 +3682,7 @@ Disassembly of section .text:
  800198e:	1c02      	adds	r2, r0, #0
  8001990:	430a      	orrs	r2, r1
  8001992:	701a      	strb	r2, [r3, #0]
+    ret = l2g2is_write_reg(ctx, L2G2IS_CTRL_REG2, (uint8_t*)&ctrl_reg2, 1);
  8001994:	193a      	adds	r2, r7, r4
  8001996:	6878      	ldr	r0, [r7, #4]
  8001998:	2301      	movs	r3, #1
@@ -3263,18 +3690,31 @@ Disassembly of section .text:
  800199c:	f7ff fec4 	bl	8001728 <l2g2is_write_reg>
  80019a0:	0003      	movs	r3, r0
  80019a2:	60fb      	str	r3, [r7, #12]
+  }
+  return ret;
  80019a4:	68fb      	ldr	r3, [r7, #12]
+}
  80019a6:	0018      	movs	r0, r3
  80019a8:	46bd      	mov	sp, r7
  80019aa:	b005      	add	sp, #20
  80019ac:	bd90      	pop	{r4, r7, pc}
 
 080019ae <l2g2is_dev_reset_get>:
+  * @param  val    Get the values of sw_rst in reg CTRL_REG2.(ptr)
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t l2g2is_dev_reset_get(stmdev_ctx_t *ctx, uint8_t *val)
+{
  80019ae:	b590      	push	{r4, r7, lr}
  80019b0:	b085      	sub	sp, #20
  80019b2:	af00      	add	r7, sp, #0
  80019b4:	6078      	str	r0, [r7, #4]
  80019b6:	6039      	str	r1, [r7, #0]
+  l2g2is_ctrl_reg2_t ctrl_reg2;
+  int32_t ret;
+
+  ret = l2g2is_read_reg(ctx, L2G2IS_CTRL_REG2, (uint8_t*)&ctrl_reg2, 1);
  80019b8:	2408      	movs	r4, #8
  80019ba:	193a      	adds	r2, r7, r4
  80019bc:	6878      	ldr	r0, [r7, #4]
@@ -3283,6 +3723,7 @@ Disassembly of section .text:
  80019c2:	f7ff fe90 	bl	80016e6 <l2g2is_read_reg>
  80019c6:	0003      	movs	r3, r0
  80019c8:	60fb      	str	r3, [r7, #12]
+  *val = (uint8_t)ctrl_reg2.sw_rst;
  80019ca:	193b      	adds	r3, r7, r4
  80019cc:	781b      	ldrb	r3, [r3, #0]
  80019ce:	079b      	lsls	r3, r3, #30
@@ -3291,13 +3732,22 @@ Disassembly of section .text:
  80019d4:	001a      	movs	r2, r3
  80019d6:	683b      	ldr	r3, [r7, #0]
  80019d8:	701a      	strb	r2, [r3, #0]
+
+  return ret;
  80019da:	68fb      	ldr	r3, [r7, #12]
+}
  80019dc:	0018      	movs	r0, r3
  80019de:	46bd      	mov	sp, r7
  80019e0:	b005      	add	sp, #20
  80019e2:	bd90      	pop	{r4, r7, pc}
 
 080019e4 <lps22hb_read_reg>:
+  * @retval       interface status (MANDATORY: return 0 -> no Error)
+  *
+  */
+int32_t lps22hb_read_reg(stmdev_ctx_t* ctx, uint8_t reg, uint8_t* data,
+                         uint16_t len)
+{
  80019e4:	b5f0      	push	{r4, r5, r6, r7, lr}
  80019e6:	b087      	sub	sp, #28
  80019e8:	af00      	add	r7, sp, #0
@@ -3313,6 +3763,8 @@ Disassembly of section .text:
  80019fc:	197b      	adds	r3, r7, r5
  80019fe:	1c0a      	adds	r2, r1, #0
  8001a00:	801a      	strh	r2, [r3, #0]
+  int32_t ret;
+  ret = ctx->read_reg(ctx->handle, reg, data, len);
  8001a02:	68fb      	ldr	r3, [r7, #12]
  8001a04:	685c      	ldr	r4, [r3, #4]
  8001a06:	68fb      	ldr	r3, [r7, #12]
@@ -3326,13 +3778,21 @@ Disassembly of section .text:
  8001a16:	47a0      	blx	r4
  8001a18:	0003      	movs	r3, r0
  8001a1a:	617b      	str	r3, [r7, #20]
+  return ret;
  8001a1c:	697b      	ldr	r3, [r7, #20]
+}
  8001a1e:	0018      	movs	r0, r3
  8001a20:	46bd      	mov	sp, r7
  8001a22:	b007      	add	sp, #28
  8001a24:	bdf0      	pop	{r4, r5, r6, r7, pc}
 
 08001a26 <lps22hb_write_reg>:
+  * @retval       interface status (MANDATORY: return 0 -> no Error)
+  *
+  */
+int32_t lps22hb_write_reg(stmdev_ctx_t* ctx, uint8_t reg, uint8_t* data,
+                          uint16_t len)
+{
  8001a26:	b5f0      	push	{r4, r5, r6, r7, lr}
  8001a28:	b087      	sub	sp, #28
  8001a2a:	af00      	add	r7, sp, #0
@@ -3348,6 +3808,8 @@ Disassembly of section .text:
  8001a3e:	197b      	adds	r3, r7, r5
  8001a40:	1c0a      	adds	r2, r1, #0
  8001a42:	801a      	strh	r2, [r3, #0]
+  int32_t ret;
+  ret = ctx->write_reg(ctx->handle, reg, data, len);
  8001a44:	68fb      	ldr	r3, [r7, #12]
  8001a46:	681c      	ldr	r4, [r3, #0]
  8001a48:	68fb      	ldr	r3, [r7, #12]
@@ -3361,13 +3823,21 @@ Disassembly of section .text:
  8001a58:	47a0      	blx	r4
  8001a5a:	0003      	movs	r3, r0
  8001a5c:	617b      	str	r3, [r7, #20]
+  return ret;
  8001a5e:	697b      	ldr	r3, [r7, #20]
+}
  8001a60:	0018      	movs	r0, r3
  8001a62:	46bd      	mov	sp, r7
  8001a64:	b007      	add	sp, #28
  8001a66:	bdf0      	pop	{r4, r5, r6, r7, pc}
 
 08001a68 <lps22hb_low_pass_filter_mode_set>:
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t lps22hb_low_pass_filter_mode_set(stmdev_ctx_t *ctx,
+                                          lps22hb_lpfp_t val)
+{
  8001a68:	b590      	push	{r4, r7, lr}
  8001a6a:	b085      	sub	sp, #20
  8001a6c:	af00      	add	r7, sp, #0
@@ -3375,6 +3845,10 @@ Disassembly of section .text:
  8001a70:	000a      	movs	r2, r1
  8001a72:	1cfb      	adds	r3, r7, #3
  8001a74:	701a      	strb	r2, [r3, #0]
+  lps22hb_ctrl_reg1_t ctrl_reg1;
+  int32_t ret;
+
+  ret = lps22hb_read_reg(ctx, LPS22HB_CTRL_REG1, (uint8_t*)&ctrl_reg1, 1);
  8001a76:	2308      	movs	r3, #8
  8001a78:	18fa      	adds	r2, r7, r3
  8001a7a:	6878      	ldr	r0, [r7, #4]
@@ -3383,9 +3857,11 @@ Disassembly of section .text:
  8001a80:	f7ff ffb0 	bl	80019e4 <lps22hb_read_reg>
  8001a84:	0003      	movs	r3, r0
  8001a86:	60fb      	str	r3, [r7, #12]
+  if(ret == 0){
  8001a88:	68fb      	ldr	r3, [r7, #12]
  8001a8a:	2b00      	cmp	r3, #0
  8001a8c:	d118      	bne.n	8001ac0 <lps22hb_low_pass_filter_mode_set+0x58>
+    ctrl_reg1.lpfp = (uint8_t)val;
  8001a8e:	1cfb      	adds	r3, r7, #3
  8001a90:	781b      	ldrb	r3, [r3, #0]
  8001a92:	2203      	movs	r2, #3
@@ -3403,6 +3879,7 @@ Disassembly of section .text:
  8001aaa:	1c02      	adds	r2, r0, #0
  8001aac:	430a      	orrs	r2, r1
  8001aae:	701a      	strb	r2, [r3, #0]
+    ret = lps22hb_write_reg(ctx, LPS22HB_CTRL_REG1, (uint8_t*)&ctrl_reg1, 1);
  8001ab0:	193a      	adds	r2, r7, r4
  8001ab2:	6878      	ldr	r0, [r7, #4]
  8001ab4:	2301      	movs	r3, #1
@@ -3410,13 +3887,22 @@ Disassembly of section .text:
  8001ab8:	f7ff ffb5 	bl	8001a26 <lps22hb_write_reg>
  8001abc:	0003      	movs	r3, r0
  8001abe:	60fb      	str	r3, [r7, #12]
+  }
+  return ret;
  8001ac0:	68fb      	ldr	r3, [r7, #12]
+}
  8001ac2:	0018      	movs	r0, r3
  8001ac4:	46bd      	mov	sp, r7
  8001ac6:	b005      	add	sp, #20
  8001ac8:	bd90      	pop	{r4, r7, pc}
 
 08001aca <lps22hb_data_rate_set>:
+  * @param  val    Change the values of odr in reg CTRL_REG1
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t lps22hb_data_rate_set(stmdev_ctx_t *ctx, lps22hb_odr_t val)
+{
  8001aca:	b590      	push	{r4, r7, lr}
  8001acc:	b085      	sub	sp, #20
  8001ace:	af00      	add	r7, sp, #0
@@ -3424,6 +3910,10 @@ Disassembly of section .text:
  8001ad2:	000a      	movs	r2, r1
  8001ad4:	1cfb      	adds	r3, r7, #3
  8001ad6:	701a      	strb	r2, [r3, #0]
+  lps22hb_ctrl_reg1_t ctrl_reg1;
+  int32_t ret;
+
+  ret = lps22hb_read_reg(ctx, LPS22HB_CTRL_REG1, (uint8_t*)&ctrl_reg1, 1);
  8001ad8:	2308      	movs	r3, #8
  8001ada:	18fa      	adds	r2, r7, r3
  8001adc:	6878      	ldr	r0, [r7, #4]
@@ -3432,9 +3922,11 @@ Disassembly of section .text:
  8001ae2:	f7ff ff7f 	bl	80019e4 <lps22hb_read_reg>
  8001ae6:	0003      	movs	r3, r0
  8001ae8:	60fb      	str	r3, [r7, #12]
+  if(ret == 0){
  8001aea:	68fb      	ldr	r3, [r7, #12]
  8001aec:	2b00      	cmp	r3, #0
  8001aee:	d118      	bne.n	8001b22 <lps22hb_data_rate_set+0x58>
+    ctrl_reg1.odr = (uint8_t)val;
  8001af0:	1cfb      	adds	r3, r7, #3
  8001af2:	781b      	ldrb	r3, [r3, #0]
  8001af4:	2207      	movs	r2, #7
@@ -3452,6 +3944,7 @@ Disassembly of section .text:
  8001b0c:	1c02      	adds	r2, r0, #0
  8001b0e:	430a      	orrs	r2, r1
  8001b10:	701a      	strb	r2, [r3, #0]
+    ret = lps22hb_write_reg(ctx, LPS22HB_CTRL_REG1, (uint8_t*)&ctrl_reg1, 1);
  8001b12:	193a      	adds	r2, r7, r4
  8001b14:	6878      	ldr	r0, [r7, #4]
  8001b16:	2301      	movs	r3, #1
@@ -3459,18 +3952,31 @@ Disassembly of section .text:
  8001b1a:	f7ff ff84 	bl	8001a26 <lps22hb_write_reg>
  8001b1e:	0003      	movs	r3, r0
  8001b20:	60fb      	str	r3, [r7, #12]
+  }
+  return ret;
  8001b22:	68fb      	ldr	r3, [r7, #12]
+}
  8001b24:	0018      	movs	r0, r3
  8001b26:	46bd      	mov	sp, r7
  8001b28:	b005      	add	sp, #20
  8001b2a:	bd90      	pop	{r4, r7, pc}
 
 08001b2c <lps22hb_press_data_ready_get>:
+  * @param  val    Change the values of p_da in reg STATUS
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t lps22hb_press_data_ready_get(stmdev_ctx_t *ctx, uint8_t *val)
+{
  8001b2c:	b590      	push	{r4, r7, lr}
  8001b2e:	b085      	sub	sp, #20
  8001b30:	af00      	add	r7, sp, #0
  8001b32:	6078      	str	r0, [r7, #4]
  8001b34:	6039      	str	r1, [r7, #0]
+  lps22hb_status_t status;
+  int32_t ret;
+
+  ret = lps22hb_read_reg(ctx, LPS22HB_STATUS, (uint8_t*)&status, 1);
  8001b36:	2408      	movs	r4, #8
  8001b38:	193a      	adds	r2, r7, r4
  8001b3a:	6878      	ldr	r0, [r7, #4]
@@ -3479,6 +3985,7 @@ Disassembly of section .text:
  8001b40:	f7ff ff50 	bl	80019e4 <lps22hb_read_reg>
  8001b44:	0003      	movs	r3, r0
  8001b46:	60fb      	str	r3, [r7, #12]
+  *val = status.p_da;
  8001b48:	193b      	adds	r3, r7, r4
  8001b4a:	781b      	ldrb	r3, [r3, #0]
  8001b4c:	07db      	lsls	r3, r3, #31
@@ -3487,18 +3994,29 @@ Disassembly of section .text:
  8001b52:	001a      	movs	r2, r3
  8001b54:	683b      	ldr	r3, [r7, #0]
  8001b56:	701a      	strb	r2, [r3, #0]
+
+  return ret;
  8001b58:	68fb      	ldr	r3, [r7, #12]
+}
  8001b5a:	0018      	movs	r0, r3
  8001b5c:	46bd      	mov	sp, r7
  8001b5e:	b005      	add	sp, #20
  8001b60:	bd90      	pop	{r4, r7, pc}
 
 08001b62 <lps22hb_pressure_raw_get>:
+  * @param  buff   Buffer that stores data read
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t lps22hb_pressure_raw_get(stmdev_ctx_t *ctx, uint8_t *buff)
+{
  8001b62:	b580      	push	{r7, lr}
  8001b64:	b084      	sub	sp, #16
  8001b66:	af00      	add	r7, sp, #0
  8001b68:	6078      	str	r0, [r7, #4]
  8001b6a:	6039      	str	r1, [r7, #0]
+  int32_t ret;
+  ret =  lps22hb_read_reg(ctx, LPS22HB_PRESS_OUT_XL, buff, 3);
  8001b6c:	683a      	ldr	r2, [r7, #0]
  8001b6e:	6878      	ldr	r0, [r7, #4]
  8001b70:	2303      	movs	r3, #3
@@ -3506,18 +4024,28 @@ Disassembly of section .text:
  8001b74:	f7ff ff36 	bl	80019e4 <lps22hb_read_reg>
  8001b78:	0003      	movs	r3, r0
  8001b7a:	60fb      	str	r3, [r7, #12]
+  return ret;
  8001b7c:	68fb      	ldr	r3, [r7, #12]
+}
  8001b7e:	0018      	movs	r0, r3
  8001b80:	46bd      	mov	sp, r7
  8001b82:	b004      	add	sp, #16
  8001b84:	bd80      	pop	{r7, pc}
 
 08001b86 <lps22hb_temperature_raw_get>:
+  * @param  buff   Buffer that stores data read.
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t lps22hb_temperature_raw_get(stmdev_ctx_t *ctx, uint8_t *buff)
+{
  8001b86:	b580      	push	{r7, lr}
  8001b88:	b084      	sub	sp, #16
  8001b8a:	af00      	add	r7, sp, #0
  8001b8c:	6078      	str	r0, [r7, #4]
  8001b8e:	6039      	str	r1, [r7, #0]
+  int32_t ret;
+  ret =  lps22hb_read_reg(ctx, LPS22HB_TEMP_OUT_L, (uint8_t*) buff, 2);
  8001b90:	683a      	ldr	r2, [r7, #0]
  8001b92:	6878      	ldr	r0, [r7, #4]
  8001b94:	2302      	movs	r3, #2
@@ -3525,18 +4053,28 @@ Disassembly of section .text:
  8001b98:	f7ff ff24 	bl	80019e4 <lps22hb_read_reg>
  8001b9c:	0003      	movs	r3, r0
  8001b9e:	60fb      	str	r3, [r7, #12]
+  return ret;
  8001ba0:	68fb      	ldr	r3, [r7, #12]
+}
  8001ba2:	0018      	movs	r0, r3
  8001ba4:	46bd      	mov	sp, r7
  8001ba6:	b004      	add	sp, #16
  8001ba8:	bd80      	pop	{r7, pc}
 
 08001baa <lps22hb_device_id_get>:
+  * @param  buff   Buffer that stores data read
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t lps22hb_device_id_get(stmdev_ctx_t *ctx, uint8_t *buff)
+{
  8001baa:	b580      	push	{r7, lr}
  8001bac:	b084      	sub	sp, #16
  8001bae:	af00      	add	r7, sp, #0
  8001bb0:	6078      	str	r0, [r7, #4]
  8001bb2:	6039      	str	r1, [r7, #0]
+  int32_t ret;
+  ret =  lps22hb_read_reg(ctx, LPS22HB_WHO_AM_I, (uint8_t*) buff, 1);
  8001bb4:	683a      	ldr	r2, [r7, #0]
  8001bb6:	6878      	ldr	r0, [r7, #4]
  8001bb8:	2301      	movs	r3, #1
@@ -3544,13 +4082,21 @@ Disassembly of section .text:
  8001bbc:	f7ff ff12 	bl	80019e4 <lps22hb_read_reg>
  8001bc0:	0003      	movs	r3, r0
  8001bc2:	60fb      	str	r3, [r7, #12]
+  return ret;
  8001bc4:	68fb      	ldr	r3, [r7, #12]
+}
  8001bc6:	0018      	movs	r0, r3
  8001bc8:	46bd      	mov	sp, r7
  8001bca:	b004      	add	sp, #16
  8001bcc:	bd80      	pop	{r7, pc}
 
 08001bce <lps22hb_reset_set>:
+  * @param  val    Change the values of swreset in reg CTRL_REG2
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t lps22hb_reset_set(stmdev_ctx_t *ctx, uint8_t val)
+{
  8001bce:	b590      	push	{r4, r7, lr}
  8001bd0:	b085      	sub	sp, #20
  8001bd2:	af00      	add	r7, sp, #0
@@ -3558,6 +4104,10 @@ Disassembly of section .text:
  8001bd6:	000a      	movs	r2, r1
  8001bd8:	1cfb      	adds	r3, r7, #3
  8001bda:	701a      	strb	r2, [r3, #0]
+  lps22hb_ctrl_reg2_t ctrl_reg2;
+  int32_t ret;
+
+  ret = lps22hb_read_reg(ctx, LPS22HB_CTRL_REG2, (uint8_t*)&ctrl_reg2, 1);
  8001bdc:	2308      	movs	r3, #8
  8001bde:	18fa      	adds	r2, r7, r3
  8001be0:	6878      	ldr	r0, [r7, #4]
@@ -3566,9 +4116,11 @@ Disassembly of section .text:
  8001be6:	f7ff fefd 	bl	80019e4 <lps22hb_read_reg>
  8001bea:	0003      	movs	r3, r0
  8001bec:	60fb      	str	r3, [r7, #12]
+  if(ret == 0){
  8001bee:	68fb      	ldr	r3, [r7, #12]
  8001bf0:	2b00      	cmp	r3, #0
  8001bf2:	d118      	bne.n	8001c26 <lps22hb_reset_set+0x58>
+    ctrl_reg2.swreset = val;
  8001bf4:	1cfb      	adds	r3, r7, #3
  8001bf6:	781b      	ldrb	r3, [r3, #0]
  8001bf8:	2201      	movs	r2, #1
@@ -3586,6 +4138,7 @@ Disassembly of section .text:
  8001c10:	1c02      	adds	r2, r0, #0
  8001c12:	430a      	orrs	r2, r1
  8001c14:	701a      	strb	r2, [r3, #0]
+    ret = lps22hb_write_reg(ctx, LPS22HB_CTRL_REG2, (uint8_t*)&ctrl_reg2, 1);
  8001c16:	193a      	adds	r2, r7, r4
  8001c18:	6878      	ldr	r0, [r7, #4]
  8001c1a:	2301      	movs	r3, #1
@@ -3593,18 +4146,31 @@ Disassembly of section .text:
  8001c1e:	f7ff ff02 	bl	8001a26 <lps22hb_write_reg>
  8001c22:	0003      	movs	r3, r0
  8001c24:	60fb      	str	r3, [r7, #12]
+  }
+  return ret;
  8001c26:	68fb      	ldr	r3, [r7, #12]
+}
  8001c28:	0018      	movs	r0, r3
  8001c2a:	46bd      	mov	sp, r7
  8001c2c:	b005      	add	sp, #20
  8001c2e:	bd90      	pop	{r4, r7, pc}
 
 08001c30 <lps22hb_reset_get>:
+  * @param  val    Change the values of swreset in reg CTRL_REG2
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t lps22hb_reset_get(stmdev_ctx_t *ctx, uint8_t *val)
+{
  8001c30:	b590      	push	{r4, r7, lr}
  8001c32:	b085      	sub	sp, #20
  8001c34:	af00      	add	r7, sp, #0
  8001c36:	6078      	str	r0, [r7, #4]
  8001c38:	6039      	str	r1, [r7, #0]
+  lps22hb_ctrl_reg2_t ctrl_reg2;
+  int32_t ret;
+
+  ret = lps22hb_read_reg(ctx, LPS22HB_CTRL_REG2, (uint8_t*)&ctrl_reg2, 1);
  8001c3a:	2408      	movs	r4, #8
  8001c3c:	193a      	adds	r2, r7, r4
  8001c3e:	6878      	ldr	r0, [r7, #4]
@@ -3613,6 +4179,7 @@ Disassembly of section .text:
  8001c44:	f7ff fece 	bl	80019e4 <lps22hb_read_reg>
  8001c48:	0003      	movs	r3, r0
  8001c4a:	60fb      	str	r3, [r7, #12]
+  *val = ctrl_reg2.swreset;
  8001c4c:	193b      	adds	r3, r7, r4
  8001c4e:	781b      	ldrb	r3, [r3, #0]
  8001c50:	075b      	lsls	r3, r3, #29
@@ -3621,7 +4188,10 @@ Disassembly of section .text:
  8001c56:	001a      	movs	r2, r3
  8001c58:	683b      	ldr	r3, [r7, #0]
  8001c5a:	701a      	strb	r2, [r3, #0]
+
+  return ret;
  8001c5c:	68fb      	ldr	r3, [r7, #12]
+}
  8001c5e:	0018      	movs	r0, r3
  8001c60:	46bd      	mov	sp, r7
  8001c62:	b005      	add	sp, #20
@@ -7406,69 +7976,156 @@ void SystemInit(void)
 	...
 
 08003354 <Reset_Handler>:
+
+  .section .text.Reset_Handler
+  .weak Reset_Handler
+  .type Reset_Handler, %function
+Reset_Handler:
+  ldr   r0, =_estack
  8003354:	4813      	ldr	r0, [pc, #76]	; (80033a4 <LoopForever+0x2>)
+  mov   sp, r0          /* set stack pointer */
  8003356:	4685      	mov	sp, r0
+
+/*Check if boot space corresponds to test memory*/
+ 
+    LDR R0,=0x00000004
  8003358:	4813      	ldr	r0, [pc, #76]	; (80033a8 <LoopForever+0x6>)
+    LDR R1, [R0]
  800335a:	6801      	ldr	r1, [r0, #0]
+    LSRS R1, R1, #24
  800335c:	0e09      	lsrs	r1, r1, #24
+    LDR R2,=0x1F
  800335e:	4a13      	ldr	r2, [pc, #76]	; (80033ac <LoopForever+0xa>)
+    CMP R1, R2
  8003360:	4291      	cmp	r1, r2
+    BNE ApplicationStart
  8003362:	d105      	bne.n	8003370 <ApplicationStart>
+
+ /*SYSCFG clock enable*/
+
+    LDR R0,=0x40021018
  8003364:	4812      	ldr	r0, [pc, #72]	; (80033b0 <LoopForever+0xe>)
+    LDR R1,=0x00000001
  8003366:	4913      	ldr	r1, [pc, #76]	; (80033b4 <LoopForever+0x12>)
+    STR R1, [R0]
  8003368:	6001      	str	r1, [r0, #0]
+
+/*Set CFGR1 register with flash memory remap at address 0*/
+    LDR R0,=0x40010000
  800336a:	4813      	ldr	r0, [pc, #76]	; (80033b8 <LoopForever+0x16>)
+    LDR R1,=0x00000000
  800336c:	4913      	ldr	r1, [pc, #76]	; (80033bc <LoopForever+0x1a>)
+    STR R1, [R0]
  800336e:	6001      	str	r1, [r0, #0]
 
 08003370 <ApplicationStart>:
+
+ApplicationStart:
+/* Copy the data segment initializers from flash to SRAM */
+  ldr r0, =_sdata
  8003370:	4813      	ldr	r0, [pc, #76]	; (80033c0 <LoopForever+0x1e>)
+  ldr r1, =_edata
  8003372:	4914      	ldr	r1, [pc, #80]	; (80033c4 <LoopForever+0x22>)
+  ldr r2, =_sidata
  8003374:	4a14      	ldr	r2, [pc, #80]	; (80033c8 <LoopForever+0x26>)
+  movs r3, #0
  8003376:	2300      	movs	r3, #0
+  b LoopCopyDataInit
  8003378:	e002      	b.n	8003380 <LoopCopyDataInit>
 
 0800337a <CopyDataInit>:
+
+CopyDataInit:
+  ldr r4, [r2, r3]
  800337a:	58d4      	ldr	r4, [r2, r3]
+  str r4, [r0, r3]
  800337c:	50c4      	str	r4, [r0, r3]
+  adds r3, r3, #4
  800337e:	3304      	adds	r3, #4
 
 08003380 <LoopCopyDataInit>:
+
+LoopCopyDataInit:
+  adds r4, r0, r3
  8003380:	18c4      	adds	r4, r0, r3
+  cmp r4, r1
  8003382:	428c      	cmp	r4, r1
+  bcc CopyDataInit
  8003384:	d3f9      	bcc.n	800337a <CopyDataInit>
+  
+/* Zero fill the bss segment. */
+  ldr r2, =_sbss
  8003386:	4a11      	ldr	r2, [pc, #68]	; (80033cc <LoopForever+0x2a>)
+  ldr r4, =_ebss
  8003388:	4c11      	ldr	r4, [pc, #68]	; (80033d0 <LoopForever+0x2e>)
+  movs r3, #0
  800338a:	2300      	movs	r3, #0
+  b LoopFillZerobss
  800338c:	e001      	b.n	8003392 <LoopFillZerobss>
 
 0800338e <FillZerobss>:
+
+FillZerobss:
+  str  r3, [r2]
  800338e:	6013      	str	r3, [r2, #0]
+  adds r2, r2, #4
  8003390:	3204      	adds	r2, #4
 
 08003392 <LoopFillZerobss>:
+
+LoopFillZerobss:
+  cmp r2, r4
  8003392:	42a2      	cmp	r2, r4
+  bcc FillZerobss
  8003394:	d3fb      	bcc.n	800338e <FillZerobss>
+
+/* Call the clock system intitialization function.*/
+  bl  SystemInit
  8003396:	f7ff ffd7 	bl	8003348 <SystemInit>
+/* Call static constructors */
+  bl __libc_init_array
  800339a:	f003 fd05 	bl	8006da8 <__libc_init_array>
+/* Call the application's entry point.*/
+  bl main
  800339e:	f7fe fcb1 	bl	8001d04 <main>
 
 080033a2 <LoopForever>:
+
+LoopForever:
+    b LoopForever
  80033a2:	e7fe      	b.n	80033a2 <LoopForever>
+  ldr   r0, =_estack
  80033a4:	20001800 	.word	0x20001800
+    LDR R0,=0x00000004
  80033a8:	00000004 	.word	0x00000004
+    LDR R2,=0x1F
  80033ac:	0000001f 	.word	0x0000001f
+    LDR R0,=0x40021018
  80033b0:	40021018 	.word	0x40021018
+    LDR R1,=0x00000001
  80033b4:	00000001 	.word	0x00000001
+    LDR R0,=0x40010000
  80033b8:	40010000 	.word	0x40010000
+    LDR R1,=0x00000000
  80033bc:	00000000 	.word	0x00000000
+  ldr r0, =_sdata
  80033c0:	20000000 	.word	0x20000000
+  ldr r1, =_edata
  80033c4:	2000000c 	.word	0x2000000c
+  ldr r2, =_sidata
  80033c8:	08006f10 	.word	0x08006f10
+  ldr r2, =_sbss
  80033cc:	2000000c 	.word	0x2000000c
+  ldr r4, =_ebss
  80033d0:	20000320 	.word	0x20000320
 
 080033d4 <ADC1_IRQHandler>:
+ * @retval : None
+*/
+    .section .text.Default_Handler,"ax",%progbits
+Default_Handler:
+Infinite_Loop:
+  b Infinite_Loop
  80033d4:	e7fe      	b.n	80033d4 <ADC1_IRQHandler>
 	...
 

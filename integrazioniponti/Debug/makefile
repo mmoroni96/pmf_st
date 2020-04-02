@@ -40,8 +40,8 @@ integrazioniponti.bin \
 all: integrazioniponti.elf secondary-outputs
 
 # Tool invocations
-integrazioniponti.elf: $(OBJS) $(USER_OBJS) C:\Users\mmoro\OneDrive\Documents\pmf_st\integrazioniponti\STM32F042C6UX_FLASH.ld
-	arm-none-eabi-gcc -o "integrazioniponti.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\integrazioniponti\STM32F042C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="integrazioniponti.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+integrazioniponti.elf: $(OBJS) $(USER_OBJS) C:\Users\mmoro\OneDrive\ -\ Politecnico\ di\ Milano\Documents\pmf_st\integrazioniponti\STM32F042C6UX_FLASH.ld
+	arm-none-eabi-gcc -o "integrazioniponti.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\Users\mmoro\OneDrive - Politecnico di Milano\Documents\pmf_st\integrazioniponti\STM32F042C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="integrazioniponti.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

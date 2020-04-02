@@ -32,13 +32,16 @@ default.size.stdout \
 OBJDUMP_LIST += \
 MainBoard-TestCAN-Receive.list \
 
+OBJCOPY_BIN += \
+MainBoard-TestCAN-Receive.bin \
+
 
 # All Target
 all: MainBoard-TestCAN-Receive.elf secondary-outputs
 
 # Tool invocations
-MainBoard-TestCAN-Receive.elf: $(OBJS) $(USER_OBJS) C:\Users\mmoro\OneDrive\Documents\pmf_st\MainBoard-TestCAN-Receive\STM32G474RETX_FLASH.ld
-	arm-none-eabi-gcc -o "MainBoard-TestCAN-Receive.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive\Documents\pmf_st\MainBoard-TestCAN-Receive\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MainBoard-TestCAN-Receive.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+MainBoard-TestCAN-Receive.elf: $(OBJS) $(USER_OBJS) C:\Users\mmoro\OneDrive\ -\ Politecnico\ di\ Milano\Documents\pmf_st\MainBoard-TestCAN-Receive\STM32G474RETX_FLASH.ld
+	arm-none-eabi-gcc -o "MainBoard-TestCAN-Receive.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\mmoro\OneDrive - Politecnico di Milano\Documents\pmf_st\MainBoard-TestCAN-Receive\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MainBoard-TestCAN-Receive.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -52,12 +55,17 @@ MainBoard-TestCAN-Receive.list: $(EXECUTABLES)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+MainBoard-TestCAN-Receive.bin: $(EXECUTABLES)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "MainBoard-TestCAN-Receive.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
 	-$(RM) *
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)
 
 .PHONY: all clean dependents
 .SECONDARY:
