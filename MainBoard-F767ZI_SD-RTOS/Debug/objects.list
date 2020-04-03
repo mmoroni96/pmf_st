@@ -47,7 +47,7 @@
 "Middlewares/Third_Party/FatFs/src/ff_gen_drv.o"
 "Middlewares/Third_Party/FatFs/src/option/ccsbcs.o"
 "Middlewares/Third_Party/FatFs/src/option/syscall.o"
-"Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o"
+"Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.o"
 "Middlewares/Third_Party/FreeRTOS/Source/croutine.o"
 "Middlewares/Third_Party/FreeRTOS/Source/event_groups.o"
 "Middlewares/Third_Party/FreeRTOS/Source/list.o"

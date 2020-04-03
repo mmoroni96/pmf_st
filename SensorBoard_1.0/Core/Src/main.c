@@ -274,8 +274,8 @@ int main(void)
 	//OGNI ID VIENE TRASFORMATO IN UN RANGE DA 0 A 9 E SERVIRA' PER TEMPORIZARE L'INVIO
 	if(ID>9)IDF=ID-10;
 	if(ID>19)IDF=ID-20;
-	htim1.Init.Period = 1200+IDF*350;
-
+	//htim1.Init.Period = 1200+IDF*350;
+	htim1.Init.Period=1200;
 	//TRASMISSIONE SPI DISABILITATA
 	HAL_GPIO_WritePin(GPIOB, cs_1_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(GPIOB, cs_2_Pin, GPIO_PIN_SET);
@@ -729,7 +729,7 @@ static void MX_TIM3_Init(void)
   htim3.Instance = TIM3;
   htim3.Init.Prescaler = 15999;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 5;
+  htim3.Init.Period = 2;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)

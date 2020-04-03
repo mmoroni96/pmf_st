@@ -84,7 +84,13 @@ DMA_HandleTypeDef hdma_sdmmc1_rx;
 
 UART_HandleTypeDef huart3;
 
-osThreadId defaultTaskHandle;
+/* Definitions for defaultTask */
+osThreadId_t defaultTaskHandle;
+const osThreadAttr_t defaultTask_attributes = {
+  .name = "defaultTask",
+  .priority = (osPriority_t) osPriorityNormal,
+  .stack_size = 256 * 4
+};
 /* USER CODE BEGIN PV */
 // CAN Variables
 CAN_RxHeaderTypeDef 	RxHeader;
@@ -125,7 +131,7 @@ static void MX_DMA_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_CAN1_Init(void);
 static void MX_SDMMC1_SD_Init(void);
-void StartDefaultTask(void const * argument);
+void StartDefaultTask(void *argument);
 
 static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
@@ -194,6 +200,9 @@ int main(void)
   //HAL_TIM_Base_Start_IT(&htim14);
   /* USER CODE END 2 */
 
+  /* Init scheduler */
+  osKernelInitialize();
+
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
@@ -211,9 +220,8 @@ int main(void)
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 256);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  /* creation of defaultTask */
+  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -364,7 +372,7 @@ static void MX_SDMMC1_SD_Init(void)
   hsd1.Init.ClockPowerSave = SDMMC_CLOCK_POWER_SAVE_DISABLE;
   hsd1.Init.BusWide = SDMMC_BUS_WIDE_1B;
   hsd1.Init.HardwareFlowControl = SDMMC_HARDWARE_FLOW_CONTROL_DISABLE;
-  hsd1.Init.ClockDiv = 0;
+  hsd1.Init.ClockDiv = 8;
   /* USER CODE BEGIN SDMMC1_Init 2 */
   // Is Redundant
   if (HAL_SD_Init(&hsd1) != HAL_OK)
@@ -424,7 +432,7 @@ static void MX_DMA_Init(void)
   HAL_NVIC_SetPriority(DMA2_Stream3_IRQn, 7, 0);
   HAL_NVIC_EnableIRQ(DMA2_Stream3_IRQn);
   /* DMA2_Stream6_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA2_Stream6_IRQn, 7, 0);
+  HAL_NVIC_SetPriority(DMA2_Stream6_IRQn, 11, 0);
   HAL_NVIC_EnableIRQ(DMA2_Stream6_IRQn);
 
 }
@@ -589,8 +597,8 @@ void Get_Data(){
 }
 
 void CAN_Config(void){
-	TxHeader.StdId = 0x00;
-	TxHeader.ExtId = 0x00;
+	TxHeader.StdId = 0x01;
+	TxHeader.ExtId = 0x01;
 	TxHeader.RTR = CAN_RTR_DATA;
 	TxHeader.IDE = CAN_ID_EXT;
 	TxHeader.DLC = 8;
@@ -613,19 +621,22 @@ void CAN_Config(void){
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void const * argument)
+void StartDefaultTask(void *argument)
 {
   /* init code for USB_DEVICE */
-  MX_USB_DEVICE_Init();
+  //MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 5 */
 	// Mount filesystem only one time
 	if(flag == 0){
+
+
 		res = f_mount(&SDFatFs, SDPath, 1);
-		  res = f_open(&SDFile, &path[0], FA_CREATE_ALWAYS);
-		  res = f_close(&SDFile);
-		  res = f_open(&SDFile, &path[0], FA_OPEN_APPEND | FA_WRITE);
+		res = f_open(&SDFile, &path[0], FA_CREATE_ALWAYS);
+		res = f_close(&SDFile);
+		res = f_open(&SDFile, &path[0], FA_OPEN_APPEND | FA_WRITE);
 		flag = 1;
-		NVIC_DisableIRQ(OTG_FS_IRQn);
+
+
 		// Start 5mS timer to trigger the data request
 		HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
 		//HAL_TIM_Base_Start_IT(&htim14);
@@ -637,8 +648,15 @@ void StartDefaultTask(void const * argument)
 		HAL_CAN_DeactivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
 		//HAL_TIM_Base_Stop_IT(&htim14);
 		res = f_close(&SDFile);
+		//NVIC_DisableIRQ(OTG_FS_IRQn);
+
+
+
 		MX_USB_DEVICE_Init();
 		NVIC_EnableIRQ(OTG_FS_IRQn);
+
+		//vPortEndScheduler();
+		//NVIC_EnableIRQ(OTG_FS_IRQn);
 		HAL_GPIO_WritePin(GPIOB, LD2_Pin, GPIO_PIN_SET);
 	}
 	else{
