@@ -11,5 +11,5 @@ main.c:543:6:HAL_CAN_RxFifo0MsgPendingCallback	32	static
 main.c:565:6:Get_Data	4	static
 main.c:599:6:CAN_Config	8	static
 main.c:624:6:StartDefaultTask	16	static
-main.c:687:6:HAL_TIM_PeriodElapsedCallback	16	static
-main.c:711:6:Error_Handler	8	static
+main.c:688:6:HAL_TIM_PeriodElapsedCallback	16	static
+main.c:712:6:Error_Handler	8	static

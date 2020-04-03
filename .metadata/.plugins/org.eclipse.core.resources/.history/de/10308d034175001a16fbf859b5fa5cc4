@@ -372,7 +372,7 @@ static void MX_SDMMC1_SD_Init(void)
   hsd1.Init.ClockPowerSave = SDMMC_CLOCK_POWER_SAVE_DISABLE;
   hsd1.Init.BusWide = SDMMC_BUS_WIDE_1B;
   hsd1.Init.HardwareFlowControl = SDMMC_HARDWARE_FLOW_CONTROL_DISABLE;
-  hsd1.Init.ClockDiv = 7;
+  hsd1.Init.ClockDiv = 8;
   /* USER CODE BEGIN SDMMC1_Init 2 */
   // Is Redundant
   if (HAL_SD_Init(&hsd1) != HAL_OK)
@@ -648,11 +648,10 @@ void StartDefaultTask(void *argument)
 		HAL_CAN_DeactivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
 		//HAL_TIM_Base_Stop_IT(&htim14);
 		res = f_close(&SDFile);
-		res = f_mount(NULL, SDPath, 1);
 		//NVIC_DisableIRQ(OTG_FS_IRQn);
 
 
-		osDelay(10);
+
 		MX_USB_DEVICE_Init();
 		NVIC_EnableIRQ(OTG_FS_IRQn);
 
