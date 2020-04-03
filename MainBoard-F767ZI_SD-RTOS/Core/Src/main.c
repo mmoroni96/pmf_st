@@ -334,10 +334,10 @@ static void MX_CAN1_Init(void)
 
   /* USER CODE END CAN1_Init 1 */
   hcan1.Instance = CAN1;
-  hcan1.Init.Prescaler = 4;
+  hcan1.Init.Prescaler = 3;
   hcan1.Init.Mode = CAN_MODE_NORMAL;
   hcan1.Init.SyncJumpWidth = CAN_SJW_1TQ;
-  hcan1.Init.TimeSeg1 = CAN_BS1_12TQ;
+  hcan1.Init.TimeSeg1 = CAN_BS1_13TQ;
   hcan1.Init.TimeSeg2 = CAN_BS2_2TQ;
   hcan1.Init.TimeTriggeredMode = DISABLE;
   hcan1.Init.AutoBusOff = DISABLE;
@@ -376,7 +376,7 @@ static void MX_SDMMC1_SD_Init(void)
   hsd1.Init.ClockPowerSave = SDMMC_CLOCK_POWER_SAVE_DISABLE;
   hsd1.Init.BusWide = SDMMC_BUS_WIDE_1B;
   hsd1.Init.HardwareFlowControl = SDMMC_HARDWARE_FLOW_CONTROL_DISABLE;
-  hsd1.Init.ClockDiv = 8;
+  hsd1.Init.ClockDiv = 4;
   /* USER CODE BEGIN SDMMC1_Init 2 */
   // Is Redundant
   if (HAL_SD_Init(&hsd1) != HAL_OK)
@@ -612,10 +612,10 @@ void Get_Data(){
 		buffer[ind].Header_L = RxData[0];
 		buffer[ind].Header_M = RxData[1];
 		buffer[ind].Header_H |= (RxData[2] & 0x01);
-		buffer[ind].GyrX_L = RxData[4];
-		buffer[ind].GyrX_H = RxData[5];
-		buffer[ind].GyrX_L = RxData[6];
-		buffer[ind].GyrY_H = RxData[7];
+		buffer[ind].GyrX_L = RxData[3];
+		buffer[ind].GyrX_H = RxData[4];
+		buffer[ind].GyrX_L = RxData[5];
+		buffer[ind].GyrY_H = RxData[6];
 	}
 	else if((RxHeader.StdId>>8) == 0x01){
 		buffer[ind].Header_H = ((uint8_t)RxHeader.StdId & 0x1F)<<1;

@@ -701,9 +701,9 @@ static void MX_CAN1_Init(void)
  8000734:	4b17      	ldr	r3, [pc, #92]	; (8000794 <MX_CAN1_Init+0x64>)
  8000736:	4a18      	ldr	r2, [pc, #96]	; (8000798 <MX_CAN1_Init+0x68>)
  8000738:	601a      	str	r2, [r3, #0]
-  hcan1.Init.Prescaler = 4;
+  hcan1.Init.Prescaler = 6;
  800073a:	4b16      	ldr	r3, [pc, #88]	; (8000794 <MX_CAN1_Init+0x64>)
- 800073c:	2204      	movs	r2, #4
+ 800073c:	2206      	movs	r2, #6
  800073e:	605a      	str	r2, [r3, #4]
   hcan1.Init.Mode = CAN_MODE_NORMAL;
  8000740:	4b14      	ldr	r3, [pc, #80]	; (8000794 <MX_CAN1_Init+0x64>)
@@ -713,9 +713,9 @@ static void MX_CAN1_Init(void)
  8000746:	4b13      	ldr	r3, [pc, #76]	; (8000794 <MX_CAN1_Init+0x64>)
  8000748:	2200      	movs	r2, #0
  800074a:	60da      	str	r2, [r3, #12]
-  hcan1.Init.TimeSeg1 = CAN_BS1_12TQ;
+  hcan1.Init.TimeSeg1 = CAN_BS1_13TQ;
  800074c:	4b11      	ldr	r3, [pc, #68]	; (8000794 <MX_CAN1_Init+0x64>)
- 800074e:	f44f 2230 	mov.w	r2, #720896	; 0xb0000
+ 800074e:	f44f 2240 	mov.w	r2, #786432	; 0xc0000
  8000752:	611a      	str	r2, [r3, #16]
   hcan1.Init.TimeSeg2 = CAN_BS2_2TQ;
  8000754:	4b0f      	ldr	r3, [pc, #60]	; (8000794 <MX_CAN1_Init+0x64>)
@@ -803,9 +803,9 @@ static void MX_SDMMC1_SD_Init(void)
  80007be:	4b08      	ldr	r3, [pc, #32]	; (80007e0 <MX_SDMMC1_SD_Init+0x44>)
  80007c0:	2200      	movs	r2, #0
  80007c2:	615a      	str	r2, [r3, #20]
-  hsd1.Init.ClockDiv = 8;
+  hsd1.Init.ClockDiv = 4;
  80007c4:	4b06      	ldr	r3, [pc, #24]	; (80007e0 <MX_SDMMC1_SD_Init+0x44>)
- 80007c6:	2208      	movs	r2, #8
+ 80007c6:	2204      	movs	r2, #4
  80007c8:	619a      	str	r2, [r3, #24]
   /* USER CODE BEGIN SDMMC1_Init 2 */
   // Is Redundant
@@ -1514,48 +1514,48 @@ void Get_Data(){
  8000c2a:	4413      	add	r3, r2
  8000c2c:	460a      	mov	r2, r1
  8000c2e:	701a      	strb	r2, [r3, #0]
-		buffer[ind].GyrX_L = RxData[4];
+		buffer[ind].GyrX_L = RxData[3];
  8000c30:	4b53      	ldr	r3, [pc, #332]	; (8000d80 <Get_Data+0x1d8>)
  8000c32:	781b      	ldrb	r3, [r3, #0]
  8000c34:	4618      	mov	r0, r3
  8000c36:	4b54      	ldr	r3, [pc, #336]	; (8000d88 <Get_Data+0x1e0>)
- 8000c38:	7919      	ldrb	r1, [r3, #4]
+ 8000c38:	78d9      	ldrb	r1, [r3, #3]
  8000c3a:	4a52      	ldr	r2, [pc, #328]	; (8000d84 <Get_Data+0x1dc>)
  8000c3c:	0103      	lsls	r3, r0, #4
  8000c3e:	4413      	add	r3, r2
  8000c40:	330a      	adds	r3, #10
  8000c42:	460a      	mov	r2, r1
  8000c44:	701a      	strb	r2, [r3, #0]
-		buffer[ind].GyrX_H = RxData[5];
+		buffer[ind].GyrX_H = RxData[4];
  8000c46:	4b4e      	ldr	r3, [pc, #312]	; (8000d80 <Get_Data+0x1d8>)
  8000c48:	781b      	ldrb	r3, [r3, #0]
  8000c4a:	4618      	mov	r0, r3
  8000c4c:	4b4e      	ldr	r3, [pc, #312]	; (8000d88 <Get_Data+0x1e0>)
- 8000c4e:	7959      	ldrb	r1, [r3, #5]
+ 8000c4e:	7919      	ldrb	r1, [r3, #4]
  8000c50:	4a4c      	ldr	r2, [pc, #304]	; (8000d84 <Get_Data+0x1dc>)
  8000c52:	0103      	lsls	r3, r0, #4
  8000c54:	4413      	add	r3, r2
  8000c56:	3309      	adds	r3, #9
  8000c58:	460a      	mov	r2, r1
  8000c5a:	701a      	strb	r2, [r3, #0]
-		buffer[ind].GyrX_L = RxData[6];
+		buffer[ind].GyrX_L = RxData[5];
  8000c5c:	4b48      	ldr	r3, [pc, #288]	; (8000d80 <Get_Data+0x1d8>)
  8000c5e:	781b      	ldrb	r3, [r3, #0]
  8000c60:	4618      	mov	r0, r3
  8000c62:	4b49      	ldr	r3, [pc, #292]	; (8000d88 <Get_Data+0x1e0>)
- 8000c64:	7999      	ldrb	r1, [r3, #6]
+ 8000c64:	7959      	ldrb	r1, [r3, #5]
  8000c66:	4a47      	ldr	r2, [pc, #284]	; (8000d84 <Get_Data+0x1dc>)
  8000c68:	0103      	lsls	r3, r0, #4
  8000c6a:	4413      	add	r3, r2
  8000c6c:	330a      	adds	r3, #10
  8000c6e:	460a      	mov	r2, r1
  8000c70:	701a      	strb	r2, [r3, #0]
-		buffer[ind].GyrY_H = RxData[7];
+		buffer[ind].GyrY_H = RxData[6];
  8000c72:	4b43      	ldr	r3, [pc, #268]	; (8000d80 <Get_Data+0x1d8>)
  8000c74:	781b      	ldrb	r3, [r3, #0]
  8000c76:	4618      	mov	r0, r3
  8000c78:	4b43      	ldr	r3, [pc, #268]	; (8000d88 <Get_Data+0x1e0>)
- 8000c7a:	79d9      	ldrb	r1, [r3, #7]
+ 8000c7a:	7999      	ldrb	r1, [r3, #6]
  8000c7c:	4a41      	ldr	r2, [pc, #260]	; (8000d84 <Get_Data+0x1dc>)
  8000c7e:	0103      	lsls	r3, r0, #4
  8000c80:	4413      	add	r3, r2
