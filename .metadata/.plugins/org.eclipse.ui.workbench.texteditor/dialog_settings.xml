@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="extern"/>
+		<item key="selection" value="f_mount"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="f_unmount"/>
 			<item value="extern"/>
 			<item value="iis3dhhc_read_reg"/>
 			<item value="stmdev_ctx_t"/>
@@ -22,7 +23,6 @@
 			<item value="1AA"/>
 			<item value="dir_next("/>
 			<item value="dir_next()"/>
-			<item value="_MIN_SS"/>
 		</list>
 		<list key="replacehistory">
 		</list>

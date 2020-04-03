@@ -8,6 +8,7 @@
 		<item key="caseSensitive" value="false"/>
 		<item key="searchFlags" value="227191"/>
 		<list key="previousPatterns">
+			<item value="MX_USB_DEVICE_Init"/>
 			<item value="write_reg"/>
 			<item value="stmdev_ctx_t"/>
 			<item value="stmdev_write_ptr"/>

@@ -1,4 +1,4 @@
-02:32:59 **** Incremental Build of configuration Debug for project MainBoard-F767ZI_SD-RTOS ****
+11:13:39 **** Incremental Build of configuration Debug for project MainBoard-F767ZI_SD-RTOS ****
 make -j12 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F767xx -DDEBUG -c -I../FATFS/App -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../USB_DEVICE/Target -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Drivers/CMSIS/Include -I../Core/Inc -I../USB_DEVICE/App -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -I../FATFS/Target -I../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc -o "MainBoard-F767ZI_SD-RTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\mmoro\OneDrive - Politecnico di Milano\Documents\pmf_st\MainBoard-F767ZI_SD-RTOS\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MainBoard-F767ZI_SD-RTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
@@ -8,7 +8,7 @@ arm-none-eabi-objdump -h -S  MainBoard-F767ZI_SD-RTOS.elf  > "MainBoard-F767ZI_S
 arm-none-eabi-objcopy  -O binary  MainBoard-F767ZI_SD-RTOS.elf  "MainBoard-F767ZI_SD-RTOS.bin"
 arm-none-eabi-size   MainBoard-F767ZI_SD-RTOS.elf 
    text	   data	    bss	    dec	    hex	filename
-  91844	    500	  64240	 156584	  263a8	MainBoard-F767ZI_SD-RTOS.elf
+  91508	    500	  64304	 156312	  26298	MainBoard-F767ZI_SD-RTOS.elf
 Finished building: default.size.stdout
  
 Finished building: MainBoard-F767ZI_SD-RTOS.bin
@@ -16,5 +16,5 @@ Finished building: MainBoard-F767ZI_SD-RTOS.bin
 Finished building: MainBoard-F767ZI_SD-RTOS.list
  
 
-02:33:03 Build Finished. 0 errors, 0 warnings. (took 3s.811ms)
+11:13:42 Build Finished. 0 errors, 0 warnings. (took 3s.613ms)
 

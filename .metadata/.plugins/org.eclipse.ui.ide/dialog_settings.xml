@@ -9,6 +9,11 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\mmoro\Desktop\SD_USB_H7"/>
+			<item value="C:\Users\mmoro\OneDrive - Politecnico di Milano\Documents\pmf_st\SD_USB_H7"/>
+			<item value="C:\Users\mmoro\OneDrive - Politecnico di Milano\Documents\pmf_st\SensorBoard_1.0"/>
+			<item value="C:\Users\mmoro\OneDrive - Politecnico di Milano\Documents\pmf_st\MainBoard-F767ZI_SD-RTOS"/>
+			<item value="C:\Users\mmoro\Desktop\SensorBoard_1.0"/>
 			<item value="C:\Users\mmoro\Desktop\MainBoard-F767ZI_SD-RTOS"/>
 			<item value="C:\Users\mmoro\Desktop\Isaac-master"/>
 			<item value="C:\Users\mmoro\OneDrive - Politecnico di Milano\Documents\Isaac"/>
