@@ -1,4 +1,4 @@
-16:08:03 **** Incremental Build of configuration Debug for project SensorBoard_1.0 ****
+02:00:12 **** Incremental Build of configuration Debug for project SensorBoard_1.0 ****
 make -j12 all 
 arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F042x6 -DDEBUG -c -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/CMSIS/Include -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o"
 arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_can.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F042x6 -DDEBUG -c -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/CMSIS/Include -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_can.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_can.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_can.o"
@@ -29,7 +29,7 @@ arm-none-eabi-objdump -h -S  SensorBoard_1.0.elf  > "SensorBoard_1.0.list"
 arm-none-eabi-objcopy  -O binary  SensorBoard_1.0.elf  "SensorBoard_1.0.bin"
 arm-none-eabi-size   SensorBoard_1.0.elf 
    text	   data	    bss	    dec	    hex	filename
-  28412	     20	   2324	  30756	   7824	SensorBoard_1.0.elf
+  23544	     20	   2228	  25792	   64c0	SensorBoard_1.0.elf
 Finished building: default.size.stdout
  
 Finished building: SensorBoard_1.0.bin
@@ -37,5 +37,5 @@ Finished building: SensorBoard_1.0.bin
 Finished building: SensorBoard_1.0.list
  
 
-16:08:06 Build Finished. 0 errors, 0 warnings. (took 3s.117ms)
+02:00:15 Build Finished. 0 errors, 0 warnings. (took 2s.736ms)
 

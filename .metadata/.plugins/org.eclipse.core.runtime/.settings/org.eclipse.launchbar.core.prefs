@@ -4,7 +4,7 @@
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
-configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MainBoard-TestCAN-Receive Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:freertoss Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MainBoard-TestCAN-Receive Debug (1),org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:SD_USB_H7 Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MainBoard-F767ZI_SD-RTOS Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:SensorBoard_1.0 Debug
+configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MainBoard-TestCAN-Receive Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:freertoss Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MainBoard-TestCAN-Receive Debug (1),org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:SD_USB_H7 Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:SensorBoard_1.0 Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MainBoard-F767ZI_SD-RTOS Debug
 eclipse.preferences.version=1
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MainBoard-F767ZI\ Debug/activeLaunchMode=debug
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MainBoard-F767ZI\ Debug/activeLaunchTarget=null\:---

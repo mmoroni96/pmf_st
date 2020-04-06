@@ -13,4 +13,4 @@ main.c:600:6:Get_Data	4	static
 main.c:634:6:CAN_Config	8	static
 main.c:659:6:StartDefaultTask	16	static
 main.c:723:6:HAL_TIM_PeriodElapsedCallback	16	static
-main.c:747:6:Error_Handler	8	static
+main.c:749:6:Error_Handler	8	static

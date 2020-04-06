@@ -104,7 +104,6 @@ I2C_HandleTypeDef hi2c1;
 
 SPI_HandleTypeDef hspi1;
 
-TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim16;
@@ -191,7 +190,6 @@ static void MX_GPIO_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_TIM2_Init(void);
-static void MX_TIM1_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_CAN_Init(void);
 static void MX_TIM16_Init(void);
@@ -255,7 +253,6 @@ int main(void)
   MX_I2C1_Init();
   MX_SPI1_Init();
   MX_TIM2_Init();
-  MX_TIM1_Init();
   MX_TIM3_Init();
   MX_CAN_Init();
   MX_TIM16_Init();
@@ -274,8 +271,9 @@ int main(void)
 	//OGNI ID VIENE TRASFORMATO IN UN RANGE DA 0 A 9 E SERVIRA' PER TEMPORIZARE L'INVIO
 	if(ID>9)IDF=ID-10;
 	if(ID>19)IDF=ID-20;
+	ID=0;
 	//htim1.Init.Period = 1200+IDF*350;
-	htim1.Init.Period=1200;
+	//htim1.Init.Period=200;
 	//TRASMISSIONE SPI DISABILITATA
 	HAL_GPIO_WritePin(GPIOB, cs_1_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(GPIOB, cs_2_Pin, GPIO_PIN_SET);
@@ -468,7 +466,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL2;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL6;
   RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV1;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -482,7 +480,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
   {
     Error_Handler();
   }
@@ -510,11 +508,11 @@ static void MX_CAN_Init(void)
 
   /* USER CODE END CAN_Init 1 */
   hcan.Instance = CAN;
-  hcan.Init.Prescaler = 1;
+  hcan.Init.Prescaler = 3;
   hcan.Init.Mode = CAN_MODE_NORMAL;
   hcan.Init.SyncJumpWidth = CAN_SJW_1TQ;
-  hcan.Init.TimeSeg1 = CAN_BS1_13TQ;
-  hcan.Init.TimeSeg2 = CAN_BS2_2TQ;
+  hcan.Init.TimeSeg1 = CAN_BS1_16TQ;
+  hcan.Init.TimeSeg2 = CAN_BS2_3TQ;
   hcan.Init.TimeTriggeredMode = DISABLE;
   hcan.Init.AutoBusOff = DISABLE;
   hcan.Init.AutoWakeUp = DISABLE;
@@ -600,7 +598,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_HIGH;
   hspi1.Init.CLKPhase = SPI_PHASE_2EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -614,52 +612,6 @@ static void MX_SPI1_Init(void)
   /* USER CODE BEGIN SPI1_Init 2 */
 
   /* USER CODE END SPI1_Init 2 */
-
-}
-
-/**
-  * @brief TIM1 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_TIM1_Init(void)
-{
-
-  /* USER CODE BEGIN TIM1_Init 0 */
-
-  /* USER CODE END TIM1_Init 0 */
-
-  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
-  TIM_MasterConfigTypeDef sMasterConfig = {0};
-
-  /* USER CODE BEGIN TIM1_Init 1 */
-
-  /* USER CODE END TIM1_Init 1 */
-  htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 15;
-  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 2000;
-  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim1.Init.RepetitionCounter = 0;
-  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-  if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
-  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN TIM1_Init 2 */
-
-  /* USER CODE END TIM1_Init 2 */
 
 }
 
@@ -682,7 +634,7 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 15;
+  htim2.Init.Prescaler = 47;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim2.Init.Period = 65000;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -727,9 +679,9 @@ static void MX_TIM3_Init(void)
 
   /* USER CODE END TIM3_Init 1 */
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 15999;
+  htim3.Init.Prescaler = 47;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 2;
+  htim3.Init.Period = 310;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
@@ -769,7 +721,7 @@ static void MX_TIM16_Init(void)
 
   /* USER CODE END TIM16_Init 1 */
   htim16.Instance = TIM16;
-  htim16.Init.Prescaler = 14999;
+  htim16.Init.Prescaler = 47999;
   htim16.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim16.Init.Period = 10;
   htim16.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -958,13 +910,41 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	}
     if (htim->Instance==TIM3){ 			// check if the interrupt comes from TIM3
 		TIM1->CNT=0;
-		HAL_TIM_Base_Start_IT(&htim2);
-		HAL_TIM_Base_Start_IT(&htim1);
-		get_data();
+		if(ID>10){
+			ID=0;
+			timer++;
+		}
+
+		ID++;
+		TxHeader.StdId = (ID)|FIR_P;
+		TxData0[0]=(int8_t)(timer  & 0x000000FF);
+		TxData0[1]=(int8_t)((timer & 0x0000FF00)>>8);
+		TxData0[2]=(int8_t)((timer & 0x00FF0000)>>16);
+		TxData0[3]=(int8_t)(Data[0].Gyr_x & 0x00FF);
+		TxData0[4]=(int8_t)((Data[0].Gyr_x & 0xFF00 )>> 8);
+		TxData0[5]=(int8_t)(Data[0].Gyr_y  & 0x00FF);
+		TxData0[6]=(int8_t)((Data[0].Gyr_y & 0xFF00 )>> 8);
+		TxData0[7]=Err;
+		HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);// INVIO PRIMO MESSAGGIO
+
+		TxHeader.StdId = (ID)|SEC_P;
+		TxData0[0]=(int8_t)(Data[0].Acc_x & 0x00FF);
+		TxData0[1]=(int8_t)((Data[0].Acc_x & 0xFF00 )>> 8);
+		TxData0[2]=(int8_t)(Data[0].Acc_y & 0x00FF);
+		TxData0[3]=(int8_t)((Data[0].Acc_y & 0xFF00 )>> 8);
+		TxData0[4]=(int8_t)(Data[0].Acc_z & 0x00FF);
+		TxData0[5]=(int8_t)((Data[0].Acc_z & 0xFF00 )>> 8);
+		TxData0[6]=(int8_t)(Data[0].T_b & 0x00FF);
+		TxData0[7]=(int8_t)((Data[0].T_b & 0xFF00 )>> 8);
+		HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData0,&TxMailbox);// INVIO SECONDO MESSAGGIO
+
+
+		//get_data();
 	}
-    if (htim->Instance==TIM1){ 			// check if the interrupt comes from TIM1
-    	HAL_GPIO_WritePin(D6_GPIO_Port, D6_Pin, GPIO_PIN_SET);
-    	timer++;						// TIMER INVIO PACCHETTI TICKER
+    if (htim->Instance==TIM1){
+    	//HAL_TIM_Base_Stop_IT(&htim1);// check if the interrupt comes from TIM1
+    	//HAL_GPIO_WritePin(D6_GPIO_Port, D6_Pin, GPIO_PIN_SET);
+    	//timer++;						// TIMER INVIO PACCHETTI TICKER
     	//Data[0].Responce_Time_millis=TIM2->CNT;
     	/*
     	 * ID definition
@@ -978,7 +958,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     	switch (flagStartData){
 			case STD_MODE:
 			{
-				HAL_TIM_Base_Stop(&htim1);
+				//HAL_TIM_Base_Stop(&htim1);
 				TxHeader.StdId = (ID)|FIR_P;
 				TxData0[0]=(int8_t)(timer  & 0x000000FF);
 				TxData0[1]=(int8_t)((timer & 0x0000FF00)>>8);
